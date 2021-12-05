@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
-public class Page extends Client {
+public class Page  {
 
-   // private Client client;
+    private Client client;
     private ArrayList<Tweet>tweets;
     private ArrayList<Page>followers ;
     private ArrayList<Page>following ;
@@ -14,8 +14,8 @@ public class Page extends Client {
 
 
     public Page(Client client) {
-       //this.client = client;
-        super(client.getFirstName(),client.getLastName(),client.getAge(),client.getBiography(),client.getJoinDate(),client.getUserName(),client.getPassword());
+       this.client = client;
+       // super(client.getFirstName(),client.getLastName(),client.getAge(),client.getBiography(),client.getJoinDate(),client.getUserName(),client.getPassword());
        tweets =new ArrayList<>();
        followers=new ArrayList<>();
        following = new ArrayList<>();
