@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class TweetingService extends Server{
+public class TweetingService {
 
 //
 //    public TweetingService(ArrayList<Client> clients, HashMap<Client, Page> ll) {
@@ -10,34 +10,48 @@ public class TweetingService extends Server{
 
     public void addTweet(Tweet tweet , Client client)
     {
-        super.getBasic(client).getTweets().add(tweet);
-    }
-
-    public void deleteTweet(Tweet tweet,Client client)
-    {
-        super.getBasic(client).getTweets().remove(tweet);
-    }
-
-
-    public void retweet(Client client , Tweet tweet)
-    {
-
-        for(Tweet t:super.getBasic(client).getTweets())
+        for(Tweet t : Server.getBasic(client).getTweets())
         {
             if(t.equals(tweet))
             {
+                ObserverService.DeletingForOtherPeople(client,tweet);
                 //update date
+               //better idea
+                ObserverService.notification(client, tweet);
                 return;
             }
         }
 
-        super.getBasic(client).getTweets().add(tweet);
+        Server.getBasic(client).getTweets().add(tweet);
+        ObserverService.notification(client,tweet);
     }
+
+    public void deleteTweet(Tweet tweet,Client client)
+    {
+        Server.getBasic(client).getTweets().remove(tweet);
+        ObserverService.DeletingForOtherPeople(client,tweet);
+    }
+
+
+//    public void retweet(Client client , Tweet tweet)
+//    {
+//
+//        for(Tweet t:Server.getBasic(client).getTweets())
+//        {
+//            if(t.equals(tweet))
+//            {
+//                //update date
+//                return;
+//            }
+//        }
+//
+//        Server.getBasic(client).getTweets().add(tweet);
+//    }
 
 
     public void like(Client client , Tweet tweet)
     {
-        for(Tweet t:super.getBasic(client).getTweets())
+        for(Tweet t:Server.getBasic(client).getTweets())
         {
             if(t.equals(tweet))
             {
@@ -52,7 +66,7 @@ public class TweetingService extends Server{
 
     public void disLike(Client client , Tweet tweet)
     {
-        for(Tweet t:super.getBasic(client).getTweets())
+        for(Tweet t : Server.getBasic(client).getTweets())
         {
             if(t.equals(tweet))
             {
@@ -64,6 +78,8 @@ public class TweetingService extends Server{
         // if don't have => exception
 
     }
+
+
 
 
 

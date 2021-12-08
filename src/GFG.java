@@ -7,14 +7,6 @@ import java.security.NoSuchAlgorithmException;
 
 class GFG {
 
-//    public GFG(String s)
-//    { try {
-//        toHexString(getSHA(s));
-//    }
-//    catch (NoSuchAlgorithmException e) {
-//        System.out.println("Exception thrown for incorrect algorithm: " + e);
-//    }
-//    }
 
     public static byte[] getSHA(String input) throws NoSuchAlgorithmException {
         // Static getInstance method is called with hashing SHA

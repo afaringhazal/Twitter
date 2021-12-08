@@ -1,3 +1,4 @@
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -6,33 +7,30 @@ public class Client {
 
     private String firstName;
     private String lastName;
-    private LocalDate age;
-    private String biography;
-    private LocalDate joinDate;
+    private LocalDate birthday;
     private String userName;
-    private GFG password ;
+    private String password;
 
-    public Client(String firstName, String lastName, LocalDate age, String biography, LocalDate joinDate, String userName, GFG password) {
+    public Client(String firstName, String lastName, LocalDate birthday, String userName, String password) throws NoSuchAlgorithmException {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.age = age;
-        this.biography = biography;
-        this.joinDate = joinDate;
+        this.birthday = birthday;
         this.userName = userName;
-        this.password = password;
+        this.password = GFG.toHexString(GFG.getSHA(password));
     }
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Client client = (Client) o;
-        return Objects.equals(firstName, client.firstName) && Objects.equals(lastName, client.lastName) && Objects.equals(age, client.age) && Objects.equals(biography, client.biography) && Objects.equals(joinDate, client.joinDate) && Objects.equals(userName, client.userName) && Objects.equals(password, client.password);
+        return Objects.equals(firstName, client.firstName) && Objects.equals(lastName, client.lastName) && Objects.equals(birthday, client.birthday) && Objects.equals(userName, client.userName) && Objects.equals(password, client.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName, age, biography, joinDate, userName, password);
+        return Objects.hash(firstName, lastName, birthday, userName, password);
     }
 
     public String getFirstName() {
@@ -51,28 +49,12 @@ public class Client {
         this.lastName = lastName;
     }
 
-    public LocalDate getAge() {
-        return age;
+    public LocalDate getBirthday() {
+        return birthday;
     }
 
-    public void setAge(LocalDate age) {
-        this.age = age;
-    }
-
-    public String getBiography() {
-        return biography;
-    }
-
-    public void setBiography(String biography) {
-        this.biography = biography;
-    }
-
-    public LocalDate getJoinDate() {
-        return joinDate;
-    }
-
-    public void setJoinDate(LocalDate joinDate) {
-        this.joinDate = joinDate;
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
     }
 
     public String getUserName() {
@@ -83,11 +65,11 @@ public class Client {
         this.userName = userName;
     }
 
-    public GFG getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(GFG password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 }
