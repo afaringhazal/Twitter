@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-
 public class TweetingService {
 
 //
@@ -10,7 +7,7 @@ public class TweetingService {
 
     public void addTweet(Tweet tweet , Client client)
     {
-        for(Tweet t : Server.getBasic(client).getTweets())
+        for(Tweet t : Server.getClientPage(client).getTweets())
         {
             if(t.equals(tweet))
             {
@@ -22,13 +19,13 @@ public class TweetingService {
             }
         }
 
-        Server.getBasic(client).getTweets().add(tweet);
+        Server.getClientPage(client).getTweets().add(tweet);
         ObserverService.notification(client,tweet);
     }
 
     public void deleteTweet(Tweet tweet,Client client)
     {
-        Server.getBasic(client).getTweets().remove(tweet);
+        Server.getClientPage(client).getTweets().remove(tweet);
         ObserverService.DeletingForOtherPeople(client,tweet);
     }
 
@@ -36,7 +33,7 @@ public class TweetingService {
 //    public void retweet(Client client , Tweet tweet)
 //    {
 //
-//        for(Tweet t:Server.getBasic(client).getTweets())
+//        for(Tweet t:Server.getClientPage(client).getTweets())
 //        {
 //            if(t.equals(tweet))
 //            {
@@ -45,13 +42,13 @@ public class TweetingService {
 //            }
 //        }
 //
-//        Server.getBasic(client).getTweets().add(tweet);
+//        Server.getClientPage(client).getTweets().add(tweet);
 //    }
 
 
     public void like(Client client , Tweet tweet)
     {
-        for(Tweet t:Server.getBasic(client).getTweets())
+        for(Tweet t:Server.getClientPage(client).getTweets())
         {
             if(t.equals(tweet))
             {
@@ -66,7 +63,7 @@ public class TweetingService {
 
     public void disLike(Client client , Tweet tweet)
     {
-        for(Tweet t : Server.getBasic(client).getTweets())
+        for(Tweet t : Server.getClientPage(client).getTweets())
         {
             if(t.equals(tweet))
             {

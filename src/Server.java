@@ -17,7 +17,7 @@ public class Server {
 //        Server.clients = clients;
 //    }
 
-    public static Page getBasic(Client client)
+    public static Page getClientPage(Client client)
     {
         return basic.get(client);
     }

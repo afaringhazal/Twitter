@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Page  {
 
@@ -13,6 +14,8 @@ public class Page  {
     private ArrayList<Page>following ;
 
     private ArrayList<Tweet>otherTweet;
+
+    private ArrayList<Tweet>likedTweets;
 
     //PM => Send a text message and talk
 
@@ -29,6 +32,7 @@ public class Page  {
         tweets =new ArrayList<>();
         followers=new ArrayList<>();
         following = new ArrayList<>();
+        likedTweets = new ArrayList<>();
 
        if(biography.length()>256)
            throw new RuntimeException("More than 256!");
@@ -71,6 +75,32 @@ public class Page  {
     {
         followers.remove(page);
     }
+
+
+    public String getBiography() {
+        return biography;
+    }
+
+
+    public void addOrDislikedTweets(Tweet tweet)
+    {
+        Iterator<Tweet> it = likedTweets.iterator();
+        while (it.hasNext())
+        {
+            if(it.equals(tweet))
+            {
+                System.out.println("This tweet has been liked before and is now disliked!");
+                it.remove();
+                return;
+
+            }
+        }
+
+        likedTweets.add(tweet);
+
+
+    }
+
 
 
 }

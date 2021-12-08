@@ -7,18 +7,18 @@ public class ObserverService {
 
     public void deletefollowers(Page followers, Client client)
     {
-        Server.getBasic(client).deleteFollowers(followers);
+        Server.getClientPage(client).deleteFollowers(followers);
 
     }
 
     public void addFollowing(Page following, Client client)
     {
-        Server.getBasic(client).addFollowing(following);
+        Server.getClientPage(client).addFollowing(following);
     }
 
     public void deleteFollowing(Page following, Client client)
     {
-        Server.getBasic(client).deleteFollowing(following);
+        Server.getClientPage(client).deleteFollowing(following);
 
     }
 
@@ -31,7 +31,7 @@ public class ObserverService {
 //
 //        for(Page page : )
 
-        return Server.getBasic(client).getOtherTweet();
+        return Server.getClientPage(client).getOtherTweet();
 
     }
 
@@ -39,7 +39,7 @@ public class ObserverService {
 
     public static void notification(Client client, Tweet tweet)
     {
-        for(Page page : Server.getBasic(client).getFollowers())
+        for(Page page : Server.getClientPage(client).getFollowers())
         {
             page.setOtherTweet(tweet);
         }
@@ -47,7 +47,7 @@ public class ObserverService {
 
     public static void DeletingForOtherPeople(Client client , Tweet tweet)
     {
-        for (Page page :Server.getBasic(client).getFollowers())
+        for (Page page :Server.getClientPage(client).getFollowers())
         {
             Iterator<Tweet> it = page.getTweets().iterator();
             while (it.hasNext())
