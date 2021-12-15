@@ -1,4 +1,5 @@
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import java.time.LocalDateTime;
@@ -12,18 +13,14 @@ public class Tweet  extends Message{
         this.text=text;
 
     }
-    //!!!!!!
-    @Override
-    public String toString(){
-        return "";
-    }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Tweet tweet = (Tweet) o;
-        return Objects.equals(client, tweet.client);
+
+        return (o instanceof Tweet &&
+                ((Tweet) o).date == this.date &&
+                ((Tweet) o).client.equals(client) &&
+                ((Tweet) o).text == text);
     }
 
     @Override

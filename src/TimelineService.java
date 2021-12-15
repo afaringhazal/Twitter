@@ -21,8 +21,34 @@ public class TimelineService {
 
     }
 
-    public void followerMessages(Client client) {
+    public ArrayList<Message> followingsTweets(Client client) {
+        ArrayList<Message> followingsTweets=new ArrayList<>();
+        for (Page page : Server.getClientPage(client).getFollowingsList()) {
+            followingsTweets.addAll(page.getTweets());
+        }
+        sortMessages(followingsTweets);
+        return followingsTweets;
+    }
+
+    public ArrayList<Message> followingsLikes(Client client) {
+        ArrayList<Message> followingsTweets = new ArrayList<>(Server.getClientPage(client).getLikedTweetsList());
+        sortMessages(followingsTweets);
+        return followingsTweets;
+    }
+
+    public void followingsRetweets(Client client) {
 
 
     }
+    public void followingsReplies(Client client) {
+
+
+    }
+
+
+
+
+
+
+
 }

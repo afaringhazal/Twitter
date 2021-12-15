@@ -1,4 +1,5 @@
 import java.time.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -6,8 +7,24 @@ import java.time.*;
 
 public abstract class Message {
 
-    LocalDateTime date;
-    char[] text;
+    public LocalDateTime date;
+    public char[] text;
+
+    //add for like
+    private ArrayList<Client> saveLiked = new ArrayList<>();
+
+    public void addSaveLiked(Client client)
+    {
+        saveLiked.add(client);
+    }
+    public void deleteSaveLike(Client client)
+    {
+        saveLiked.remove(client);
+    }
+    public ArrayList<Client> getSaveLiked()
+    {
+        return saveLiked;
+    }
 
 
 }
