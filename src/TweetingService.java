@@ -46,33 +46,41 @@ public class TweetingService {
 //    }
 
 
-    public void like(Client client , Tweet tweet)
+    public void like(Client client , Tweet tweet, Client mine)
     {
         for(Tweet t:Server.getClientPage(client).getTweets())
         {
             if(t.equals(tweet))
             {
+                for (Client client1 : t.getSaveLiked())
+                {
+                    if(client1.equals(mine))
+                    {
+                        // before exit
+                        disLike(client,tweet, mine);
+                    }
+                }
+
+                t.addSaveLiked(mine);
                 //Like++
                 return;
             }
         }
 
-        // if don't have => exception
-
     }
 
-    public void disLike(Client client , Tweet tweet)
+    public void disLike(Client client , Tweet tweet, Client mine)
     {
         for(Tweet t : Server.getClientPage(client).getTweets())
         {
             if(t.equals(tweet))
             {
+                t.deleteSaveLike(mine);
                 //Like--
                 return;
             }
         }
 
-        // if don't have => exception
 
     }
 
