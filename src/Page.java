@@ -9,13 +9,12 @@ public class Page  {
     private String biography;
     private LocalDate joinDate;
     private ArrayList<Tweet>tweets;
+    private ArrayList<Page> followersList;
+    private ArrayList<Page>followingsList ;
+    private ArrayList<Tweet> otherTweet;
+    //private ArrayList<Tweet>likedTweets;
+    private ArrayList<Message> LikedTweetsList;
 
-    private ArrayList<Page>followers ;
-    private ArrayList<Page>following ;
-
-    private ArrayList<Tweet>otherTweet;
-
-    private ArrayList<Tweet>likedTweets;
 
     //PM => Send a text message and talk
 
@@ -26,13 +25,11 @@ public class Page  {
        this.client = client;
        this.id =id;
        this.biography = biography;
-
-        this.joinDate = joinDate;
-
-        tweets =new ArrayList<>();
-        followers=new ArrayList<>();
-        following = new ArrayList<>();
-        likedTweets = new ArrayList<>();
+       this.joinDate = joinDate;
+       tweets =new ArrayList<>();
+       followersList =new ArrayList<>();
+       followingsList = new ArrayList<>();
+       LikedTweetsList = new ArrayList<>();
 
        if(biography.length()>256)
            throw new RuntimeException("More than 256!");
@@ -44,47 +41,45 @@ public class Page  {
     public  ArrayList<Tweet> getTweets() {
         return tweets;
     }
-
-
     public ArrayList<Page>getFollowers(){
-     return followers;
+     return followersList;
     }
-    public ArrayList<Page>getFollowing()
+    public ArrayList<Page>getFollowingsList()
     {
-        return following;
+        return followingsList;
     }
-
     public ArrayList<Tweet> getOtherTweet() {
         return otherTweet;
     }
-
     public void setOtherTweet(Tweet tweet)
     {
         otherTweet.add(tweet);
     }
     public void addFollowing(Page page)
     {
-        following.add(page);
+        followingsList.add(page);
     }
-
     public void deleteFollowing(Page page)
     {
-        following.remove(page);
+        followingsList.remove(page);
     }
     public void deleteFollowers(Page page)
     {
-        followers.remove(page);
+        followersList.remove(page);
     }
-
-
     public String getBiography() {
         return biography;
     }
 
+    public ArrayList<Message> getLikedTweetsList() {
+        return LikedTweetsList;
+    }
+
+
 
     public void addOrDislikedTweets(Tweet tweet)
     {
-        Iterator<Tweet> it = likedTweets.iterator();
+        Iterator<Message> it = LikedTweetsList.iterator();
         while (it.hasNext())
         {
             if(it.equals(tweet))
@@ -96,11 +91,9 @@ public class Page  {
             }
         }
 
-        likedTweets.add(tweet);
+        LikedTweetsList.add(tweet);
 
 
     }
-
-
 
 }
