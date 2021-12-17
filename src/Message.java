@@ -6,25 +6,34 @@ public abstract class Message {
     public LocalDateTime date;
     public char[] text;
 
-    //add for like
-    private ArrayList<Client> saveLiked = new ArrayList<>();
+
+    private ArrayList<Client> peopleWhoLikedThisMessage = new ArrayList<>();
 
 
-    public void addSaveLiked(Client client)
+    /** adds a like to the message
+     * @param client client who liked the message
+     */
+    public void addLike(Client client)
     {
-        saveLiked.add(client);
+        peopleWhoLikedThisMessage.add(client);
     }
 
 
-    public void deleteSaveLike(Client client)
+    /**removes a like from the message
+     * @param client client who liked the message
+     */
+    public void deleteLike(Client client)
     {
-        saveLiked.remove(client);
+        peopleWhoLikedThisMessage.remove(client);
     }
 
 
-    public ArrayList<Client> getSaveLiked()
+    /** returns list of people who liked this message
+     * @return list of people who liked this message
+     */
+    public ArrayList<Client> getPeopleWhoLikedThisMessage()
     {
-        return saveLiked;
+        return peopleWhoLikedThisMessage;
     }
 
 

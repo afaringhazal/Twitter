@@ -1,17 +1,22 @@
 import java.time.LocalDateTime;
 
 public class Reply extends Message {
-    Message tweet;
+    Message message;
     Client replier;
+    boolean repliedOnAReply = false;
 
-    public Reply(Message tweet, Client replier, char[] text) {
+    /** constructor of reply
+     * @param message the replied message
+     * @param replier the replier
+     * @param text text of the reply
+     */
+    public Reply(Message message, Client replier, char[] text) {
 
-        this.tweet = tweet;
+        this.message = message;
 
 
-        if (tweet instanceof Tweet){}
-        else if(tweet instanceof Reply){
-
+        if (message instanceof Reply) {
+            repliedOnAReply = true;
         }
 
         this.replier = replier;
@@ -20,12 +25,18 @@ public class Reply extends Message {
 
     }
 
-    //!!!!!!!
-    @Override
-    public String toString() {
-        return "";
+    /** returns the first message that was replied
+     * @return the first message that was replied
+     */
+    public Tweet getTweetOrigin() {
+        Message temp = message;
+        if (repliedOnAReply) {
+            while (temp instanceof Reply) {
+                temp = ((Reply) temp).message;
+            }
+
+        }
+        return (Tweet) temp;
     }
-
-
 
 }

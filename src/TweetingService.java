@@ -1,40 +1,46 @@
 public class TweetingService {
 
 
-
-    public void addTweet(Tweet tweet, Client client) {
-        for (Tweet t : Server.getClientPage(client).getTweets()) {
+    /** adds a tweet to the server
+     * @param tweet the tweet to be added to server
+     */
+    public void addTweet(Tweet tweet) {
+        for (Tweet t : Server.getClientPage(tweet.client).getTweets()) {
             if (t.equals(tweet)) {
-                ObserverService.DeletingTweetForFollowings(client, tweet);
+                ObserverService.DeleteTweetForFollowings( tweet);
                 //update date
                 //better idea
-                ObserverService.notification(client, tweet);
+                ObserverService.notification(tweet);
                 return;
             }
         }
 
-        Server.getClientPage(client).getTweets().add(tweet);
-        ObserverService.notification(client, tweet);
+        Server.getClientPage(tweet.client).getTweets().add(tweet);
+        ObserverService.notification(tweet);
     }
 
-    public void deleteTweet(Tweet tweet, Client client) {
-        Server.getClientPage(client).getTweets().remove(tweet);
-        ObserverService.DeletingTweetForFollowings(client, tweet);
+    /** deletes a tweet from the server
+     * @param tweet the tweet to be deleted from server
+     */
+    public void deleteTweet(Tweet tweet) {
+        Server.getClientPage(tweet.client).getTweets().remove(tweet);
+        ObserverService.DeleteTweetForFollowings( tweet);
     }
 
 
-    public void like(Client client, Tweet tweet, Client mine) {
-        for (Tweet t : Server.getClientPage(client).getTweets()) {
+    /** likes a tweet for a client
+     * @param tweet the tweet to be liked
+     * @param liker the client who liked the tweet
+     */
+    public void like(Tweet tweet, Client liker) {
+        for (Tweet t : Server.getClientPage(tweet.client).getTweets()) {
             if (t.equals(tweet)) {
-                for (Client client1 : t.getSaveLiked()) {
-                    if (client1.equals(mine)) {
-                        // before exit
-                        disLike(client, tweet, mine);
+                for (Client client1 : t.getPeopleWhoLikedThisMessage()) {
+                    if (client1.equals(liker)) {
+                        disLike(tweet, liker);
                     }
                 }
-
-                t.addSaveLiked(mine);
-                //Like++
+                t.addLike(liker);
                 return;
             }
         }
@@ -42,11 +48,14 @@ public class TweetingService {
     }
 
 
-    public void disLike(Client client, Tweet tweet, Client mine) {
-        for (Tweet t : Server.getClientPage(client).getTweets()) {
+    /** dislikes a tweet for a client
+     * @param tweet the tweet to be disliked
+     * @param disliker the client who disliked the tweet
+     */
+    public void disLike( Tweet tweet, Client disliker) {
+        for (Tweet t : Server.getClientPage(tweet.client).getTweets()) {
             if (t.equals(tweet)) {
-                t.deleteSaveLike(mine);
-                //Like--
+                t.deleteLike(disliker);
                 return;
             }
         }

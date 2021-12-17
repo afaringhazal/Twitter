@@ -9,13 +9,25 @@ public class Page {
     private String id;
     private String biography;
     private LocalDate joinDate;
+
     private ArrayList<Tweet> tweets;
+    private ArrayList<Retweet> retweets;
+    private ArrayList<Reply> replies;
+    private ArrayList<Message> likedTweetsList;
+
     private ArrayList<Page> followersList;
     private ArrayList<Page> followingsList;
     private ArrayList<Tweet> followingsTweets;
-    private ArrayList<Message> LikedTweetsList;
 
 
+
+    /** constructor of page
+     * @param client owner of the page
+     * @param id client id
+     * @param biography a short text about client
+     * @param joinDate date of creation of this page
+     * @throws RuntimeException
+     */
     public Page(Client client, String id, String biography, LocalDate joinDate) throws RuntimeException {
 
         this.client = client;
@@ -25,7 +37,7 @@ public class Page {
         tweets = new ArrayList<>();
         followersList = new ArrayList<>();
         followingsList = new ArrayList<>();
-        LikedTweetsList = new ArrayList<>();
+        likedTweetsList = new ArrayList<>();
 
         if (biography.length() > 256)
             throw new RuntimeException("More than 256!");
@@ -35,43 +47,40 @@ public class Page {
     }
 
 
-    public void addFollowing(Page page) {
+    /** follows a page
+     * @param page the page to be followed
+     */
+    public void follow(Page page) {
         followingsList.add(page);
     }
 
-    public void deleteFollowing(Page page) {
+    /** unfollows a page
+     * @param page the page to be unfollowed
+     */
+    public void unfollow(Page page) {
         followingsList.remove(page);
     }
 
+    /** deletes a follower from followers' list
+     * @param page deleted follower
+     */
     public void deleteFollower(Page page) {
         followersList.remove(page);
     }
 
-    public String getBiography() {
-        return biography;
-    }
 
-
-    public void addOrDislikeTweet(Tweet tweet) {
-
-        Iterator<Message> it = LikedTweetsList.iterator();
-        while (it.hasNext()) {
-            if (it.equals(tweet)) {
-                System.out.println("This tweet has been liked before and is now disliked!");
-                it.remove();
-                return;
-
-            }
-        }
-
-        LikedTweetsList.add(tweet);
-    }
-
+    /** adds a tweet to the list of followings' tweets
+     * @param tweet the tweet to be added
+     */
     public void addFollowingsTweet(Tweet tweet) {
         followingsTweets.add(tweet);
     }
 
     //setters and getters
+
+    public String getBiography() {
+        return biography;
+    }
 
     public ArrayList<Tweet> getTweets() {
         return tweets;
@@ -90,8 +99,14 @@ public class Page {
     }
 
     public ArrayList<Message> getLikedTweetsList() {
-        return LikedTweetsList;
+        return likedTweetsList;
     }
 
+    public ArrayList<Retweet> getRetweets() {
+        return retweets;
+    }
 
+    public ArrayList<Reply> getReplies() {
+        return replies;
+    }
 }

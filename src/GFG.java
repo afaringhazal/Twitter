@@ -8,6 +8,11 @@ import java.security.NoSuchAlgorithmException;
 class GFG {
 
 
+    /**converts an array of bytes to a hashing SHA
+     * @param input a string
+     * @return hashed string
+     * @throws NoSuchAlgorithmException
+     */
     public static byte[] getSHA(String input) throws NoSuchAlgorithmException {
         // Static getInstance method is called with hashing SHA
         MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -19,7 +24,10 @@ class GFG {
     }
 
 
-
+    /** converts a hashcode to a string
+     * @param hash the hashcode
+     * @return the result of converting the hashcode to a string
+     */
     public static String toHexString(byte[] hash) {
         // Convert byte array into signum representation
         BigInteger number = new BigInteger(1, hash);

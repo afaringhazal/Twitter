@@ -16,6 +16,9 @@ public class FileManagement {
     }
 
 
+    /** saves the server data
+     * @param server server data
+     */
     public void saveAll(Server server) {
         String fileName = "Saves.bin";
         FileOutputStream fileOutputStream = null;
@@ -35,6 +38,10 @@ public class FileManagement {
 
     }
 
+
+    /**loads the server data
+     * @return returns server data
+     */
 
     public Server loadAll() {
         refreshFilesInFolder();
@@ -70,8 +77,11 @@ public class FileManagement {
     }
 
 
+    /**
+     *deletes saves if existing
+     */
 
-    public void deleteSaves() {
+    public void deleteSave() {
         refreshFilesInFolder();
         if (filesInFolder != null) {
             filesInFolder[0].delete();
@@ -79,6 +89,9 @@ public class FileManagement {
     }
 
 
+    /**
+     *refreshes the files in folder
+     */
     private void refreshFilesInFolder() {
         filesInFolder =
                 notesFolder.listFiles();

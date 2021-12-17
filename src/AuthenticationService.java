@@ -4,9 +4,16 @@ import java.time.LocalDate;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+
 public class AuthenticationService {
 
 
+    /**signup
+     * @param username signup username
+     * @param password signup password
+     * @return returns created page
+     * @throws NoSuchAlgorithmException
+     */
     public Page signUp(String username, String password) throws NoSuchAlgorithmException {
         for (Client client : Server.getClients()) {
             if (client.getUserName().equals(username)) {
@@ -63,6 +70,11 @@ public class AuthenticationService {
     }
 
 
+    /** sign in
+     * @param username sign in username
+     * @return returns the page created
+     * @throws NoSuchAlgorithmException
+     */
     public Page signIn(String username) throws NoSuchAlgorithmException {
         String password;
         for (Client client : Server.getClients()) {
@@ -91,7 +103,7 @@ public class AuthenticationService {
 
                             } catch (RuntimeException e) {
                                 System.out.println(e.getMessage());
-                                
+
                             }
 
 

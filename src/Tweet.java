@@ -7,6 +7,10 @@ import java.time.LocalDateTime;
 public class Tweet  extends Message{
     Client client;
 
+    /** constructor of tweet
+     * @param client the client who tweeted
+     * @param text the tweet
+     */
     public Tweet(Client client,char[]text){
         this.client=client;
         this.date= LocalDateTime.now();
@@ -14,6 +18,10 @@ public class Tweet  extends Message{
 
     }
 
+    /** compares an object to this tweet
+     * @param o the object to compare
+     * @return true if two objects are equal, false otherwise
+     */
     @Override
     public boolean equals(Object o) {
 
@@ -21,11 +29,6 @@ public class Tweet  extends Message{
                 ((Tweet) o).date == this.date &&
                 ((Tweet) o).client.equals(client) &&
                 ((Tweet) o).text == text);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(client);
     }
 
 
