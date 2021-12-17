@@ -1,7 +1,5 @@
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.ArrayList;
-import java.util.Iterator;
 
 public class ObserverService {
 
@@ -27,11 +25,8 @@ public class ObserverService {
     }
 
 
-    public ArrayList<Tweet> returnAllTweets(Client client){
-
-
-        return Server.getClientPage(client).getOtherTweet();
-
+    public ArrayList<Tweet> returnFollowingsTweets(Client client){
+        return Server.getClientPage(client).getFollowingsTweets();
     }
 
 
@@ -39,7 +34,7 @@ public class ObserverService {
 
         for(Page page : Server.getClientPage(client).getFollowers())
         {
-            page.setOtherTweet(tweet);
+            page.addFollowingsTweet(tweet);
         }
     }
 

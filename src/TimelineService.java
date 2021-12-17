@@ -23,6 +23,7 @@ public class TimelineService {
     }
 
     public ArrayList<Message> followingsTweets(Client client) {
+
         ArrayList<Message> followingsTweets = new ArrayList<>();
         for (Page page : Server.getClientPage(client).getFollowingsList()) {
             followingsTweets.addAll(page.getTweets());
@@ -37,13 +38,25 @@ public class TimelineService {
         return followingsTweets;
     }
 
-    public void followingsRetweets(Client client) {
+    public ArrayList<Message> followingsRetweets(Client client) {
 
+        ArrayList<Message> followingsTweets = new ArrayList<>();
+        for (Page page : Server.getClientPage(client).getFollowingsList()) {
+            followingsTweets.addAll(page.getTweets());
+        }
+        sortMessages(followingsTweets);
+        return followingsTweets;
 
     }
 
-    public void followingsReplies(Client client) {
+    public ArrayList<Message> followingsReplies(Client client) {
 
 
+        ArrayList<Message> followingsTweets = new ArrayList<>();
+        for (Page page : Server.getClientPage(client).getFollowingsList()) {
+            followingsTweets.addAll(page.getTweets());
+        }
+        sortMessages(followingsTweets);
+        return followingsTweets;
     }
 }
