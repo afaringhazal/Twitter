@@ -3,9 +3,9 @@ import java.util.List;
 
 public class TimelineService {
 
-    public List<Message> sortMessages(List<Message> messageList)
-    {
-        List<Message> newList = new ArrayList<Message>();
+    public List<Message> sortMessages(List<Message> messages) {
+        List<Message> messageList =messages;
+        List<Message> newList = new ArrayList<>();
 
         while (!messageList.isEmpty()) {
             Message latestMessage = messageList.get(0);
@@ -17,12 +17,13 @@ public class TimelineService {
             newList.add(latestMessage);
             messageList.remove(latestMessage);
         }
-        return newList;
+        messages = newList;
 
+        return messages;
     }
 
     public ArrayList<Message> followingsTweets(Client client) {
-        ArrayList<Message> followingsTweets=new ArrayList<>();
+        ArrayList<Message> followingsTweets = new ArrayList<>();
         for (Page page : Server.getClientPage(client).getFollowingsList()) {
             followingsTweets.addAll(page.getTweets());
         }
@@ -40,15 +41,9 @@ public class TimelineService {
 
 
     }
+
     public void followingsReplies(Client client) {
 
 
     }
-
-
-
-
-
-
-
 }

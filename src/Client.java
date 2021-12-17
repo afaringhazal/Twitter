@@ -33,6 +33,12 @@ public class Client {
         return Objects.hash(firstName, lastName, birthday, userName, password);
     }
 
+
+
+
+    //setters and getters
+
+
     public String getFirstName() {
         return firstName;
     }
@@ -61,9 +67,6 @@ public class Client {
         return userName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
 
     public String getPassword() {
         return password;
