@@ -1,8 +1,6 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Page {
@@ -14,8 +12,7 @@ public class Page {
     private ArrayList<Tweet> tweets;
     private ArrayList<Page> followersList;
     private ArrayList<Page> followingsList;
-    private ArrayList<Tweet> otherTweet;
-    //private ArrayList<Tweet>likedTweets;
+    private ArrayList<Tweet> followingsTweets;
     private ArrayList<Message> LikedTweetsList;
 
 
@@ -55,7 +52,7 @@ public class Page {
     }
 
 
-    public void addOrDislikedTweets(Tweet tweet) {
+    public void addOrDislikeTweet(Tweet tweet) {
 
         Iterator<Message> it = LikedTweetsList.iterator();
         while (it.hasNext()) {
@@ -68,10 +65,11 @@ public class Page {
         }
 
         LikedTweetsList.add(tweet);
-
-
     }
 
+    public void addFollowingsTweet(Tweet tweet) {
+        followingsTweets.add(tweet);
+    }
 
     //setters and getters
 
@@ -87,15 +85,13 @@ public class Page {
         return followingsList;
     }
 
-    public ArrayList<Tweet> getOtherTweet() {
-        return otherTweet;
+    public ArrayList<Tweet> getFollowingsTweets() {
+        return followingsTweets;
     }
 
     public ArrayList<Message> getLikedTweetsList() {
         return LikedTweetsList;
     }
 
-    public void setOtherTweet(Tweet tweet) {
-        otherTweet.add(tweet);
-    }
+
 }
