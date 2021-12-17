@@ -39,7 +39,7 @@ public class ObserverService {
     }
 
 
-    public static void DeletingTweetForOtherPeople(Client client , Tweet tweet){
+    public static void DeletingTweetForFollowings(Client client , Tweet tweet){
 
         for (Page page :Server.getClientPage(client).getFollowers())
         {

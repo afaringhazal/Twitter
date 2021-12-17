@@ -5,7 +5,7 @@ public class TweetingService {
     public void addTweet(Tweet tweet, Client client) {
         for (Tweet t : Server.getClientPage(client).getTweets()) {
             if (t.equals(tweet)) {
-                ObserverService.DeletingTweetForOtherPeople(client, tweet);
+                ObserverService.DeletingTweetForFollowings(client, tweet);
                 //update date
                 //better idea
                 ObserverService.notification(client, tweet);
@@ -19,7 +19,7 @@ public class TweetingService {
 
     public void deleteTweet(Tweet tweet, Client client) {
         Server.getClientPage(client).getTweets().remove(tweet);
-        ObserverService.DeletingTweetForOtherPeople(client, tweet);
+        ObserverService.DeletingTweetForFollowings(client, tweet);
     }
 
 
