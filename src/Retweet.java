@@ -1,6 +1,6 @@
 import java.time.LocalDateTime;
 
-public class Retweet extends Message{
+public class Retweet extends Message {
     Tweet tweet;
     Client retweetClient;
 

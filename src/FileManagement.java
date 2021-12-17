@@ -5,6 +5,7 @@ public class FileManagement {
     private File notesFolder = null;
     private File filesInFolder[] = null;
 
+
     public FileManagement() {
         notesFolder = new File("Notes");
         if (!notesFolder.exists()) {
@@ -13,6 +14,7 @@ public class FileManagement {
 
         filesInFolder = notesFolder.listFiles();
     }
+
 
     public void saveAll(Server server) {
         String fileName = "Saves.bin";
@@ -32,6 +34,7 @@ public class FileManagement {
         }
 
     }
+
 
     public Server loadAll() {
         refreshFilesInFolder();
@@ -65,7 +68,10 @@ public class FileManagement {
         }
         return server;
     }
-    public void deleteNoteByIndex() {
+
+
+
+    public void deleteSaves() {
         refreshFilesInFolder();
         if (filesInFolder != null) {
             filesInFolder[0].delete();
@@ -73,9 +79,10 @@ public class FileManagement {
     }
 
 
-
-
     private void refreshFilesInFolder() {
-        filesInFolder = notesFolder.listFiles();
+        filesInFolder =
+                notesFolder.listFiles();
     }
+
+
 }
