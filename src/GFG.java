@@ -18,6 +18,8 @@ class GFG {
         return md.digest(input.getBytes(StandardCharsets.UTF_8));
     }
 
+
+
     public static String toHexString(byte[] hash) {
         // Convert byte array into signum representation
         BigInteger number = new BigInteger(1, hash);
