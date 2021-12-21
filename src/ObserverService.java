@@ -1,47 +1,55 @@
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
 public class ObserverService {
 
 
+    Database database;
+    public ObserverService(Database database){
+        this.database = database;
+    }
 
     public void deleteFollower(Page follower, Client client){
 
-        Server.getClientPage(client).deleteFollower(follower);
+        database.getClientPage(client).deleteFollower(follower);
 
     }
 
 
     public void addFollowing(Page following, Client client){
 
-        Server.getClientPage(client).addFollowing(following);
+        database.getClientPage(client).addFollowing(following);
     }
 
 
     public void deleteFollowing(Page following, Client client){
 
-        Server.getClientPage(client).deleteFollowing(following);
+        database.getClientPage(client).deleteFollowing(following);
 
     }
 
 
     public ArrayList<Tweet> returnFollowingsTweets(Client client){
-        return Server.getClientPage(client).getFollowingsTweets();
+        return database.getClientPage(client).getFollowingsTweets();
     }
 
 
-    public static void notification(Client client, Tweet tweet){
+    public void notification(Client client, Tweet tweet){
 
-        for(Page page : Server.getClientPage(client).getFollowers())
+        for(Page page : database.getClientPage(client).getFollowers())
         {
             page.addFollowingsTweet(tweet);
         }
+        JSONArray jsonArray=new JSONArray();
+
     }
 
 
-    public static void DeletingForOtherPeople(Client client , Tweet tweet){
+    public void DeletingForOtherPeople(Client client , Tweet tweet){
 
-        for (Page page :Server.getClientPage(client).getFollowers())
+        for (Page page : database.getClientPage(client).getFollowers())
         {
             Iterator<Tweet> it = page.getTweets().iterator();
             while (it.hasNext())

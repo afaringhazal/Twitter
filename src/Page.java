@@ -26,6 +26,7 @@ public class Page {
         followersList = new ArrayList<>();
         followingsList = new ArrayList<>();
         LikedTweetsList = new ArrayList<>();
+        followingsTweets=new ArrayList<>();
 
         if (biography.length() > 256)
             throw new RuntimeException("More than 256!");

@@ -3,6 +3,10 @@ import java.util.List;
 
 public class TimelineService {
 
+    Database database;
+    public TimelineService(Database database){
+        this.database = database;
+    }
     public List<Message> sortMessages(List<Message> messages) {
         List<Message> messageList =messages;
         List<Message> newList = new ArrayList<>();
@@ -25,7 +29,7 @@ public class TimelineService {
     public ArrayList<Message> followingsTweets(Client client) {
 
         ArrayList<Message> followingsTweets = new ArrayList<>();
-        for (Page page : Server.getClientPage(client).getFollowingsList()) {
+        for (Page page : database.getClientPage(client).getFollowingsList()) {
             followingsTweets.addAll(page.getTweets());
         }
         sortMessages(followingsTweets);
@@ -33,7 +37,7 @@ public class TimelineService {
     }
 
     public ArrayList<Message> followingsLikes(Client client) {
-        ArrayList<Message> followingsTweets = new ArrayList<>(Server.getClientPage(client).getLikedTweetsList());
+        ArrayList<Message> followingsTweets = new ArrayList<>(database.getClientPage(client).getLikedTweetsList());
         sortMessages(followingsTweets);
         return followingsTweets;
     }
@@ -41,7 +45,7 @@ public class TimelineService {
     public ArrayList<Message> followingsRetweets(Client client) {
 
         ArrayList<Message> followingsTweets = new ArrayList<>();
-        for (Page page : Server.getClientPage(client).getFollowingsList()) {
+        for (Page page : database.getClientPage(client).getFollowingsList()) {
             followingsTweets.addAll(page.getTweets());
         }
         sortMessages(followingsTweets);
@@ -53,7 +57,7 @@ public class TimelineService {
 
 
         ArrayList<Message> followingsTweets = new ArrayList<>();
-        for (Page page : Server.getClientPage(client).getFollowingsList()) {
+        for (Page page : database.getClientPage(client).getFollowingsList()) {
             followingsTweets.addAll(page.getTweets());
         }
         sortMessages(followingsTweets);

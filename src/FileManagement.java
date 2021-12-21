@@ -2,28 +2,28 @@ import java.io.*;
 
 public class FileManagement {
 
-    private File notesFolder = null;
+    private File Folder = null;
     private File filesInFolder[] = null;
 
 
     public FileManagement() {
-        notesFolder = new File("Notes");
-        if (!notesFolder.exists()) {
-            notesFolder.mkdir();
+        Folder = new File("Notes");
+        if (!Folder.exists()) {
+            Folder.mkdir();
         }
 
-        filesInFolder = notesFolder.listFiles();
+        filesInFolder = Folder.listFiles();
     }
 
 
-    public void saveAll(Server server) {
+    public void saveAll(Database database) {
         String fileName = "Saves.bin";
         FileOutputStream fileOutputStream = null;
         ObjectOutputStream objectOutputStream = null;
         try {
             fileOutputStream = new FileOutputStream(fileName);
             objectOutputStream = new ObjectOutputStream(fileOutputStream);
-            objectOutputStream.writeObject(server);
+            objectOutputStream.writeObject(database);
             objectOutputStream.flush();
             objectOutputStream.close();
 
@@ -36,9 +36,9 @@ public class FileManagement {
     }
 
 
-    public Server loadAll() {
+    public Database loadAll() {
         refreshFilesInFolder();
-        Server server = null;
+        Database database = null;
         try {
 
             FileInputStream fileInputStream = null;
@@ -50,7 +50,7 @@ public class FileManagement {
                     fileInputStream = new FileInputStream(file.getCanonicalPath());
                     objectInputStream = new ObjectInputStream(fileInputStream);
 
-                    server = (Server) objectInputStream.readObject();
+                    database = (Database) objectInputStream.readObject();
 
 
                     objectInputStream.close();
@@ -66,7 +66,7 @@ public class FileManagement {
         } finally {
             refreshFilesInFolder();
         }
-        return server;
+        return database;
     }
 
 
@@ -81,7 +81,7 @@ public class FileManagement {
 
     private void refreshFilesInFolder() {
         filesInFolder =
-                notesFolder.listFiles();
+                Folder.listFiles();
     }
 
 

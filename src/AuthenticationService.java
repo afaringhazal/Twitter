@@ -1,37 +1,39 @@
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
-
 public class AuthenticationService {
 
+    Database database;
+    public AuthenticationService(Database database){
+        this.database=database;
+    }
 
-    public Page signUp(Client clientToLogin,String bio,String id) throws NoSuchAlgorithmException {
-        for (Client client : Server.getClients()) {
+    public Page signUpRequest(Client clientToLogin,String bio,String id)  {
+        for (Client client : database.getClients()) {
             if (client.getUserName().equals(clientToLogin.getUserName())) {
-                // System.out.println("There is already an account associated with this username.");
                 return null;
             }
         }
-
-
-        Page page = new Page(clientToLogin, id, bio, LocalDate.now());
-        Server.addClient(page, clientToLogin);
-
-        return page;
+        return signUp(clientToLogin, id, bio);
     }
 
 
-    public Page signIn(String username, String password) throws NoSuchAlgorithmException {
-        //String password;
-        for (Client client : Server.getClients()) {
-            if (client.getUserName().equals(username) && client.getPassword().equals(password)) {
-                return Server.getClientPage(client);
+    public Page signInRequest(String username, String password) throws NoSuchAlgorithmException {
+        String hashedPass= GFG.toHexString(GFG.getSHA(password));
+        for (Client client : database.getClients()) {
+            if (client.getUserName().equals(username) && client.getPassword().equals(hashedPass)) {
+                return database.getClientPage(client);
             }
         }
-
         return null;
+    }
+
+
+    public Page signUp(Client client, String id, String bio){
+        Page page= new Page(client, id, bio, LocalDate.now());
+        database.getClients().add(client);
+        database.getAllClientPages().put(client,page);
+        return page;
     }
 
 

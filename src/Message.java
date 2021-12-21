@@ -5,26 +5,35 @@ public abstract class Message {
 
     public LocalDateTime date;
     public char[] text;
+    private ArrayList<Client> likes = new ArrayList<>();
+    private ArrayList<Message> replies=new ArrayList<>();
 
-    //add for like
-    private ArrayList<Client> saveLiked = new ArrayList<>();
 
-
-    public void addSaveLiked(Client client)
-    {
-        saveLiked.add(client);
+    public ArrayList<Message> getReplies() {
+        return replies;
     }
 
-
-    public void deleteSaveLike(Client client)
-    {
-        saveLiked.remove(client);
+    public void addReply(Message message) {
+       replies.add(message);
     }
 
+    public void removeReply(Message message) {
+        replies.remove(message);
+    }
 
-    public ArrayList<Client> getSaveLiked()
+    public void Like(Client client)
     {
-        return saveLiked;
+        likes.add(client);
+    }
+
+    public void dislike(Client client)
+    {
+        likes.remove(client);
+    }
+
+    public ArrayList<Client> getLikes()
+    {
+        return likes;
     }
 
 

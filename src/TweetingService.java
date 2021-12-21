@@ -1,39 +1,47 @@
 public class TweetingService {
 
 
+    Database database;
+    ObserverService observerService;
 
+
+    public TweetingService(Database database, ObserverService observerService){
+        this.database = database;
+        this.observerService=observerService;
+    }
     public void addTweet(Tweet tweet, Client client) {
-        for (Tweet t : Server.getClientPage(client).getTweets()) {
+
+        for (Tweet t : database.getClientPage(client).getTweets()) {
             if (t.equals(tweet)) {
-                ObserverService.DeletingForOtherPeople(client, tweet);
+                observerService.DeletingForOtherPeople(client, tweet);
                 //update date
                 //better idea
-                ObserverService.notification(client, tweet);
+                observerService.notification(client, tweet);
                 return;
             }
         }
 
-        Server.getClientPage(client).getTweets().add(tweet);
-        ObserverService.notification(client, tweet);
+        database.getClientPage(client).getTweets().add(tweet);
+        observerService.notification(client, tweet);
     }
 
     public void deleteTweet(Tweet tweet, Client client) {
-        Server.getClientPage(client).getTweets().remove(tweet);
-        ObserverService.DeletingForOtherPeople(client, tweet);
+        database.getClientPage(client).getTweets().remove(tweet);
+        observerService.DeletingForOtherPeople(client, tweet);
     }
 
 
     public void like(Client client, Tweet tweet, Client mine) {
-        for (Tweet t : Server.getClientPage(client).getTweets()) {
+        for (Tweet t : database.getClientPage(client).getTweets()) {
             if (t.equals(tweet)) {
-                for (Client client1 : t.getSaveLiked()) {
+                for (Client client1 : t.getLikes()) {
                     if (client1.equals(mine)) {
                         // before exit
                         disLike(client, tweet, mine);
                     }
                 }
 
-                t.addSaveLiked(mine);
+                t.Like(mine);
                 //Like++
                 return;
             }
@@ -43,9 +51,9 @@ public class TweetingService {
 
 
     public void disLike(Client client, Tweet tweet, Client mine) {
-        for (Tweet t : Server.getClientPage(client).getTweets()) {
+        for (Tweet t : database.getClientPage(client).getTweets()) {
             if (t.equals(tweet)) {
-                t.deleteSaveLike(mine);
+                t.dislike(mine);
                 //Like--
                 return;
             }
