@@ -9,6 +9,8 @@ public class TweetingService {
         this.database = database;
         this.observerService=observerService;
     }
+
+
     public void addTweet(Tweet tweet, Client client) {
 
         for (Tweet t : database.getClientPage(client).getTweets()) {
@@ -54,7 +56,6 @@ public class TweetingService {
         for (Tweet t : database.getClientPage(client).getTweets()) {
             if (t.equals(tweet)) {
                 t.dislike(mine);
-                //Like--
                 return;
             }
         }
