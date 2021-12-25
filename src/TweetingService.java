@@ -11,25 +11,29 @@ public class TweetingService {
     }
 
 
-    public void addTweet(Tweet tweet, Client client) {
+    public void addTweet(Tweet tweet) {
 
-        for (Tweet t : database.getClientPage(client).getTweets()) {
+        for (Tweet t : database.getClientPage(tweet.getClient()).getTweets()) {
             if (t.equals(tweet)) {
-                observerService.DeletingForOtherPeople(client, tweet);
+                //observerService.DeletingForOtherPeople(tweet.getClient(), tweet);
+
+                t.changeDate();
                 //update date
                 //better idea
-                observerService.notification(client, tweet);
+
+                //database.getClientPage(client).getTweets().add(tweet);
+              //  observerService.notification(tweet.getClient(), tweet);
                 return;
             }
         }
 
-        database.getClientPage(client).getTweets().add(tweet);
-        observerService.notification(client, tweet);
+        database.getClientPage(tweet.getClient()).getTweets().add(tweet);
+        observerService.notification(tweet.getClient(), tweet);
     }
 
-    public void deleteTweet(Tweet tweet, Client client) {
-        database.getClientPage(client).getTweets().remove(tweet);
-        observerService.DeletingForOtherPeople(client, tweet);
+    public void deleteTweet(Tweet tweet) {
+        database.getClientPage(tweet.getClient()).getTweets().remove(tweet);
+        observerService.DeletingForOtherPeople(tweet.getClient(), tweet);
     }
 
 
@@ -38,12 +42,15 @@ public class TweetingService {
             if (t.equals(tweet)) {
                 for (Client client1 : t.getLikes()) {
                     if (client1.equals(mine)) {
-                        // before exit
-                        disLike(client, tweet, mine);
+                        // before exit , now dislike
+                        disLike(client, t, mine);
+                        database.getClientPage(mine).addOrDislikeTweet(t);
                     }
                 }
 
                 t.Like(mine);
+                database.getClientPage(mine).addOrDislikeTweet(t);
+
                 //Like++
                 return;
             }
@@ -52,7 +59,7 @@ public class TweetingService {
     }
 
 
-    public void disLike(Client client, Tweet tweet, Client mine) {
+    private void disLike(Client client, Tweet tweet, Client mine) {
         for (Tweet t : database.getClientPage(client).getTweets()) {
             if (t.equals(tweet)) {
                 t.dislike(mine);

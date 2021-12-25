@@ -1,20 +1,27 @@
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Server {
 
     TweetingService tweetingService;
     TimelineService timelineService;
-    AuthenticationService authenticationService;
+    static AuthenticationService  authenticationService;
     ObserverService observerService;
     Database database;
     boolean shouldRun = true;
     ServerSocket serverSocket;
 
+
+    ExecutorService executorService = Executors.newCachedThreadPool();
+
     public Server() {
 
-        database = loadDatabase();
+        database =new Database();//= loadDatabase();
         observerService = new ObserverService(database);
         authenticationService = new AuthenticationService(database);
         timelineService = new TimelineService(database);
@@ -25,6 +32,9 @@ public class Server {
             serverSocket = new ServerSocket(1234);
             while (shouldRun) {
                 Socket socket = serverSocket.accept();
+                executorService.execute(new ClientHandler(socket,authenticationService,tweetingService));
+
+
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -40,7 +50,16 @@ public class Server {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NoSuchAlgorithmException {
+
         new Server();
+
+        PersonalInformation personalInformation = new PersonalInformation("ff","12");
+        Client c =new Client("f","a", LocalDate.now(),personalInformation);
+        //Page p = new Page(c,"fff",LocalDate.now());
+        authenticationService.signUpRequest(c,"jj","id");
+
+
+
     }
 }

@@ -58,7 +58,7 @@ public class Page {
         Iterator<Message> it = LikedTweetsList.iterator();
         while (it.hasNext()) {
             if (it.equals(tweet)) {
-                System.out.println("This tweet has been liked before and is now disliked!");
+               // System.out.println("This tweet has been liked before and is now disliked!");
                 it.remove();
                 return;
 
@@ -95,4 +95,11 @@ public class Page {
     }
 
 
+    public Client getClient() {
+        return client;
+    }
+
+    public String getId() {
+        return id;
+    }
 }

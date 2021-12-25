@@ -37,6 +37,13 @@ public abstract class Message {
     }
 
 
+    public char[] getText() {
+        return text;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
 }
 
 
