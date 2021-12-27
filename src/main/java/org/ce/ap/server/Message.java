@@ -1,5 +1,7 @@
 package main.java.org.ce.ap.server;
 
+import main.java.org.ce.ap.client.Client;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -7,7 +9,7 @@ public abstract class Message {
 
     public LocalDateTime date;
     public char[] text;
-    private ArrayList<Client> likes = new ArrayList<>();
+    private ArrayList<String> likes = new ArrayList<>();
     private ArrayList<Message> replies=new ArrayList<>();
 
 
@@ -23,17 +25,17 @@ public abstract class Message {
         replies.remove(message);
     }
 
-    public void Like(Client client)
+    public void Like(String userName)
     {
-        likes.add(client);
+        likes.add(userName);
     }
 
-    public void dislike(Client client)
+    public void dislike(String clientId)
     {
-        likes.remove(client);
+        likes.remove(clientId);
     }
 
-    public ArrayList<Client> getLikes()
+    public ArrayList<String> getLikes()
     {
         return likes;
     }

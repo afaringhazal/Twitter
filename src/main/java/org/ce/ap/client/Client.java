@@ -2,6 +2,10 @@ package main.java.org.ce.ap.client;
 
 //import org.json.JSONObject;
 
+//import main.java.org.ce.ap.server.PersonalInformation;
+
+//import main.java.org.ce.ap.server.PersonalInformation;
+
 import main.java.org.ce.ap.server.PersonalInformation;
 
 import java.security.NoSuchAlgorithmException;

@@ -1,6 +1,9 @@
 package main.java.org.ce.ap.client;
 
 import com.google.gson.Gson;
+import main.java.org.ce.ap.ParameterValue;
+import main.java.org.ce.ap.Request;
+import main.java.org.ce.ap.Response;
 import main.java.org.ce.ap.server.Page;
 import main.java.org.ce.ap.server.PersonalInformation;
 //import org.json.JSONArray;
@@ -8,18 +11,28 @@ import main.java.org.ce.ap.server.PersonalInformation;
 //import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.PortUnreachableException;
+import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CommandParserService {
+    Scanner scanner = new Scanner(System.in);
+    Gson gson = new Gson();
+    Response response = null;
+    Request request= new Request("",null);
 
-   private static ConnectionService connectionService;
+    boolean shouldRun=true;
+    private  ConnectionService connectionService;
   // private static JSONObject jsonObject = new JSONObject();
 
 
-    public static void main(String[] args) {
 
-        Gson gson = new Gson();
+
+    public static void main(String[] args) {new CommandParserService();}
+    public CommandParserService(){
+
         try {
             connectionService = new ConnectionService();
         } catch (IOException e) {
@@ -27,62 +40,23 @@ public class CommandParserService {
             return;
         }
 
-
-        Scanner scanner = new Scanner(System.in);
-
-
-        while (true) {
+        while (shouldRun) {
             System.out.println("1- sign in 2- sign up 3- exit");
             try {
                 int n =scanner.nextInt();
                 scanner.nextLine();
                 if (n == 1) {
-                    System.out.println("Enter UserName and password : ");
-                    String username = scanner.nextLine();
-                    String password = scanner.nextLine();
-
-                    //System.out.println("password = " + password);
-                   // System.out.println(username);
-
-//                    JSONObject jsonObject1 =new JSONObject();
-//                    jsonObject1.put("UserName", username);
-//                    jsonObject1.put("Password", password);
-
-
-//                    jsonObject.put("Title","Sign in");
-//                    jsonObject.put("ParameterValues",jsonObject1);
-                    PersonalInformation personalInformation = new PersonalInformation(username,password);
-
-                    try {
-                        String s = gson.toJson(personalInformation);
-                       // System.out.println(s);
-                        connectionService.connectCommandParserToServer(s);
-                    }catch (IOException e)
-                    {
-                        System.out.println("We can't connect to server for sign in.\nplease again");
-                        continue;
-                    }
-                    Page page = null;
-                    try{
-                        page = (Page) connectionService.connectServerToCommandParser().get("Page");
-
-                    }catch (IOException | ClassNotFoundException e)
-                    {
-                        System.out.println("We can't connect to server for receive page\nplease again");
-                    }
-
-                    //show page
-                    ConsoleViewService.ShowPage(page);
-
-                    //Activities after the show => like , add Tweet , ...
-                    menu(page);
+                    processSignIn();
 
 
                 } else if (n == 2) {
+                    processSignUp();
+
 
                 } else if (n == 3) {
-                    //disconnect any socket , ...
-                    return;
+
+                    shouldRun=false;
+                    connectionService.stop();
                 }
                 else {
                     System.out.println("Invalid number!");
@@ -96,61 +70,72 @@ public class CommandParserService {
 
     }
 
+    private void addTweet()
+    {         //add tweet
+        System.out.println("Please Enter the tweet text : ");
+        String s = scanner.nextLine();
+        // handle in has error!
+//                if (s.length() > 256) {
+//                    System.out.println("The maximum length is 256 characters");
+//                    continue;
+//                }
 
-    public static void menu(Page page) throws JSONException {
+
+
+
+
+        jsonObject.put("Title", "Add Tweet");
+        //jsonObject.put("description" ,"Validate tweet and send it"); // not matter
+
+        JSONObject jsonObject1 = new JSONObject();
+        jsonObject1.put("Content", s);
+        jsonObject1.put("Client",page.getClient());
+
+        jsonObject.put("ParameterValues",jsonObject1);
+
+
+        try {
+            connectionService.connectCommandParserToServer(jsonObject);
+            System.out.println("Send tweet.");
+        } catch (IOException e) {
+            System.out.println("We can't connect to the server to send tweet.\nplease again!");
+            continue;
+        }
+
+
+
+        //show
+        try {
+            JSONObject jsonObject = connectionService.connectServerToCommandParser();
+            ConsoleViewService.ShowTweet((Tweet) jsonObject.get("Tweet"));
+
+        } catch (IOException  | ClassNotFoundException e ) {
+            System.out.println("We can't connect to the server to receive information \nplease again!");
+            continue;
+        }
+
+
+
+    }
+
+
+    public  void menu()  {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             int n;
             System.out.println("1 - add tweet 2- delete tweet 3- Like   show page");
             try {
                 n = scanner.nextInt();
+                scanner.next();
             } catch (Exception e) {
                 System.out.println("Invalid number\nplease again!");
-                scanner.nextLine();
                 continue;
             }
 
             //Title , ParameterValues => Requests
             //
             if (n == 1) {
-                //add tweet
-                System.out.println("Please Enter the tweet tex : ");
-                String s = scanner.nextLine();
-                // handle in has error!
-//                if (s.length() > 256) {
-//                    System.out.println("The maximum length is 256 characters");
-//                    continue;
-//                }
-
-                jsonObject.put("Title", "Add Tweet");
-                //jsonObject.put("description" ,"Validate tweet and send it"); // not matter
-
-                JSONObject jsonObject1 = new JSONObject();
-                jsonObject1.put("Content", s);
-                jsonObject1.put("Client",page.getClient());
-
-                jsonObject.put("ParameterValues",jsonObject1);
-
-
-                try {
-                    connectionService.connectCommandParserToServer(jsonObject);
-                    System.out.println("Send tweet.");
-                } catch (IOException e) {
-                    System.out.println("We can't connect to the server to send tweet.\nplease again!");
-                    continue;
-                }
-
-
-
-                //show
-                try {
-                    JSONObject jsonObject = connectionService.connectServerToCommandParser();
-                    ConsoleViewService.ShowTweet((Tweet) jsonObject.get("Tweet"));
-
-                } catch (IOException  | ClassNotFoundException e ) {
-                    System.out.println("We can't connect to the server to receive information \nplease again!");
-                    continue;
-                }
+                addTweet();
 
 
             } else if (n == 2) {
@@ -257,4 +242,134 @@ public class CommandParserService {
 
 
     }
+    private void processSignIn()
+    {
+        System.out.println("Enter UserName and password : ");
+        String username = scanner.nextLine();
+        String password = scanner.nextLine();
+
+
+
+        request.setTitle("Sign In");
+        ParameterValue p = new ParameterValue("UserName",username);
+        ParameterValue p1 = new ParameterValue("Password",password);
+        ArrayList<Object> parameterValue = new ArrayList<>();
+        parameterValue.add(p);
+        parameterValue.add(p1);
+        request.setParameterValue(parameterValue);
+
+        try {
+            connectionService.connectCommandParserToServer(gson.toJson(request));
+        }catch (IOException e)
+        {
+            System.out.println("We can't connect to server for sign in.\nplease again");
+            return;
+        }
+
+        try{
+            response = gson.fromJson(connectionService.connectServerToCommandParser(),Response.class);
+
+            if(response.isHasError())
+                throw new RuntimeException();
+
+        }catch (IOException | ClassNotFoundException e)
+        {
+            System.out.println("We can't connect to server for receive page\nplease again");
+            return;
+        }
+
+        menu();
+
+    }
+
+
+
+
+    public void processSignUp()
+    {
+
+
+
+        System.out.println("Enter UserName and password: ");
+        String userName = scanner.nextLine();
+        String password = scanner.nextLine();
+
+        ArrayList<Object> parameters = new ArrayList<>();
+
+        parameters.add( new ParameterValue("UserName", userName));
+        parameters.add(new ParameterValue("Password", password));
+        request.setTitle("Sign Up");
+        request.setParameterValue(parameters);
+
+        try {
+            connectionService.connectCommandParserToServer(gson.toJson(request));
+        }catch (IOException e)
+        {
+            System.out.println("We can't connect to server for sign up.\nplease again");
+            return;
+        }
+
+        try{
+            response = gson.fromJson(connectionService.connectServerToCommandParser(),Response.class);
+
+            if(response.isHasError())
+                throw new RuntimeException();
+
+        }catch (IOException | ClassNotFoundException e)
+        {
+            System.out.println("this user name exists\nplease again");
+            return;
+        }
+
+
+
+        System.out.println("Enter firstName , Last name, birthday(year,month,day each in a separate line),id,bio.  :");
+        String firstName = scanner.nextLine();
+        String lastName = scanner.nextLine();
+        int year = scanner.nextInt();
+        int month = scanner.nextInt();
+        int day = scanner.nextInt();
+        scanner.nextLine();
+        String id = scanner.nextLine();
+        String bio = scanner.nextLine();
+
+        // LocalDate localDate = LocalDate.of(year,month,day);
+
+        ArrayList<Object> signUpParameters=new ArrayList<>();
+        signUpParameters.add(new ParameterValue("FirstName",firstName));
+        signUpParameters.add(new ParameterValue("LastName",lastName));
+        signUpParameters.add(new ParameterValue("BirthYear",""+year));
+        signUpParameters.add(new ParameterValue("BirthMonth",month+""));
+        signUpParameters.add(new ParameterValue("BirthDay",day+""));
+        signUpParameters.add(new ParameterValue("id",id));
+        signUpParameters.add(new ParameterValue("Bio",bio));
+        request.setTitle("Sign Up Details");
+        request.setParameterValue(signUpParameters);
+        try {
+            connectionService.connectCommandParserToServer(gson.toJson(request));
+        }catch (IOException e)
+        {
+            System.out.println("We can't connect to server for sign up Details.\nplease again");
+            return;
+        }
+
+        try{
+            response = gson.fromJson(connectionService.connectServerToCommandParser(),Response.class);
+
+            if(response.isHasError())
+                throw new RuntimeException();
+        }catch (IOException | ClassNotFoundException e)
+        {
+            System.out.println("Couldn't create new profile\nplease again");
+            return;
+        }
+
+
+
+    }
 }
+
+
+
+
+

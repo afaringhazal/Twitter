@@ -1,8 +1,12 @@
 package main.java.org.ce.ap.server;
 
 import com.google.gson.Gson;
-import org.json.JSONException;
-import org.json.JSONObject;
+import main.java.org.ce.ap.ParameterValue;
+import main.java.org.ce.ap.Request;
+import main.java.org.ce.ap.Response;
+import main.java.org.ce.ap.client.Client;
+//import org.json.JSONException;
+//import org.json.JSONObject;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -18,12 +22,20 @@ public class ClientHandler implements Runnable {
 
     private Socket socket;
     private boolean clientIsConnected;
+
     private AuthenticationService authenticationService;
     private TweetingService tweetingService;
     private Database database;
     private TimelineService timelineService;
-    JSONObject jo = new JSONObject();
 
+    Response response = new Response(false,0,0,null);
+    Request request ;
+    ObjectInputStream objectInputStream ;
+    ObjectOutputStream objectOutputStream;
+    String message="";
+    Page page = null;
+
+    Gson gson = new Gson();
 
     public ClientHandler(Socket socket, AuthenticationService authenticationService, TweetingService tweetingService) {
         this.socket = socket;
@@ -38,51 +50,22 @@ public class ClientHandler implements Runnable {
     @Override
     public void run() {
 
-        ObjectInputStream objectInputStream ;
-        ObjectOutputStream objectOutputStream;
-        JSONObject clientToHandler = null;
-        Gson gson = new Gson();
-        
         try {
             objectInputStream = new ObjectInputStream(socket.getInputStream());
             objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
 
             while (clientIsConnected) {
 
-               // System.out.println("***");
-               // System.out.println(objectInputStream.available());
-               //Object g = objectInputStream.readObject();
-              // clientToHandler =(JSONObject)objectInputStream.readObject();
+                message = (String) objectInputStream.readObject();
+               request = gson.fromJson(message,Request.class);
 
-               //clientToHandler = (JSONObject) objectInputStream.readObject();
-               String message = (String) objectInputStream.readObject();
-               
-                PersonalInformation personalInformation = gson.fromJson(message, PersonalInformation.class);
-               // System.out.println("personalInformation.getPassword() = " + personalInformation.getPassword());
-                //System.out.println("personalInformation = " + personalInformation.getUserName());
-                
-                //  System.out.println(message);
+                 if(request.getTitle().equals("Sign up")) {
+                     processSignUp();
+                 }
+               else if(request.getTitle().equals("Sign In")) {
+                   processSignIn();
 
-                System.out.println("KKKKKKK");
-
-                if((clientToHandler.get("Title")).equals("Sign Up")) {
-                    // String firstName, String lastName, LocalDate birthday, String userName, String password)
-                    Page page = authenticationService.signUpRequest((Client)clientToHandler.get("Client"),clientToHandler.getString("Bio"),clientToHandler.getString("Id"));
-
-                    jo.put("Page",page);
-                    objectOutputStream.writeObject(jo);
-
-                }
-               else if((clientToHandler.get("Title")).equals("Sign In")) {
-
-                    Page page =authenticationService.signInRequest(clientToHandler.getJSONObject("ParameterValues").getString("UserName"),
-                             clientToHandler.getJSONObject("ParameterValues").getString("Password"));
-
-                    jo.put("Page",page);
-                    objectOutputStream.writeObject(jo);
-
-
-                }
+               }
                 else if(clientToHandler.getString("Title").equals("get Followers"))
                 {
                     //need page
@@ -220,6 +203,80 @@ public class ClientHandler implements Runnable {
 
 
 
+    private void processSignUp() throws IOException, NoSuchAlgorithmException, ClassNotFoundException {
+        PersonalInformation personalInformation = authenticationService.signUpRequest(((ParameterValue) request.getParameterValue().get(0)).getValue()
+                , ((ParameterValue) request.getParameterValue().get(1)).getValue());
+
+        if (personalInformation == null) {
+            response.setHasError(true);
+            response.setErrorCode(20);
+        }
+
+
+        response.setCount(1);
+
+        ArrayList<Object> result = new ArrayList<>();
+        ParameterValue p = new ParameterValue("Result", "Connected");
+        result.add(p);
+
+        response.setResults(result);
+
+        objectOutputStream.writeObject(gson.toJson(response));
+
+
+
+        message = (String) objectInputStream.readObject();
+        request = gson.fromJson(message,Request.class);
+        int year=Integer.parseInt(((ParameterValue)request.getParameterValue().get(2)).getValue());
+        int month=Integer.parseInt(((ParameterValue)request.getParameterValue().get(3)).getValue());
+        int day=Integer.parseInt(((ParameterValue)request.getParameterValue().get(4)).getValue());
+        LocalDate localDate =LocalDate.of(year,month,day);
+
+        Client client = new Client(((ParameterValue) request.getParameterValue().get(0)).getValue(),((ParameterValue) request.getParameterValue().get(1)).getValue(),
+         localDate, personalInformation);
+
+      page =  authenticationService.signUp(client,((ParameterValue)request.getParameterValue().get(5)).getValue(),((ParameterValue)request.getParameterValue().get(6)).getValue())
+        response.setCount(1);
+
+         result = new ArrayList<>();
+         p = new ParameterValue("Result", "Connected");
+        result.add(p);
+
+        response.setResults(result);
+        objectOutputStream.writeObject(response);
+
+
+
+    }
+
+
+
+
+
+
+
+
+    private void processSignIn() throws NoSuchAlgorithmException, IOException {
+
+
+        page = authenticationService.signInRequest(((ParameterValue) request.getParameterValue().get(0)).getValue(),
+                (((ParameterValue) request.getParameterValue().get(1)).getValue()));
+        if (page == null) {
+            response.setHasError(true);
+            response.setErrorCode(15);
+
+        }
+
+
+        response.setCount(1);
+
+        ArrayList<Object> result = new ArrayList<>();
+        ParameterValue p = new ParameterValue("Result", "Connect!");
+        result.add(p);
+
+        response.setResults(result);
+        objectOutputStream.writeObject(response);
+    }
 
 }
 

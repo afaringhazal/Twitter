@@ -1,5 +1,7 @@
 package main.java.org.ce.ap.server;
 
+import main.java.org.ce.ap.client.Client;
+
 public class TweetingService {
 
 
@@ -42,15 +44,15 @@ public class TweetingService {
     public void like(Client client, Tweet tweet, Client mine) {
         for (Tweet t : database.getClientPage(client).getTweets()) {
             if (t.equals(tweet)) {
-                for (Client client1 : t.getLikes()) {
-                    if (client1.equals(mine)) {
+                for (String username : t.getLikes()) {
+                    if (username.equals(mine.getUserName())) {
                         // before exit , now dislike
                         disLike(client, t, mine);
                         database.getClientPage(mine).addOrDislikeTweet(t);
                     }
                 }
 
-                t.Like(mine);
+                t.Like(mine.getUserName());
                 database.getClientPage(mine).addOrDislikeTweet(t);
 
                 //Like++
@@ -64,7 +66,7 @@ public class TweetingService {
     private void disLike(Client client, Tweet tweet, Client mine) {
         for (Tweet t : database.getClientPage(client).getTweets()) {
             if (t.equals(tweet)) {
-                t.dislike(mine);
+                t.dislike(mine.getUserName());
                 return;
             }
         }

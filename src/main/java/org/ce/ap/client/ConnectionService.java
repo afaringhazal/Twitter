@@ -23,8 +23,8 @@ public class ConnectionService {
 
     }
 
-    public JSONObject connectServerToCommandParser() throws IOException, ClassNotFoundException {
-        return (JSONObject) objectInputStream.readObject();
+    public String connectServerToCommandParser() throws IOException, ClassNotFoundException {
+        return (String) objectInputStream.readObject();
 
 
     }

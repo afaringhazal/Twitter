@@ -1,5 +1,7 @@
 package main.java.org.ce.ap.client;
 
+import main.java.org.ce.ap.server.Page;
+import main.java.org.ce.ap.server.Tweet;
 import org.json.JSONException;
 import org.json.JSONObject;
 

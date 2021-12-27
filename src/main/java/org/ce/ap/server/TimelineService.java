@@ -1,5 +1,7 @@
 package main.java.org.ce.ap.server;
 
+import main.java.org.ce.ap.client.Client;
+
 import java.util.ArrayList;
 import java.util.List;
 

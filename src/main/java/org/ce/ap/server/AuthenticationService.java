@@ -1,5 +1,7 @@
 package main.java.org.ce.ap.server;
 
+import main.java.org.ce.ap.client.Client;
+
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 
@@ -10,13 +12,14 @@ public class AuthenticationService {
         this.database=database;
     }
 
-    public Page signUpRequest(Client clientToLogin,String bio,String id)  {
+    public PersonalInformation signUpRequest(String userName,String password) throws NoSuchAlgorithmException {
         for (Client client : database.getClients()) {
-            if (client.getUserName().equals(clientToLogin.getUserName())) {
+            if (client.getUserName().equals(userName)) {
                 return null;
             }
         }
-        return signUp(clientToLogin, id, bio);
+
+        return new PersonalInformation(userName,password);
     }
 
 
@@ -34,6 +37,7 @@ public class AuthenticationService {
     public Page signUp(Client client, String id, String bio){
         Page page= new Page(client, id, bio, LocalDate.now());
         database.getClients().add(client);
+        database.getClientIds().put(client.getUserName(),client);
         database.getAllClientPages().put(client,page);
         return page;
     }
