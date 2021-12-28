@@ -1,5 +1,8 @@
 package main.java.org.ce.ap;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.util.ArrayList;
 
 public class Response {
@@ -28,7 +31,7 @@ public class Response {
         return Count;
     }
 
-    public Object getResults() {
+    public ArrayList<Object> getResults() {
         return Results;
     }
 
@@ -47,4 +50,9 @@ public class Response {
     public void setResults(ArrayList<Object> results) {
         Results = results;
     }
+
+
+
+
+
 }

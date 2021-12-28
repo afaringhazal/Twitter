@@ -1,13 +1,12 @@
 package main.java.org.ce.ap.server;
 
-import main.java.org.ce.ap.client.Client;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Database {
 
-    private ArrayList<Client> clients;
+    private ArrayList<Client> clients=new ArrayList<>();
+    private ArrayList<Tweet> allTweets=new ArrayList<>();
     private HashMap<Client, Page> ClientPage = new HashMap<>();
     private HashMap<String, Client> ClientId = new HashMap<>();
 
@@ -24,11 +23,32 @@ public class Database {
     }
 
 
-    public Client getClientId(String s) {
-        return ClientId.get(s);
+    public Page getClientPageFromUsername(String s) {
+        return getClientPage(ClientId.get(s));
     }
+
     public HashMap<String,Client> getClientIds(){
 
         return ClientId;
     }
+
+    public Client getClientFromUsername(String s){
+        Client client=null;
+        for (Client c:clients){
+            if (client.getUserName().equals(s)){
+                client=c;
+            }
+        }
+        return client;
+    }
+    public void addTweetToAllTweets(Tweet tweet){
+        allTweets.add(tweet);
+    }
+   public Tweet getTweet(int id){
+
+        for (Tweet tweet:allTweets){
+            if (tweet.id==id){return tweet;}
+        }
+        return null ;
+   }
 }

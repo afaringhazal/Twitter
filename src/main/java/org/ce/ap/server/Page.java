@@ -1,7 +1,5 @@
 package main.java.org.ce.ap.server;
 
-import main.java.org.ce.ap.client.Client;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -78,6 +76,9 @@ public class Page {
 
     //setters and getters
 
+    public void addTweet(Tweet tweet){
+        tweets.add(tweet);
+    }
     public ArrayList<Tweet> getTweets() {
         return tweets;
     }

@@ -1,43 +1,29 @@
 package main.java.org.ce.ap.server;
 
-import main.java.org.ce.ap.client.Client;
-
 public class TweetingService {
 
 
     Database database;
     ObserverService observerService;
+    private int counter;
 
 
     public TweetingService(Database database, ObserverService observerService){
         this.database = database;
         this.observerService=observerService;
+        counter=1;
     }
 
 
     public void addTweet(Tweet tweet) {
-
-        for (Tweet t : database.getClientPage(tweet.getClient()).getTweets()) {
-            if (t.equals(tweet)) {
-                //observerService.DeletingForOtherPeople(tweet.getClient(), tweet);
-
-                t.changeDate();
-                //update date
-                //better idea
-
-                //database.getClientPage(client).getTweets().add(tweet);
-              //  observerService.notification(tweet.getClient(), tweet);
-                return;
-            }
-        }
-
-        database.getClientPage(tweet.getClient()).getTweets().add(tweet);
-        observerService.notification(tweet.getClient(), tweet);
+        tweet.id=counter;
+        database.getClientPageFromUsername(tweet.clientUsername).addTweet(tweet);
+        observerService.notification(database.getClientPageFromUsername(tweet.clientUsername).getClient(), tweet);
     }
 
     public void deleteTweet(Tweet tweet) {
-        database.getClientPage(tweet.getClient()).getTweets().remove(tweet);
-        observerService.DeletingForOtherPeople(tweet.getClient(), tweet);
+        database.getClientPageFromUsername(tweet.getClient()).getTweets().remove(tweet);
+        observerService.DeletingForOtherPeople(database.getClientPageFromUsername(tweet.clientUsername).getClient(), tweet);
     }
 
 

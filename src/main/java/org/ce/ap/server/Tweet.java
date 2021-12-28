@@ -1,26 +1,26 @@
 package main.java.org.ce.ap.server;
 
-import main.java.org.ce.ap.client.Client;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Tweet  extends Message{
-    Client client;
-    private ArrayList<Client> retweets = new ArrayList<>();
+public class Tweet  extends Message {
+    String clientUsername;
 
-    public Tweet(Client client,String text) throws RuntimeException{
-        if(text.length() < 256)
-            this.text=text;
+    public int id;
+
+    public Tweet(String client, String text, int id) throws RuntimeException {
+        if (text.length() < 256)
+            this.text = text;
         else {
             throw new RuntimeException();
         }
-        this.client=client;
-        this.date= LocalDateTime.now();
+        this.clientUsername = client;
+        this.date = LocalDateTime.now();
+        this.id = id;
     }
-    public void changeDate()
-    {
+
+    public void changeDate() {
         date = LocalDateTime.now();
     }
 
@@ -29,25 +29,22 @@ public class Tweet  extends Message{
 
         return (o instanceof Tweet &&
                 ((Tweet) o).date == this.date &&
-                ((Tweet) o).client.equals(client) &&
+                ((Tweet) o).clientUsername.equals(clientUsername) &&
                 ((Tweet) o).text == text);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(client);
+        return Objects.hash(clientUsername);
     }
 
-    public Client getClient() {
-        return client;
+    public String getClient() {
+        return clientUsername;
     }
 
-    public void addClientToRetweetThisTweet(Client client)
-    {
-        retweets.add(client);
+    public void addClientToRetweetThisTweet(Client client) {
+        retweets.add(client.getUserName());
     }
 
-    public ArrayList<Client> getRetweets() {
-        return retweets;
-    }
+
 }

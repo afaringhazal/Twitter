@@ -1,6 +1,5 @@
 package main.java.org.ce.ap.server;
 
-import main.java.org.ce.ap.client.Client;
 //import org.json.JSONArray;
 
 import java.util.ArrayList;

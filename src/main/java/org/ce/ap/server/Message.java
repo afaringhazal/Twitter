@@ -1,16 +1,15 @@
 package main.java.org.ce.ap.server;
 
-import main.java.org.ce.ap.client.Client;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public abstract class Message {
 
-    public LocalDateTime date;
-    public String text;
+    protected LocalDateTime date;
+    protected String text;
     private ArrayList<String> likes = new ArrayList<>();
     private ArrayList<Message> replies=new ArrayList<>();
+    protected ArrayList<String> retweets = new ArrayList<>();
 
 
     public ArrayList<Message> getReplies() {
@@ -48,6 +47,18 @@ public abstract class Message {
     public LocalDateTime getDate() {
         return date;
     }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+    public ArrayList<String> getRetweets() {
+        return retweets;
+    }
+
 }
 
 

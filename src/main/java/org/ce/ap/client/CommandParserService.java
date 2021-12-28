@@ -71,62 +71,6 @@ public class CommandParserService {
 
     }
 
-    private void addTweet()
-    {         //add tweet
-        System.out.println("Please Enter the tweet text : ");
-        String s = scanner.nextLine();
-        if(s.length()>256)
-        {
-            System.out.println("more than 256");
-            return;
-        }
-
-        request.setTitle("Add Tweet");
-        ArrayList<Object> parameters = new ArrayList<>();
-
-        parameters.add( new ParameterValue("Tweet", s));
-        request.setParameterValue(parameters);
-        try {
-            connectionService.connectCommandParserToServer(gson.toJson(request));
-        }catch (IOException e)
-        {
-            System.out.println("We can't connect to server for add tweet.\nplease again");
-            return;
-        }
-
-        try{
-            response = gson.fromJson(connectionService.connectServerToCommandParser(),Response.class);
-
-            if(response.isHasError())
-            {
-                throw new RuntimeException();
-            }
-
-        }catch (IOException | ClassNotFoundException e)
-        {
-            System.out.println("We can't connect to server for receive tweet\nplease again");
-            return;
-        }
-
-
-        try{
-            response = gson.fromJson(connectionService.connectServerToCommandParser(),Response.class);
-
-            if(response.isHasError())
-                throw new RuntimeException();
-
-        }catch (IOException | ClassNotFoundException e)
-        {
-            System.out.println("We can't connect to server for receive page\nplease again");
-            return;
-        }
-
-
-        consoleViewService.ShowTweet(response);
-
-
-
-    }
 
 
     public  void menu()  {
@@ -377,6 +321,66 @@ public class CommandParserService {
 
 
     }
+
+
+    private void addTweet()
+    {         //add tweet
+        System.out.println("Please Enter the tweet text : ");
+        String s = scanner.nextLine();
+        if(s.length()>256)
+        {
+            System.out.println("more than 256");
+            return;
+        }
+
+        request.setTitle("Add Tweet");
+        ArrayList<Object> parameters = new ArrayList<>();
+
+        parameters.add( new ParameterValue("Tweet", s));
+        request.setParameterValue(parameters);
+        try {
+            connectionService.connectCommandParserToServer(gson.toJson(request));
+        }catch (IOException e)
+        {
+            System.out.println("We can't connect to server for add tweet.\nplease again");
+            return;
+        }
+
+        try{
+            response = gson.fromJson(connectionService.connectServerToCommandParser(),Response.class);
+
+            if(response.isHasError())
+            {
+                throw new RuntimeException();
+            }
+
+        }catch (IOException | ClassNotFoundException e)
+        {
+            System.out.println("We can't connect to server for receive tweet\nplease again");
+            return;
+        }
+
+
+
+        try{
+            response = gson.fromJson(connectionService.connectServerToCommandParser(),Response.class);
+
+            if(response.isHasError())
+                throw new RuntimeException();
+
+        }catch (IOException | ClassNotFoundException e)
+        {
+            System.out.println("We can't connect to server for receive page\nplease again");
+            return;
+        }
+
+
+        consoleViewService.ShowTweet(response);
+
+
+
+    }
+
 }
 
 

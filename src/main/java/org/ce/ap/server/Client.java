@@ -1,4 +1,4 @@
-package main.java.org.ce.ap.client;
+package main.java.org.ce.ap.server;
 
 //import org.json.JSONObject;
 
@@ -6,9 +6,6 @@ package main.java.org.ce.ap.client;
 
 //import main.java.org.ce.ap.server.PersonalInformation;
 
-import main.java.org.ce.ap.server.PersonalInformation;
-
-import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.util.Objects;
 

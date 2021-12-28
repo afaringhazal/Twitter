@@ -1,7 +1,5 @@
 package main.java.org.ce.ap.server;
 
-import main.java.org.ce.ap.client.Client;
-
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 

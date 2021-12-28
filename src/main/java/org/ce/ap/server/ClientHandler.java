@@ -1,11 +1,9 @@
 package main.java.org.ce.ap.server;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import main.java.org.ce.ap.ParameterValue;
 import main.java.org.ce.ap.Request;
 import main.java.org.ce.ap.Response;
-import main.java.org.ce.ap.client.Client;
 //import org.json.JSONException;
 //import org.json.JSONObject;
 
@@ -101,8 +99,6 @@ public class ClientHandler implements Runnable {
 
                    response.setResults( processTweet(tweet));
                     objectOutputStream.writeObject(response);
-
-
 
                 }
                else if(clientToHandler.getString("Title").equals("Delete Tweet"))
@@ -268,30 +264,31 @@ public class ClientHandler implements Runnable {
     public ArrayList<Object> processTweet(Tweet tweet){
 
         ArrayList<Object> parameters = new ArrayList<>();
-
-        parameters.add( new ParameterValue("Text", tweet.text));
-        parameters.add(new ParameterValue("UserName", page.getClient().getUserName()));
-        ArrayList<ParameterValue> retweets=new ArrayList<>();
-        for (Client client : tweet.getRetweets()) {
-            retweets.add(new ParameterValue("retweeter", client.getUserName()));
-
-        }
-        parameters.add(new ParameterValue("Retweets",retweets));
-
-        ArrayList<String> tweetLikes =new ArrayList<>() ;
-        for (String string: tweet.getLikes()) {
-            retweets.add(new ParameterValue("liker", string));
-
-        }
-        parameters.add(new ParameterValue("likes",tweetLikes));
-
-        ArrayList<String> tweetReplies =new ArrayList<>() ;
-        for (Message msg:tweet.getReplies() ) {
-
-            retweets.add(new ParameterValue(((Reply) msg).getReplier().getUserName(),((Reply) msg).getText()));
-
-        }
-        parameters.add(new ParameterValue("Replies",tweetReplies));
+//
+//        parameters.add(new ParameterValue("Text", tweet.text));
+//        parameters.add(new ParameterValue("UserName", page.getClient().getUserName()));
+//        ArrayList<ParameterValue> retweets=new ArrayList<>();
+//        for (String clientUsername : tweet.getRetweets()) {
+//            retweets.add(new ParameterValue("retweeter", clientUsername));
+//
+//        }
+//        parameters.add(new ParameterValue("Retweets",retweets));
+//
+//        ArrayList<String> tweetLikes =new ArrayList<>() ;
+//        for (String string: tweet.getLikes()) {
+//            retweets.add(new ParameterValue("liker", string));
+//
+//        }
+//        parameters.add(new ParameterValue("likes",tweetLikes));
+//
+//        ArrayList<String> tweetReplies =new ArrayList<>() ;
+//        for (Message msg:tweet.getReplies() ) {
+//
+//            retweets.add(new ParameterValue(((Reply) msg).getReplier(),((Reply) msg).getText()));
+//
+//        }
+//        parameters.add(new ParameterValue("Replies",tweetReplies));
+        parameters.add(tweet);
         return parameters;
 
     }
