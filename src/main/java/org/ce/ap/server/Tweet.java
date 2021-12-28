@@ -2,19 +2,16 @@ package main.java.org.ce.ap.server;
 
 import main.java.org.ce.ap.client.Client;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import java.time.LocalDateTime;
-
 public class Tweet  extends Message{
     Client client;
-    private ArrayList<Client> retweet = new ArrayList<>();
+    private ArrayList<Client> retweets = new ArrayList<>();
 
-    public Tweet(Client client,char[]text) throws RuntimeException{
-        if(text.length < 256)
+    public Tweet(Client client,String text) throws RuntimeException{
+        if(text.length() < 256)
             this.text=text;
         else {
             throw new RuntimeException();
@@ -47,10 +44,10 @@ public class Tweet  extends Message{
 
     public void addClientToRetweetThisTweet(Client client)
     {
-        retweet.add(client);
+        retweets.add(client);
     }
 
-    public ArrayList<Client> getRetweet() {
-        return retweet;
+    public ArrayList<Client> getRetweets() {
+        return retweets;
     }
 }

@@ -1,6 +1,7 @@
 package main.java.org.ce.ap.server;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import main.java.org.ce.ap.ParameterValue;
 import main.java.org.ce.ap.Request;
 import main.java.org.ce.ap.Response;
@@ -55,6 +56,7 @@ public class ClientHandler implements Runnable {
             objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
 
             while (clientIsConnected) {
+                response = new Response(false,0,0,null);
 
                 message = (String) objectInputStream.readObject();
                request = gson.fromJson(message,Request.class);
@@ -79,44 +81,28 @@ public class ClientHandler implements Runnable {
                     //client
                     //page follower
                 }
-               else if(clientToHandler.getString("Title").equals("Add Tweet"))
+               else if(request.getTitle().equals("Add Tweet"))
                 {
                     //creat tweet and add
-                    Tweet tweet = null;
-                    try {
-                         tweet = new Tweet((Client) clientToHandler.getJSONObject("parameterValues").get("Client"),clientToHandler.getJSONObject("parameterValues").getString("content").toCharArray());
 
-                    }
-                    catch (RuntimeException e)
-                    {
-                        jo.put("HasError","True");
-                        jo.put("ErrorCode","Invalid char number for tweets");
-                        jo.put("Count",0);
-                        jo.put("Results","");
-                        objectOutputStream.writeObject(jo);
-                        continue;
-                    }
+                   String s = (String) ((ParameterValue) request.getParameterValue().get(0)).getValue();
 
-                    tweetingService.addTweet(tweet);
+                   Tweet tweet= new Tweet(page.getClient(),s);
+                   try {
+                       tweetingService.addTweet(tweet);
+                   }
+                   catch (Exception e)
+                   {
+                       response.setHasError(true);
+                       response.setErrorCode(11);
+                   }
 
+                   response.setCount(6);
 
-                    JSONObject jsonObject = new JSONObject();
-                    jsonObject.put("Content",tweet.getText());
-                    jsonObject.put("UserName",tweet.getClient().getUserName());
-                    jsonObject.put("CreationDate",tweet.getDate());
-                    jsonObject.put("Like",tweet.getLikes());
-                    jsonObject.put("Retweets",tweet.getRetweet());
-                    jsonObject.put("Replies",tweet.getReplies());
-
-                    jo.put("HasError","False");
-                    jo.put("ErrorCode","");
-                    jo.put("Count",5);
-                    jo.put("Results",jsonObject);
+                   response.setResults( processTweet(tweet));
+                    objectOutputStream.writeObject(response);
 
 
-
-                    //output
-                    objectOutputStream.writeObject(jo);
 
                 }
                else if(clientToHandler.getString("Title").equals("Delete Tweet"))
@@ -204,8 +190,8 @@ public class ClientHandler implements Runnable {
 
 
     private void processSignUp() throws IOException, NoSuchAlgorithmException, ClassNotFoundException {
-        PersonalInformation personalInformation = authenticationService.signUpRequest(((ParameterValue) request.getParameterValue().get(0)).getValue()
-                , ((ParameterValue) request.getParameterValue().get(1)).getValue());
+        PersonalInformation personalInformation = authenticationService.signUpRequest((String) ((ParameterValue) request.getParameterValue().get(0)).getValue()
+                , (String)((ParameterValue) request.getParameterValue().get(1)).getValue());
 
         if (personalInformation == null) {
             response.setHasError(true);
@@ -227,15 +213,15 @@ public class ClientHandler implements Runnable {
 
         message = (String) objectInputStream.readObject();
         request = gson.fromJson(message,Request.class);
-        int year=Integer.parseInt(((ParameterValue)request.getParameterValue().get(2)).getValue());
-        int month=Integer.parseInt(((ParameterValue)request.getParameterValue().get(3)).getValue());
-        int day=Integer.parseInt(((ParameterValue)request.getParameterValue().get(4)).getValue());
+        int year=Integer.parseInt((String)((ParameterValue)request.getParameterValue().get(2)).getValue());
+        int month=Integer.parseInt((String)((ParameterValue)request.getParameterValue().get(3)).getValue());
+        int day=Integer.parseInt((String)((ParameterValue)request.getParameterValue().get(4)).getValue());
         LocalDate localDate =LocalDate.of(year,month,day);
 
-        Client client = new Client(((ParameterValue) request.getParameterValue().get(0)).getValue(),((ParameterValue) request.getParameterValue().get(1)).getValue(),
+        Client client = new Client((String)((ParameterValue) request.getParameterValue().get(0)).getValue(),(String)((ParameterValue) request.getParameterValue().get(1)).getValue(),
          localDate, personalInformation);
 
-      page =  authenticationService.signUp(client,((ParameterValue)request.getParameterValue().get(5)).getValue(),((ParameterValue)request.getParameterValue().get(6)).getValue())
+      page =  authenticationService.signUp(client,(String)((ParameterValue)request.getParameterValue().get(5)).getValue(),((ParameterValue)request.getParameterValue().get(6)).getValue())
         response.setCount(1);
 
          result = new ArrayList<>();
@@ -259,8 +245,8 @@ public class ClientHandler implements Runnable {
     private void processSignIn() throws NoSuchAlgorithmException, IOException {
 
 
-        page = authenticationService.signInRequest(((ParameterValue) request.getParameterValue().get(0)).getValue(),
-                (((ParameterValue) request.getParameterValue().get(1)).getValue()));
+        page = authenticationService.signInRequest((String) ((ParameterValue) request.getParameterValue().get(0)).getValue(),
+                (String) ((ParameterValue) request.getParameterValue().get(1)).getValue());
         if (page == null) {
             response.setHasError(true);
             response.setErrorCode(15);
@@ -276,6 +262,38 @@ public class ClientHandler implements Runnable {
 
         response.setResults(result);
         objectOutputStream.writeObject(response);
+    }
+
+
+    public ArrayList<Object> processTweet(Tweet tweet){
+
+        ArrayList<Object> parameters = new ArrayList<>();
+
+        parameters.add( new ParameterValue("Text", tweet.text));
+        parameters.add(new ParameterValue("UserName", page.getClient().getUserName()));
+        ArrayList<ParameterValue> retweets=new ArrayList<>();
+        for (Client client : tweet.getRetweets()) {
+            retweets.add(new ParameterValue("retweeter", client.getUserName()));
+
+        }
+        parameters.add(new ParameterValue("Retweets",retweets));
+
+        ArrayList<String> tweetLikes =new ArrayList<>() ;
+        for (String string: tweet.getLikes()) {
+            retweets.add(new ParameterValue("liker", string));
+
+        }
+        parameters.add(new ParameterValue("likes",tweetLikes));
+
+        ArrayList<String> tweetReplies =new ArrayList<>() ;
+        for (Message msg:tweet.getReplies() ) {
+
+            retweets.add(new ParameterValue(((Reply) msg).getReplier().getUserName(),((Reply) msg).getText()));
+
+        }
+        parameters.add(new ParameterValue("Replies",tweetReplies));
+        return parameters;
+
     }
 
 }

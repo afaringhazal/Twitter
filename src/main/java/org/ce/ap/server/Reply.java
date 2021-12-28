@@ -6,10 +6,15 @@ import java.time.LocalDateTime;
 
 public class Reply extends Message {
     Message message;
+
+    public Client getReplier() {
+        return replier;
+    }
+
     Client replier;
     boolean repliedOnAReply=false;
 
-    public Reply(Message tweet, Client replier, char[] text) {
+    public Reply(Message tweet, Client replier, String text) {
 
         this.message = tweet;
 

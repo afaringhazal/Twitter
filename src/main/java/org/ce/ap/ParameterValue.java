@@ -2,9 +2,9 @@ package main.java.org.ce.ap;
 
 public class ParameterValue {
     private String name;
-    private String value;
+    private Object value;
 
-    public ParameterValue(String name, String value) {
+    public ParameterValue(String name, Object value) {
         this.name = name;
         this.value = value;
     }
@@ -17,7 +17,7 @@ public class ParameterValue {
         this.name = name;
     }
 
-    public String getValue() {
+    public Object getValue() {
         return value;
     }
 

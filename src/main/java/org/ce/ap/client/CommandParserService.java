@@ -25,6 +25,7 @@ public class CommandParserService {
 
     boolean shouldRun=true;
     private  ConnectionService connectionService;
+    private ConsoleViewService consoleViewService = new ConsoleViewService();
   // private static JSONObject jsonObject = new JSONObject();
 
 
@@ -74,45 +75,54 @@ public class CommandParserService {
     {         //add tweet
         System.out.println("Please Enter the tweet text : ");
         String s = scanner.nextLine();
-        // handle in has error!
-//                if (s.length() > 256) {
-//                    System.out.println("The maximum length is 256 characters");
-//                    continue;
-//                }
+        if(s.length()>256)
+        {
+            System.out.println("more than 256");
+            return;
+        }
 
+        request.setTitle("Add Tweet");
+        ArrayList<Object> parameters = new ArrayList<>();
 
-
-
-
-        jsonObject.put("Title", "Add Tweet");
-        //jsonObject.put("description" ,"Validate tweet and send it"); // not matter
-
-        JSONObject jsonObject1 = new JSONObject();
-        jsonObject1.put("Content", s);
-        jsonObject1.put("Client",page.getClient());
-
-        jsonObject.put("ParameterValues",jsonObject1);
-
-
+        parameters.add( new ParameterValue("Tweet", s));
+        request.setParameterValue(parameters);
         try {
-            connectionService.connectCommandParserToServer(jsonObject);
-            System.out.println("Send tweet.");
-        } catch (IOException e) {
-            System.out.println("We can't connect to the server to send tweet.\nplease again!");
-            continue;
+            connectionService.connectCommandParserToServer(gson.toJson(request));
+        }catch (IOException e)
+        {
+            System.out.println("We can't connect to server for add tweet.\nplease again");
+            return;
+        }
+
+        try{
+            response = gson.fromJson(connectionService.connectServerToCommandParser(),Response.class);
+
+            if(response.isHasError())
+            {
+                throw new RuntimeException();
+            }
+
+        }catch (IOException | ClassNotFoundException e)
+        {
+            System.out.println("We can't connect to server for receive tweet\nplease again");
+            return;
         }
 
 
+        try{
+            response = gson.fromJson(connectionService.connectServerToCommandParser(),Response.class);
 
-        //show
-        try {
-            JSONObject jsonObject = connectionService.connectServerToCommandParser();
-            ConsoleViewService.ShowTweet((Tweet) jsonObject.get("Tweet"));
+            if(response.isHasError())
+                throw new RuntimeException();
 
-        } catch (IOException  | ClassNotFoundException e ) {
-            System.out.println("We can't connect to the server to receive information \nplease again!");
-            continue;
+        }catch (IOException | ClassNotFoundException e)
+        {
+            System.out.println("We can't connect to server for receive page\nplease again");
+            return;
         }
+
+
+        consoleViewService.ShowTweet(response);
 
 
 

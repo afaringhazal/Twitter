@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public abstract class Message {
 
     public LocalDateTime date;
-    public char[] text;
+    public String text;
     private ArrayList<String> likes = new ArrayList<>();
     private ArrayList<Message> replies=new ArrayList<>();
 
@@ -41,7 +41,7 @@ public abstract class Message {
     }
 
 
-    public char[] getText() {
+    public String getText() {
         return text;
     }
 

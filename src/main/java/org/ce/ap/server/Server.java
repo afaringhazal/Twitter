@@ -62,7 +62,7 @@ public class Server {
         PersonalInformation personalInformation = new PersonalInformation("ff","12");
         Client c =new Client("f","a", LocalDate.now(),personalInformation);
         //Page p = new Page(c,"fff",LocalDate.now());
-        authenticationService.signUpRequest(c,"jj","id");
+        //authenticationService.signUpRequest(c,"jj","id");
         System.out.println("---------");
 
 

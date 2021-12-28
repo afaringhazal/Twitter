@@ -45,7 +45,6 @@ public class ObserverService {
         {
             page.addFollowingsTweet(tweet);
         }
-//        JSONArray jsonArray=new JSONArray();
 
     }
 
