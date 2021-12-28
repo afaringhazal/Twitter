@@ -24,7 +24,8 @@ public class ClientHandler implements Runnable {
 
     private AuthenticationService authenticationService;
     private TweetingService tweetingService;
-    private Database database;
+    private  ObserverService observerService;
+
     private TimelineService timelineService;
 
     Response response = new Response(false,0,0,null);
@@ -36,13 +37,15 @@ public class ClientHandler implements Runnable {
 
     Gson gson = new Gson();
 
-    public ClientHandler(Socket socket, AuthenticationService authenticationService, TweetingService tweetingService) {
+    public ClientHandler(Socket socket, AuthenticationService authenticationService, TweetingService tweetingService,ObserverService observerService,TimelineService timelineService) {
         this.socket = socket;
         this.clientIsConnected = true;
 
 
         this.authenticationService = authenticationService;
         this.tweetingService = tweetingService;
+        this.observerService =observerService;
+        this.timelineService =timelineService;
 
     }
 
@@ -66,86 +69,19 @@ public class ClientHandler implements Runnable {
                    processSignIn();
 
                }
-                else if(clientToHandler.getString("Title").equals("get Followers"))
-                {
-                    //need page
-                    Page page = (Page) clientToHandler.get("Page");
-                    jo.put("Followers",page.getFollowers());
-                    objectOutputStream.writeObject(jo);
+               else if(request.getTitle().equals("Get Timeline")) {
+                   processTimeLine();
 
-                }
-               else if(clientToHandler.getString("Title").equals("Delete Follower"))
-                {
-                    //client
-                    //page follower
-                }
-               else if(request.getTitle().equals("Add Tweet"))
-                {
-                    //creat tweet and add
+               }
+               else if(request.getTitle().equals("Show Followers"))
+                 {
 
-                   String s = (String) ((ParameterValue) request.getParameterValue().get(0)).getValue();
-
-                   Tweet tweet= new Tweet(page.getClient(),s);
-                   try {
-                       tweetingService.addTweet(tweet);
-                   }
-                   catch (Exception e)
-                   {
-                       response.setHasError(true);
-                       response.setErrorCode(11);
-                   }
-
-                   response.setCount(6);
-
-                   response.setResults( processTweet(tweet));
-                    objectOutputStream.writeObject(response);
-
-                }
-               else if(clientToHandler.getString("Title").equals("Delete Tweet"))
-                {
-                    tweetingService.deleteTweet((Tweet) clientToHandler.get("ParameterValues"));
-
-                }
-                else if(clientToHandler.getString("Title").equals("All Tweet")) //for choose like
-                {
-                    List<Message> AllTweet =new ArrayList<>();
-                    int numberAllTweet=0;
-                    for(Client client : database.getClients())
-                    {
-                        for (Tweet tweet : database.getClientPage(client).getTweets())
-                        {
-                            AllTweet.add(tweet);
-                            numberAllTweet++;
-                        }
-                    }
-
-                    //sort
-                   AllTweet = timelineService.sortMessages(AllTweet);
-
-                    jo.put("HasError","False");
-                    jo.put("ErrorCode","");
-                    jo.put("Count",numberAllTweet);
-                    jo.put("Results",AllTweet);
-
-                    //send all tweet
-                    objectOutputStream.writeObject(jo);
+                     ShowAllFollowers();
 
 
-                }
-                else if(clientToHandler.getString("Title").equals("Like"))
-                {
-                    tweetingService.like(((Tweet)clientToHandler.getJSONObject("ParameterValues").get("Tweet")).getClient(),(Tweet) clientToHandler.getJSONObject("ParameterValues").get("Tweet"),
-                         (Client) clientToHandler.getJSONObject("ParameterValues").get("MyClientToLike"));
 
+                 }
 
-                    jo.put("HasError","false");
-                    jo.put("ErrorCode","");
-                    jo.put("Count",1);
-                    jo.put("Results",clientToHandler.getJSONObject("ParameterValues").get("Tweet"));
-
-                    objectOutputStream.writeObject(jo);
-
-                }
 
 
 
@@ -217,7 +153,7 @@ public class ClientHandler implements Runnable {
         Client client = new Client((String)((ParameterValue) request.getParameterValue().get(0)).getValue(),(String)((ParameterValue) request.getParameterValue().get(1)).getValue(),
          localDate, personalInformation);
 
-      page =  authenticationService.signUp(client,(String)((ParameterValue)request.getParameterValue().get(5)).getValue(),((ParameterValue)request.getParameterValue().get(6)).getValue())
+      page =  authenticationService.signUp(client,(String)((ParameterValue)request.getParameterValue().get(5)).getValue(),(String)((ParameterValue)request.getParameterValue().get(6)).getValue())
         response.setCount(1);
 
          result = new ArrayList<>();
@@ -225,14 +161,11 @@ public class ClientHandler implements Runnable {
         result.add(p);
 
         response.setResults(result);
-        objectOutputStream.writeObject(response);
+        objectOutputStream.writeObject(gson.toJson(response));
 
 
 
     }
-
-
-
 
 
 
@@ -257,14 +190,19 @@ public class ClientHandler implements Runnable {
         result.add(p);
 
         response.setResults(result);
-        objectOutputStream.writeObject(response);
+        objectOutputStream.writeObject(gson.toJson(response));
     }
 
 
     public ArrayList<Object> processTweet(Tweet tweet){
 
         ArrayList<Object> parameters = new ArrayList<>();
-//
+        parameters.add(tweet);
+        return parameters;
+
+
+
+        //
 //        parameters.add(new ParameterValue("Text", tweet.text));
 //        parameters.add(new ParameterValue("UserName", page.getClient().getUserName()));
 //        ArrayList<ParameterValue> retweets=new ArrayList<>();
@@ -288,10 +226,37 @@ public class ClientHandler implements Runnable {
 //
 //        }
 //        parameters.add(new ParameterValue("Replies",tweetReplies));
-        parameters.add(tweet);
-        return parameters;
+    }
+
+    public void processTimeLine() throws IOException {
+
+        ArrayList<Object> result = new ArrayList<>();
+        result.addAll(timelineService.gatherTimeline(page.getClient().getUserName()));
+
+        response.setResults(result);
+
+        objectOutputStream.writeObject(gson.toJson(response));
+
 
     }
+
+
+
+    public void ShowAllFollowers() throws IOException {  ArrayList<Object> UserNameFollower = null;
+        try{
+            UserNameFollower.addAll(observerService.getFollowers(page.getClient().getUserName()));
+
+        }catch (Exception e)
+        {
+            response.setHasError(true);
+            response.setErrorCode(12);
+        }
+
+        response.setResults(UserNameFollower);
+        objectOutputStream.writeObject(gson.toJson(response));
+        
+    }
+
 
 }
 

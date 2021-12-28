@@ -4,16 +4,11 @@ import com.google.gson.Gson;
 import main.java.org.ce.ap.ParameterValue;
 import main.java.org.ce.ap.Request;
 import main.java.org.ce.ap.Response;
-import main.java.org.ce.ap.server.Page;
-import main.java.org.ce.ap.server.PersonalInformation;
 //import org.json.JSONArray;
 //import org.json.JSONException;
 //import org.json.JSONObject;
 
 import java.io.IOException;
-import java.net.PortUnreachableException;
-import java.security.NoSuchAlgorithmException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -42,7 +37,7 @@ public class CommandParserService {
         }
 
         while (shouldRun) {
-            System.out.println("1- sign in 2- sign up 3- exit");
+            System.out.println("1-Sign in\n2-Sign up\n3-Exit");
             try {
                 int n =scanner.nextInt();
                 scanner.nextLine();
@@ -73,11 +68,11 @@ public class CommandParserService {
 
 
 
-    public  void menu()  {
+    public  void showMainMenu()  {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             int n;
-            System.out.println("1 - add tweet 2- delete tweet 3- Like   show page");
+            System.out.println("1-Add tweet\n2-Timeline\n3-My Page\n4-Sign Out");
             try {
                 n = scanner.nextInt();
                 scanner.next();
@@ -86,46 +81,35 @@ public class CommandParserService {
                 continue;
             }
 
-            //Title , ParameterValues => Requests
-            //
+
             if (n == 1) {
                 addTweet();
 
 
             } else if (n == 2) {
-                //show all tweet
-                JSONObject j = ConsoleViewService.ShowAllTweetForOnePage(page);
-                System.out.println("Which one do you want to delete?");
-                int number;
-                while (true)
-                {
-                    try {
-                        number =scanner.nextInt();
-                        if(number >0 || number <= page.getTweets().size())
-                            break;
-                        else
-                            System.out.println("The number entered is not in the range. Please enter again");
-                    }catch (Exception e)
-                    {
-                        System.out.println("Not Valid input,Enter again!");
-
-                    }
-                }
-                Tweet tweet = (Tweet) j.get(String.valueOf(number));
-
-                jsonObject.put("Title", "Delete Tweet");
-                jsonObject.put("ParameterValues",tweet);
-
-                try {
-                    connectionService.connectCommandParserToServer(jsonObject);
-                } catch (IOException e) {
-                    System.out.println("We can't connect to the server to delete tweet.\nplease again!");
-                    continue;
-                }
-                System.out.println("Successful!");
+                requestTimeline();
 
             }
            else if (n == 3) {
+
+               // add tweet
+                //show tweet
+                //add following
+                //delete follower & following =>show follower
+
+
+                // delete
+
+
+
+
+
+
+
+
+
+
+
                 //Can like any existing tweet
 
                 jsonObject.put("Title", "All Tweet");
@@ -214,6 +198,7 @@ public class CommandParserService {
 
         try {
             connectionService.connectCommandParserToServer(gson.toJson(request));
+            refreshRequest();
         }catch (IOException e)
         {
             System.out.println("We can't connect to server for sign in.\nplease again");
@@ -232,8 +217,11 @@ public class CommandParserService {
             return;
         }
 
-        menu();
+        showMainMenu();;
 
+    }
+    public void refreshRequest(){
+       request= new Request("",null);
     }
 
 
@@ -257,6 +245,7 @@ public class CommandParserService {
 
         try {
             connectionService.connectCommandParserToServer(gson.toJson(request));
+            refreshRequest();
         }catch (IOException e)
         {
             System.out.println("We can't connect to server for sign up.\nplease again");
@@ -301,6 +290,7 @@ public class CommandParserService {
         request.setParameterValue(signUpParameters);
         try {
             connectionService.connectCommandParserToServer(gson.toJson(request));
+            refreshRequest();
         }catch (IOException e)
         {
             System.out.println("We can't connect to server for sign up Details.\nplease again");
@@ -317,6 +307,7 @@ public class CommandParserService {
             System.out.println("Couldn't create new profile\nplease again");
             return;
         }
+        showMainMenu();
 
 
 
@@ -340,6 +331,7 @@ public class CommandParserService {
         request.setParameterValue(parameters);
         try {
             connectionService.connectCommandParserToServer(gson.toJson(request));
+            refreshRequest();
         }catch (IOException e)
         {
             System.out.println("We can't connect to server for add tweet.\nplease again");
@@ -362,20 +354,114 @@ public class CommandParserService {
 
 
 
+
+
+//        consoleViewService.ShowTweet(response);
+
+
+
+    }
+    public void requestTimeline(){
+        request.setTitle("Get Timeline");
+        request.setParameterValue(null);
+        try {
+            connectionService.connectCommandParserToServer(gson.toJson(request));
+            refreshRequest();
+        }catch (IOException e)
+        {
+            System.out.println("We can't connect to server to get Timeline.\nplease again");
+            return;
+        }
+
         try{
             response = gson.fromJson(connectionService.connectServerToCommandParser(),Response.class);
 
             if(response.isHasError())
                 throw new RuntimeException();
+        }catch (IOException | ClassNotFoundException e)
+        {
+            System.out.println("Couldn't create new profile\nplease again");
+            return;
+        }
+
+        consoleViewService.printAllTweets(response);
+
+
+    }
+
+    public void deleteFollower()
+    {
+        request.setTitle("Show Followers");
+        request.setParameterValue(null);
+
+        try {
+            connectionService.connectCommandParserToServer(gson.toJson(request));
+            refreshRequest();
+        }catch (IOException e)
+        {
+            System.out.println("We can't connect to server for add tweet.\nplease again");
+            return;
+        }
+
+        try{
+            response = gson.fromJson(connectionService.connectServerToCommandParser(),Response.class);
+
+            if(response.isHasError())
+            {
+                throw new RuntimeException();
+            }
 
         }catch (IOException | ClassNotFoundException e)
         {
-            System.out.println("We can't connect to server for receive page\nplease again");
+            System.out.println("We can't connect to server for receive tweet\nplease again");
+            return;
+        }
+
+        consoleViewService.printAllFollowers(response);
+
+
+        System.out.println("Enter user name :");
+        String use = scanner.nextLine();
+        request.setTitle("Delete Follower");
+        ArrayList<Object> parameters = new ArrayList<>();
+        parameters.add(use);
+        request.setParameterValue(parameters);
+
+
+
+        try {
+            connectionService.connectCommandParserToServer(gson.toJson(request));
+            refreshRequest();
+        }catch (IOException e)
+        {
+            System.out.println("We can't connect to server for add tweet.\nplease again");
+            return;
+        }
+
+        try{
+            response = gson.fromJson(connectionService.connectServerToCommandParser(),Response.class);
+
+            if(response.isHasError())
+            {
+                throw new RuntimeException();
+            }
+
+        }catch (IOException | ClassNotFoundException e)
+        {
+            System.out.println("We can't connect to server for receive tweet\nplease again");
             return;
         }
 
 
-        consoleViewService.ShowTweet(response);
+
+
+
+
+
+
+
+
+
 
 
 

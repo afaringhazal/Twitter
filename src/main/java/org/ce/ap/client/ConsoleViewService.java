@@ -4,10 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import main.java.org.ce.ap.Request;
 import main.java.org.ce.ap.Response;
-import main.java.org.ce.ap.server.Message;
-import main.java.org.ce.ap.server.Page;
-import main.java.org.ce.ap.server.Reply;
-import main.java.org.ce.ap.server.Tweet;
+import main.java.org.ce.ap.server.*;
 
 import java.util.ArrayList;
 
@@ -28,11 +25,30 @@ public class ConsoleViewService {
 
     public void printAllTweets(Response response) {
         for (Object obj : response.getResults()) {
-            Tweet tweet= (Tweet) obj;
-            System.out.println("|" + tweet.getClient() + "                         " + tweet.getDate());
-            System.out.println("|" + tweet.getText());
-            System.out.println("|" + tweet.getRetweets().size() + " Retweets, " + tweet.getLikes().size() + " Likes");
-            printReply(tweet, 0);
+            if (obj instanceof Tweet) {
+                Tweet tweet = (Tweet) obj;
+                System.out.println("|" + tweet.getClient() + "                         " + tweet.getDate());
+                System.out.println("|" + tweet.getText());
+                System.out.println("|" + tweet.getRetweets().size() + " Retweets, " + tweet.getLikes().size() + " Likes");
+                printReply(tweet, 0);
+            }
+            else if(obj instanceof Retweet){
+                Retweet retweet =(Retweet) obj;
+                System.out.println("|" + retweet.getRetweetClient() +" (Retweeted)"+ "                         " + retweet.getDate());
+                if(retweet.getText()!=null)
+                {
+                    System.out.println("|"+retweet.getText());
+                }
+                System.out.println("--|"+retweet.getTweet().getClient()+"                         "+retweet.getTweet().getDate());
+                System.out.println("--|" + retweet.getTweet().getText());
+                System.out.print("--|"+retweet.getTweet().getRetweets().size()+" Retweets, "+retweet.getTweet().getLikes().size()+ " Likes");
+                System.out.println("|" + retweet.getRetweets().size() + " Retweets, " + retweet.getLikes().size() + " Likes");
+                printReply(retweet, 0);
+
+
+
+            }
+            else {throw new RuntimeException(); }
 
         }
     }
@@ -104,6 +120,12 @@ public class ConsoleViewService {
         {
             System.out.print("-");
         }
+    }
+
+    public void printAllFollowers(Response response)
+    {
+
+
     }
 
 

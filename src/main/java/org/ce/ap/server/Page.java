@@ -12,9 +12,9 @@ public class Page {
     private String biography;
     private LocalDate joinDate;
     private ArrayList<Tweet> tweets;
-    private ArrayList<Page> followersList;
-    private ArrayList<Page> followingsList;
-    private ArrayList<Tweet> followingsTweets;
+    private ArrayList<String> followersList;
+    private ArrayList<String> followingsList;
+    private ArrayList<Tweet> retweets;
     private ArrayList<Message> LikedTweetsList;
 
 
@@ -28,7 +28,7 @@ public class Page {
         followersList = new ArrayList<>();
         followingsList = new ArrayList<>();
         LikedTweetsList = new ArrayList<>();
-        followingsTweets=new ArrayList<>();
+        retweets=new ArrayList<>();
 
         if (biography.length() > 256)
             throw new RuntimeException("More than 256!");
@@ -38,8 +38,8 @@ public class Page {
     }
 
 
-    public void addFollowing(Page page) {
-        followingsList.add(page);
+    public void addFollowing(String username) {
+        followingsList.add(username);
     }
 
     public void deleteFollowing(Page page) {
@@ -70,8 +70,8 @@ public class Page {
         LikedTweetsList.add(tweet);
     }
 
-    public void addFollowingsTweet(Tweet tweet) {
-        followingsTweets.add(tweet);
+    public void addRetweet(Tweet tweet) {
+        retweets.add(tweet);
     }
 
     //setters and getters
@@ -83,16 +83,16 @@ public class Page {
         return tweets;
     }
 
-    public ArrayList<Page> getFollowers() {
+    public ArrayList<String> getFollowers() {
         return followersList;
     }
 
-    public ArrayList<Page> getFollowingsList() {
+    public ArrayList<String> getFollowingsList() {
         return followingsList;
     }
 
-    public ArrayList<Tweet> getFollowingsTweets() {
-        return followingsTweets;
+    public ArrayList<Tweet> getRetweets() {
+        return getRetweets();
     }
 
     public ArrayList<Message> getLikedTweetsList() {

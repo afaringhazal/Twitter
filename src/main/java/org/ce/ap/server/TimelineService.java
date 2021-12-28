@@ -1,7 +1,9 @@
 package main.java.org.ce.ap.server;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class TimelineService {
 
@@ -28,41 +30,34 @@ public class TimelineService {
         return messages;
     }
 
-    public ArrayList<Message> followingsTweets(Client client) {
+    public ArrayList<Message> gatherTimeline(String username) {
+        ArrayList<Message> timeline = new ArrayList<>();
+        timeline.addAll(gatherRetweets(username));
+        timeline.addAll(gatherTweets(username));
+        Set<Message> set = new HashSet<>(timeline);
+        timeline.clear();
+        timeline.addAll(set);
+        sortMessages(timeline);
+        return timeline;
+    }
 
+    public ArrayList<Message> gatherTweets(String username){
+        Client client=database.getClientFromUsername(username);
         ArrayList<Message> followingsTweets = new ArrayList<>();
-        for (Page page : database.getClientPage(client).getFollowingsList()) {
-            followingsTweets.addAll(page.getTweets());
+        for (String userName : database.getClientPage(client).getFollowingsList()) {
+            followingsTweets.addAll(database.getClientPageFromUsername(userName).getTweets());
         }
-        sortMessages(followingsTweets);
         return followingsTweets;
     }
 
-    public ArrayList<Message> followingsLikes(Client client) {
-        ArrayList<Message> followingsTweets = new ArrayList<>(database.getClientPage(client).getLikedTweetsList());
-        sortMessages(followingsTweets);
-        return followingsTweets;
-    }
-
-    public ArrayList<Message> followingsRetweets(Client client) {
-
-        ArrayList<Message> followingsTweets = new ArrayList<>();
-        for (Page page : database.getClientPage(client).getFollowingsList()) {
-            followingsTweets.addAll(page.getTweets());
+    public ArrayList<Message> gatherRetweets(String username) {
+        Client client=database.getClientFromUsername(username);
+        ArrayList<Message> followingsRetweets = new ArrayList<>();
+        for (String userName : database.getClientPage(client).getFollowingsList()) {
+            followingsRetweets.addAll(database.getClientPageFromUsername(userName).getRetweets());
         }
-        sortMessages(followingsTweets);
-        return followingsTweets;
+        return followingsRetweets;
 
     }
 
-    public ArrayList<Message> followingsReplies(Client client) {
-
-
-        ArrayList<Message> followingsTweets = new ArrayList<>();
-        for (Page page : database.getClientPage(client).getFollowingsList()) {
-            followingsTweets.addAll(page.getTweets());
-        }
-        sortMessages(followingsTweets);
-        return followingsTweets;
-    }
 }

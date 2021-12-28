@@ -4,13 +4,13 @@ public class TweetingService {
 
 
     Database database;
-    ObserverService observerService;
+   // ObserverService observerService;
     private int counter;
 
 
-    public TweetingService(Database database, ObserverService observerService){
+    public TweetingService(Database database){
         this.database = database;
-        this.observerService=observerService;
+        //this.observerService=observerService;
         counter=1;
     }
 
@@ -18,12 +18,12 @@ public class TweetingService {
     public void addTweet(Tweet tweet) {
         tweet.id=counter;
         database.getClientPageFromUsername(tweet.clientUsername).addTweet(tweet);
-        observerService.notification(database.getClientPageFromUsername(tweet.clientUsername).getClient(), tweet);
+       //observerService.notification(database.getClientPageFromUsername(tweet.clientUsername).getClient(), tweet);
     }
 
     public void deleteTweet(Tweet tweet) {
         database.getClientPageFromUsername(tweet.getClient()).getTweets().remove(tweet);
-        observerService.DeletingForOtherPeople(database.getClientPageFromUsername(tweet.clientUsername).getClient(), tweet);
+       // observerService.DeletingForOtherPeople(database.getClientPageFromUsername(tweet.clientUsername).getClient(), tweet);
     }
 
 

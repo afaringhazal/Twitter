@@ -23,11 +23,11 @@ public class Server {
 
     public Server() {
 
-        database =new Database();//= loadDatabase();
+        database = loadDatabase();
         observerService = new ObserverService(database);
         authenticationService = new AuthenticationService(database);
         timelineService = new TimelineService(database);
-        tweetingService = new TweetingService(database, observerService);
+        tweetingService = new TweetingService(database);
 
 
         try {
@@ -35,7 +35,7 @@ public class Server {
             while (shouldRun) {
                 Socket socket = serverSocket.accept();
                 System.out.println("socket.toString() = " + socket.toString());
-                executorService.execute(new ClientHandler(socket,authenticationService,tweetingService));
+                executorService.execute(new ClientHandler(socket,authenticationService,tweetingService,observerService,timelineService));
 
 
             }
