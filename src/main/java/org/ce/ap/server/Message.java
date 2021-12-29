@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 public abstract class Message {
 
-    protected LocalDateTime date;
-    protected String text;
+    public LocalDateTime date;
+    public String text;
     private ArrayList<String> likes = new ArrayList<>();
     private ArrayList<Message> replies=new ArrayList<>();
     protected ArrayList<String> retweets = new ArrayList<>();

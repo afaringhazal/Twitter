@@ -12,32 +12,30 @@ import java.net.Socket;
 
 
 public class ConnectionService {
-    private static Socket socket ;
-    private static ObjectOutputStream objectOutputStream = null;
-    public static ObjectInputStream objectInputStream = null;
+    private  Socket socket ;
+    private  ObjectOutputStream objectOutputStream = null;
+    public  ObjectInputStream objectInputStream = null;
 
     public ConnectionService() throws IOException {
 
-            socket = new Socket("127.0.0.1", 1234);
-            objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
-            objectInputStream = new ObjectInputStream(socket.getInputStream());
+        socket = new Socket("127.0.0.1", 1234);
+        objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+        objectInputStream = new ObjectInputStream(socket.getInputStream());
+        System.out.println("Connected!");
 
     }
-
-    public String connectServerToCommandParser() throws IOException, ClassNotFoundException {
+    public String receiveFromServer() throws IOException, ClassNotFoundException {
         return (String) objectInputStream.readObject();
 
 
     }
 
-   public void connectCommandParserToServer(String s) throws IOException {
+   public void sendToServer(String s) throws IOException {
+       System.out.println("_________");
         objectOutputStream.writeObject(s);
-    //   objectOutputStream.writeObject("ffff");
+
    }
-    public void connectCommandParserToServer(JSONObject s) throws IOException {
-        objectOutputStream.writeObject(s);
-        //   objectOutputStream.writeObject("ffff");
-    }
+
     public String stop() throws IOException {
         objectInputStream.close();
         objectOutputStream.close();

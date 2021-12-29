@@ -9,7 +9,7 @@ public class Tweet  extends Message {
 
     public int id;
 
-    public Tweet(String client, String text, int id) throws RuntimeException {
+    public Tweet(String client, String text) throws RuntimeException {
         if (text.length() < 256)
             this.text = text;
         else {
@@ -17,7 +17,7 @@ public class Tweet  extends Message {
         }
         this.clientUsername = client;
         this.date = LocalDateTime.now();
-        this.id = id;
+
     }
 
     public void changeDate() {

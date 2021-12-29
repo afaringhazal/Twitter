@@ -3,7 +3,6 @@ package main.java.org.ce.ap.server;
 //import org.json.JSONArray;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class ObserverService {
 
@@ -13,22 +12,22 @@ public class ObserverService {
         this.database = database;
     }
 
-    public void deleteFollower(String UserNameFollower, String userName){
+    public boolean deleteFollower(String followerUserName, String userName){
 
-        database.getClientPageFromUsername(userName).deleteFollower(database.getClientPageFromUsername(UserNameFollower));
+       return database.getClientPageFromUsername(userName).deleteFollower(followerUserName);
 
     }
 
 
-    public void addFollowing(String UserNameFollowing, String userName){
+    public boolean follow(String UserNameFollowing, String userName){
 
-        database.getClientPageFromUsername(userName).addFollowing(UserNameFollowing);
+       return database.getClientPageFromUsername(userName).addFollowing(UserNameFollowing);
     }
 
 
-    public void deleteFollowing(String UserNameFollowing, String userName){
+    public boolean unfollow(String followingUsername, String userName){
 
-        database.getClientPageFromUsername(userName).deleteFollowing(database.getClientPageFromUsername(UserNameFollowing));
+       return database.getClientPageFromUsername(userName).deleteFollowing(followingUsername);
 
     }
     public ArrayList<String> getFollowers(String userName)

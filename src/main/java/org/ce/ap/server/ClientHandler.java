@@ -1,6 +1,7 @@
 package main.java.org.ce.ap.server;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import main.java.org.ce.ap.ParameterValue;
 import main.java.org.ce.ap.Request;
 import main.java.org.ce.ap.Response;
@@ -14,6 +15,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,77 +26,76 @@ public class ClientHandler implements Runnable {
 
     private AuthenticationService authenticationService;
     private TweetingService tweetingService;
-    private  ObserverService observerService;
+    private ObserverService observerService;
 
     private TimelineService timelineService;
 
-    Response response = new Response(false,0,0,null);
-    Request request ;
-    ObjectInputStream objectInputStream ;
+    Response response = new Response(false, 0, 0, null);
+    Request request;
+    ObjectInputStream objectInputStream;
     ObjectOutputStream objectOutputStream;
-    String message="";
+    String message = "";
     Page page = null;
 
-    Gson gson = new Gson();
+    Gson gson;
 
-    public ClientHandler(Socket socket, AuthenticationService authenticationService, TweetingService tweetingService,ObserverService observerService,TimelineService timelineService) {
+    public ClientHandler(Socket socket, AuthenticationService authenticationService, TweetingService tweetingService, ObserverService observerService, TimelineService timelineService) {
+        fixGson();
         this.socket = socket;
         this.clientIsConnected = true;
-
-
         this.authenticationService = authenticationService;
         this.tweetingService = tweetingService;
-        this.observerService =observerService;
-        this.timelineService =timelineService;
+        this.observerService = observerService;
+        this.timelineService = timelineService;
 
     }
 
     @Override
     public void run() {
 
+        System.out.println("********");
         try {
             objectInputStream = new ObjectInputStream(socket.getInputStream());
             objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
 
             while (clientIsConnected) {
-                response = new Response(false,0,0,null);
-
+                refreshResponse();
                 message = (String) objectInputStream.readObject();
-               request = gson.fromJson(message,Request.class);
+                System.out.println("request received");
 
-                 if(request.getTitle().equals("Sign up")) {
-                     processSignUp();
-                 }
-               else if(request.getTitle().equals("Sign In")) {
-                   processSignIn();
+                request = gson.fromJson(message, Request.class);
+                System.out.println(request.getTitle() + "  " + request.getParameterValue());
 
-               }
-               else if(request.getTitle().equals("Get Timeline")) {
-                   processTimeLine();
+                if (request.getTitle().equals("Sign Up")) {
+                    System.out.println("requested sign up");
+                    processSignUp();
 
-               }
-               else if(request.getTitle().equals("Show Followers"))
-                 {
+                } else if (request.getTitle().equals("Sign In")) {
+                    System.out.println("Sign in requested");
+                    processSignIn();
 
-                     ShowAllFollowers();
+                } else if (request.getTitle().equals("Get Timeline")) {
+                    processTimeLine();
 
+                } else if (request.getTitle().equals("Show Followers")) {
+                    ShowAllFollowers();
 
-
-                 }
-
-
-
-
-
-
-
-
-
-                //finish tweeting service
-
-
-
-
+                } else if (request.getTitle().equals("Delete Follower")) {
+                    requestDeleteFollower();
+                }else if(request.getTitle().equals("unfollow"))
+                {
+                    requestUnfollow();
+                } else if (request.getTitle().equals("Add Tweet")) {
+                    processTweet();
+                }
+                else if(request.getTitle().equals("Show AllUsernames"))
+                {
+                    ShowAllUsernames();
+                }
+                else if(request.getTitle().equals("follow"))
+                {
+                    requestFollow();
+                }
 
 
 
@@ -108,8 +109,6 @@ public class ClientHandler implements Runnable {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
@@ -118,18 +117,19 @@ public class ClientHandler implements Runnable {
     }
 
 
-
-
-
     private void processSignUp() throws IOException, NoSuchAlgorithmException, ClassNotFoundException {
-        PersonalInformation personalInformation = authenticationService.signUpRequest((String) ((ParameterValue) request.getParameterValue().get(0)).getValue()
-                , (String)((ParameterValue) request.getParameterValue().get(1)).getValue());
+
+        String username= (String) request.getParameterValue().get(0);
+        String password= (String) request.getParameterValue().get(1);
+        System.out.println(username+"  "+ password);
+        PersonalInformation personalInformation = authenticationService.signUpRequest(username,password);
 
         if (personalInformation == null) {
             response.setHasError(true);
             response.setErrorCode(20);
+            System.out.println("signup user is already used.");
         }
-
+        System.out.println("sign up user/pass is allowed.");
 
         response.setCount(1);
 
@@ -140,48 +140,53 @@ public class ClientHandler implements Runnable {
         response.setResults(result);
 
         objectOutputStream.writeObject(gson.toJson(response));
-
+        refreshResponse();
 
 
         message = (String) objectInputStream.readObject();
-        request = gson.fromJson(message,Request.class);
-        int year=Integer.parseInt((String)((ParameterValue)request.getParameterValue().get(2)).getValue());
-        int month=Integer.parseInt((String)((ParameterValue)request.getParameterValue().get(3)).getValue());
-        int day=Integer.parseInt((String)((ParameterValue)request.getParameterValue().get(4)).getValue());
-        LocalDate localDate =LocalDate.of(year,month,day);
+        System.out.println("received further request.");
+        request = gson.fromJson(message, Request.class);
+        System.out.println(request.getParameterValue().get(2));
+        System.out.println(request.getParameterValue().get(3));
+        System.out.println(request.getParameterValue().get(4));
+        int year = Integer.parseInt((String)request.getParameterValue().get(3));
+        System.out.println("year " +year);
 
-        Client client = new Client((String)((ParameterValue) request.getParameterValue().get(0)).getValue(),(String)((ParameterValue) request.getParameterValue().get(1)).getValue(),
-         localDate, personalInformation);
+        int month = Integer.parseInt((String)request.getParameterValue().get(3));
+        int day = Integer.parseInt((String)request.getParameterValue().get(3));
+        LocalDate localDate = LocalDate.of(9, month, day);
+        System.out.println("2222222");
+        System.out.println(localDate);
 
-      page =  authenticationService.signUp(client,(String)((ParameterValue)request.getParameterValue().get(5)).getValue(),(String)((ParameterValue)request.getParameterValue().get(6)).getValue())
+        Client client = new Client((String) request.getParameterValue().get(0), (String)request.getParameterValue().get(1),
+                localDate, personalInformation);
+
+        page = authenticationService.signUp(client, (String)request.getParameterValue().get(5),(String) request.getParameterValue().get(6));
         response.setCount(1);
-
-         result = new ArrayList<>();
-         p = new ParameterValue("Result", "Connected");
+        System.out.println("Authentication completed.");
+        result = new ArrayList<>();
+        p = new ParameterValue("Result", "Connected");
         result.add(p);
 
         response.setResults(result);
         objectOutputStream.writeObject(gson.toJson(response));
-
-
-
+        refreshResponse();
+        System.out.println("signUp successful.");
     }
-
-
-
 
 
     private void processSignIn() throws NoSuchAlgorithmException, IOException {
 
 
-        page = authenticationService.signInRequest((String) ((ParameterValue) request.getParameterValue().get(0)).getValue(),
-                (String) ((ParameterValue) request.getParameterValue().get(1)).getValue());
+        page = authenticationService.signInRequest((String) (request.getParameterValue().get(0)),
+                (String) ( request.getParameterValue().get(1)));
         if (page == null) {
+            System.out.println("+");
             response.setHasError(true);
             response.setErrorCode(15);
 
         }
-
+        System.out.println("no problem");
 
         response.setCount(1);
 
@@ -191,17 +196,21 @@ public class ClientHandler implements Runnable {
 
         response.setResults(result);
         objectOutputStream.writeObject(gson.toJson(response));
+        System.out.println("sent response");
+        refreshResponse();
+
     }
 
 
-    public ArrayList<Object> processTweet(Tweet tweet){
+    public void processTweet() throws IOException {
 
-        ArrayList<Object> parameters = new ArrayList<>();
-        parameters.add(tweet);
-        return parameters;
-
-
-
+        String text= (String) (request.getParameterValue().get(0));
+        if (!tweetingService.addTweet(new Tweet(page.getClient().getUserName(),text))) {
+            response.setHasError(true);
+            response.setErrorCode(23);
+        }
+        objectOutputStream.writeObject(gson.toJson(response));
+        refreshResponse();
         //
 //        parameters.add(new ParameterValue("Text", tweet.text));
 //        parameters.add(new ParameterValue("UserName", page.getClient().getUserName()));
@@ -228,36 +237,108 @@ public class ClientHandler implements Runnable {
 //        parameters.add(new ParameterValue("Replies",tweetReplies));
     }
 
+
     public void processTimeLine() throws IOException {
 
+        System.out.println((page.getClient().getUserName()));
         ArrayList<Object> result = new ArrayList<>();
         result.addAll(timelineService.gatherTimeline(page.getClient().getUserName()));
-
+        System.out.println(result);
         response.setResults(result);
-
+        System.out.println(gson.toJson(response));
         objectOutputStream.writeObject(gson.toJson(response));
+        refreshResponse();
 
 
     }
 
 
-
-    public void ShowAllFollowers() throws IOException {  ArrayList<Object> UserNameFollower = null;
-        try{
+    public void ShowAllFollowers() throws IOException {
+        ArrayList<Object> UserNameFollower = null;
+        try {
             UserNameFollower.addAll(observerService.getFollowers(page.getClient().getUserName()));
 
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             response.setHasError(true);
             response.setErrorCode(12);
         }
 
         response.setResults(UserNameFollower);
         objectOutputStream.writeObject(gson.toJson(response));
-        
+        refreshResponse();
+
     }
 
 
+    public void requestDeleteFollower() throws IOException {
+
+        String userName = (String) request.getParameterValue().get(0);
+        if (!observerService.deleteFollower(userName, page.getClient().getUserName())) {
+
+            response.setHasError(true);
+            response.setErrorCode(22);
+
+        }
+        response.setCount(1);
+        response.setResults(null);
+        objectOutputStream.writeObject(gson.toJson(response));
+        refreshResponse();
+    }
+
+    public void requestUnfollow() throws IOException {
+
+        String userName = (String) request.getParameterValue().get(0);
+        if (!observerService.unfollow(userName, page.getClient().getUserName())) {
+
+            response.setHasError(true);
+            response.setErrorCode(23);
+
+        }
+        response.setCount(1);
+        response.setResults(null);
+        objectOutputStream.writeObject(gson.toJson(response));
+        refreshResponse();
+    }
+
+    public void requestFollow() throws IOException {
+        ArrayList<Object> follow = request.getParameterValue();
+        for(Object obj : follow)
+        {
+            if(!observerService.follow((String) obj,page.getClient().getUserName())) {
+                response.setHasError(true);
+                response.setErrorCode(22);
+            }
+        }
+
+        objectOutputStream.writeObject(gson.toJson(response));
+
+    }
+
+    public void refreshResponse(){response = new Response(false, 0, 0, null);}
+
+    public void fixGson(){
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(LocalDate.class, new Server.LocalDateSerializer());
+
+        gsonBuilder.registerTypeAdapter(LocalDateTime.class, new Server.LocalDateTimeSerializer());
+
+        gsonBuilder.registerTypeAdapter(LocalDate.class, new Server.LocalDateDeserializer());
+
+        gsonBuilder.registerTypeAdapter(LocalDateTime.class, new Server.LocalDateTimeDeserializer());
+
+        gson = gsonBuilder.setPrettyPrinting().create();
+
+    }
+
+    public void ShowAllUsernames() throws IOException {
+
+        ArrayList<Object> x = new ArrayList<>();
+        x.addAll(authenticationService.AllUserNames());
+        response.setResults(x);
+        objectOutputStream.writeObject(gson.toJson(response));
+        refreshResponse();
+    }
 }
+
 
 

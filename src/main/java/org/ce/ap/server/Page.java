@@ -38,16 +38,16 @@ public class Page {
     }
 
 
-    public void addFollowing(String username) {
-        followingsList.add(username);
+    public  boolean addFollowing(String username) {
+        return followingsList.add(username);
     }
 
-    public void deleteFollowing(Page page) {
-        followingsList.remove(page);
+    public boolean deleteFollowing(String username) {
+        return followingsList.remove(username);
     }
 
-    public void deleteFollower(Page page) {
-        followersList.remove(page);
+    public boolean deleteFollower(String username) {
+        return followersList.remove(username);
     }
 
     public String getBiography() {
@@ -70,15 +70,14 @@ public class Page {
         LikedTweetsList.add(tweet);
     }
 
-    public void addRetweet(Tweet tweet) {
-        retweets.add(tweet);
+    public boolean addRetweet(Tweet tweet) {
+        return retweets.add(tweet);
     }
 
-    //setters and getters
-
-    public void addTweet(Tweet tweet){
-        tweets.add(tweet);
+    public boolean addTweet(Tweet tweet){
+        return tweets.add(tweet);
     }
+
     public ArrayList<Tweet> getTweets() {
         return tweets;
     }
@@ -92,7 +91,7 @@ public class Page {
     }
 
     public ArrayList<Tweet> getRetweets() {
-        return getRetweets();
+        return retweets;
     }
 
     public ArrayList<Message> getLikedTweetsList() {

@@ -1,9 +1,14 @@
 package main.java.org.ce.ap.server;
 
+import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Database {
+    public Database() throws NoSuchAlgorithmException {
+
+    }
 
     private ArrayList<Client> clients=new ArrayList<>();
     private ArrayList<Tweet> allTweets=new ArrayList<>();
@@ -35,11 +40,21 @@ public class Database {
     public Client getClientFromUsername(String s){
         Client client=null;
         for (Client c:clients){
-            if (client.getUserName().equals(s)){
+            if (c.getUserName().equals(s)){
                 client=c;
             }
         }
         return client;
+    }
+    public ArrayList <String> getUserNames(){
+        ArrayList<String> usernames=new ArrayList<>();
+        for (Client client:clients){
+
+            usernames.add(client.getUserName());
+
+        }
+
+        return usernames;
     }
     public void addTweetToAllTweets(Tweet tweet){
         allTweets.add(tweet);
@@ -51,4 +66,5 @@ public class Database {
         }
         return null ;
    }
+
 }

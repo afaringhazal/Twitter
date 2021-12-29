@@ -1,6 +1,7 @@
 package main.java.org.ce.ap.server;
 
 import java.io.*;
+import java.security.NoSuchAlgorithmException;
 
 public class FileManagement {
 
@@ -38,9 +39,9 @@ public class FileManagement {
     }
 
 
-    public Database loadAll() {
+    public Database loadAll() throws NoSuchAlgorithmException {
         refreshFilesInFolder();
-        Database database = null;
+        Database database = new Database();
         try {
 
             FileInputStream fileInputStream = null;

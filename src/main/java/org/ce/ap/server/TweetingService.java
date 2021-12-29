@@ -15,10 +15,11 @@ public class TweetingService {
     }
 
 
-    public void addTweet(Tweet tweet) {
+    public boolean addTweet(Tweet tweet) {
         tweet.id=counter;
-        database.getClientPageFromUsername(tweet.clientUsername).addTweet(tweet);
-       //observerService.notification(database.getClientPageFromUsername(tweet.clientUsername).getClient(), tweet);
+        counter++;
+        return database.getClientPageFromUsername(tweet.clientUsername).addTweet(tweet);
+
     }
 
     public void deleteTweet(Tweet tweet) {

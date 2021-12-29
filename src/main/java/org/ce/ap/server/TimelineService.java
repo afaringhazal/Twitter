@@ -31,13 +31,19 @@ public class TimelineService {
     }
 
     public ArrayList<Message> gatherTimeline(String username) {
-        ArrayList<Message> timeline = new ArrayList<>();
-        timeline.addAll(gatherRetweets(username));
+        ArrayList<Message> timeline = new ArrayList<>(gatherRetweets(username));
+        System.out.println("retweets received");
         timeline.addAll(gatherTweets(username));
+        System.out.println("tweets received");
+        System.out.println(timeline);
         Set<Message> set = new HashSet<>(timeline);
+        System.out.println(set);
         timeline.clear();
         timeline.addAll(set);
-        sortMessages(timeline);
+        System.out.println(timeline);
+        //sortMessages(timeline);
+        System.out.println("sorted");
+        System.out.println(timeline);
         return timeline;
     }
 
@@ -47,6 +53,7 @@ public class TimelineService {
         for (String userName : database.getClientPage(client).getFollowingsList()) {
             followingsTweets.addAll(database.getClientPageFromUsername(userName).getTweets());
         }
+        followingsTweets.addAll(database.getClientPage(client).getTweets());
         return followingsTweets;
     }
 
