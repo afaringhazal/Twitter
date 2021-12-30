@@ -1,27 +1,21 @@
 package main.java.org.ce.ap.client;
 
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-
-
-
-
-
+import java.util.Properties;
 
 
 public class ConnectionService {
     private  Socket socket ;
     private  ObjectOutputStream objectOutputStream = null;
     public  ObjectInputStream objectInputStream = null;
+    Properties props=new Properties();
 
-    public ConnectionService() throws IOException {
+    public ConnectionService()  {
 
-        socket = new Socket("127.0.0.1", 1234);
-        objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
-        objectInputStream = new ObjectInputStream(socket.getInputStream());
-        System.out.println("Connected!");
 
     }
     public String receiveFromServer() throws IOException, ClassNotFoundException {
@@ -43,6 +37,31 @@ public class ConnectionService {
         socket.close();
 
         return "Done Client";
+    }
+
+    private void readProps(){
+
+        try {
+            FileReader reader;
+            reader=new FileReader("src/main/resources/client-application.properties");
+            props.load(reader);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    private void connectToServer(){
+        try {
+            socket = new Socket("127.0.0.1", Integer.parseInt((String)props.get("server.port")));
+            objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+            objectInputStream = new ObjectInputStream(socket.getInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
 }

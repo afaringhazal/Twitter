@@ -15,8 +15,6 @@ public class ConsoleViewService {
     //  String jsonText = JSONValue.toJSONString(obj);
 
     public  void ShowPage(Page page){
-        //information ==> name , ... , bio,id , ..., id followers and following , ...
-
 
     }
 

@@ -32,10 +32,13 @@ public class Database {
         return getClientPage(ClientId.get(s));
     }
 
+
     public HashMap<String,Client> getClientIds(){
 
         return ClientId;
     }
+
+
 
     public Client getClientFromUsername(String s){
         Client client=null;
@@ -46,6 +49,8 @@ public class Database {
         }
         return client;
     }
+
+
     public ArrayList <String> getUserNames(){
         ArrayList<String> usernames=new ArrayList<>();
         for (Client client:clients){
@@ -56,9 +61,13 @@ public class Database {
 
         return usernames;
     }
+
+
     public void addTweetToAllTweets(Tweet tweet){
         allTweets.add(tweet);
     }
+
+
    public Tweet getTweet(int id){
 
         for (Tweet tweet:allTweets){

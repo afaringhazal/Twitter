@@ -1,7 +1,8 @@
 package main.java.org.ce.ap.server;
 
 import com.google.gson.*;
-import java.io.IOException;
+
+import java.io.*;
 import java.lang.reflect.Type;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -10,6 +11,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -22,25 +24,55 @@ public class Server {
     Database database;
     boolean shouldRun = true;
     ServerSocket serverSocket;
-
+    Properties props=new Properties();
     ExecutorService executorService = Executors.newCachedThreadPool();
 
 
+    public static void main(String[] args) throws NoSuchAlgorithmException {
+        new Server();
+    }
 
 
-    public Server() throws NoSuchAlgorithmException {
+
+    public Server() {
+        initializeServer();
+        acceptClients();
+    }
 
 
-        database = new Database();
+
+    private void initializeServer() {
+        readProps();
+        try {
+            database = new Database();
+            authenticationService = new AuthenticationService(database);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
         observerService = new ObserverService(database);
-        authenticationService = new AuthenticationService(database);
         timelineService = new TimelineService(database);
         tweetingService = new TweetingService(database);
-        sampleDatabase();
 
+    }
+
+
+    private void readProps(){
 
         try {
-            serverSocket = new ServerSocket(1234);
+            FileReader reader;
+            reader=new FileReader("src/main/resources/server-application.properties");
+            props.load(reader);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    private void acceptClients(){
+
+        try {
+            serverSocket = new ServerSocket(Integer.parseInt((String) props.get("server.port")));
             while (shouldRun) {
                 Socket socket = serverSocket.accept();
                 System.out.println("socket " + socket.toString());
@@ -55,37 +87,10 @@ public class Server {
 
 
 
-
     public Database loadDatabase() throws NoSuchAlgorithmException {
         FileManagement fileManagement = new FileManagement();
-        return fileManagement.loadAll();
+        return fileManagement.loadDatabase();
     }
-
-
-
-
-
-    public static void main(String[] args) throws NoSuchAlgorithmException {
-
-        new Server();
-
-
-    }
-
-
-
-
-    public void sampleDatabase() throws NoSuchAlgorithmException {
-
-        authenticationService.signUp(new Client(1 + "", 1 + "", LocalDate.now(), new PersonalInformation(1 + "", 1 + "")), 1 + "", 1 + "");
-        authenticationService.signUp(new Client(2 + "", 2 + "", LocalDate.now(), new PersonalInformation(2 + "", 2 + "")), 12 + "", 2 + "");
-        observerService.follow(1 + "", 2 + "");
-        tweetingService.addTweet(new Tweet(1 + "", "hello"));
-        tweetingService.addTweet(new Tweet(2 + "", "hello"));
-        tweetingService.addTweet(new Tweet(1 + "", "waeawellsd"));
-        observerService.follow(2+"",1+"");
-    }
-
 
 
 
@@ -116,7 +121,6 @@ public class Server {
         }
     }
 
-
     public static class LocalDateTimeDeserializer implements JsonDeserializer<LocalDateTime> {
         @Override
         public LocalDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
@@ -125,5 +129,4 @@ public class Server {
                     DateTimeFormatter.ofPattern("d::MMM::uuuu HH::mm::ss").withLocale(Locale.ENGLISH));
         }
     }
-
 }
