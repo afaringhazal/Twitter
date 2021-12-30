@@ -14,15 +14,19 @@ public class ConnectionService {
     public  ObjectInputStream objectInputStream = null;
     Properties props=new Properties();
 
-    public ConnectionService()  {
-
+    public ConnectionService() {
+        readProps();
+        connectToServer();
 
     }
+
+
     public String receiveFromServer() throws IOException, ClassNotFoundException {
         return (String) objectInputStream.readObject();
 
 
     }
+
 
    public void sendToServer(String s) throws IOException {
         objectOutputStream.writeObject(s);
@@ -31,6 +35,7 @@ public class ConnectionService {
 
    }
 
+
     public String stop() throws IOException {
         objectInputStream.close();
         objectOutputStream.close();
@@ -38,6 +43,7 @@ public class ConnectionService {
 
         return "Done Client";
     }
+
 
     private void readProps(){
 

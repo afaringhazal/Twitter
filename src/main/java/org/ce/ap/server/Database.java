@@ -1,11 +1,12 @@
 package main.java.org.ce.ap.server;
 
+import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Database {
+public class Database implements Serializable {
     public Database() throws NoSuchAlgorithmException {
 
     }

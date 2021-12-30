@@ -1,8 +1,9 @@
 package main.java.org.ce.ap.server;
 
+import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 
-public class PersonalInformation {
+public class PersonalInformation implements Serializable {
 
     private String userName;
     private String password;

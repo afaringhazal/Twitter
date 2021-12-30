@@ -1,9 +1,10 @@
 package main.java.org.ce.ap.server;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public abstract class Message {
+public abstract class Message implements Serializable {
 
     public LocalDateTime date;
     public String text;
