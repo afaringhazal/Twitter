@@ -96,6 +96,14 @@ public class ClientHandler implements Runnable {
                 {
                     requestFollow();
                 }
+                else if(request.getTitle().equals("showFollowersAndFollowings"))
+                {
+                    showFollowersAndFollowings();
+                }
+                else if(request.getTitle().equals("myTweetAndReplies")){
+                    sentMyTweetAndReplies();
+                }
+
 
 
 
@@ -237,7 +245,6 @@ public class ClientHandler implements Runnable {
 //        parameters.add(new ParameterValue("Replies",tweetReplies));
     }
 
-
     public void processTimeLine() throws IOException {
 
         System.out.println((page.getClient().getUserName()));
@@ -252,8 +259,8 @@ public class ClientHandler implements Runnable {
 
     }
 
-
     public void ShowAllFollowers() throws IOException {
+        ///////
         ArrayList<Object> UserNameFollower = null;
         try {
             UserNameFollower.addAll(observerService.getFollowers(page.getClient().getUserName()));
@@ -268,7 +275,6 @@ public class ClientHandler implements Runnable {
         refreshResponse();
 
     }
-
 
     public void requestDeleteFollower() throws IOException {
 
@@ -311,6 +317,7 @@ public class ClientHandler implements Runnable {
         }
 
         objectOutputStream.writeObject(gson.toJson(response));
+        refreshResponse();
 
     }
 
@@ -337,6 +344,42 @@ public class ClientHandler implements Runnable {
         response.setResults(x);
         objectOutputStream.writeObject(gson.toJson(response));
         refreshResponse();
+    }
+
+    public void showFollowersAndFollowings() throws IOException {
+
+        ArrayList<Object> UserNameFollowers = null;
+        ArrayList<Object> UserNameFollowings= null;
+        try {
+            UserNameFollowers.addAll(observerService.getFollowers(page.getClient().getUserName()));
+            UserNameFollowings.addAll(observerService.getFollowings(page.getClient().getUserName()));
+
+        } catch (Exception e) {
+            response.setHasError(true);
+            response.setErrorCode(12);
+        }
+
+        ArrayList<Object> result = new ArrayList<>();
+        result.add(UserNameFollowers);
+        result.add(UserNameFollowings);
+
+        response.setResults(result);
+
+
+        objectOutputStream.writeObject(gson.toJson(response));
+        refreshResponse();
+
+    }
+
+    public void sentMyTweetAndReplies() throws IOException {
+
+        ArrayList<Object> result = new ArrayList<>();
+        result.addAll(page.getTweets());
+        response.setResults(result);
+        objectOutputStream.writeObject(gson.toJson(response));
+        refreshResponse();
+
+
     }
 }
 

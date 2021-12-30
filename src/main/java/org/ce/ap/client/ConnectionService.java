@@ -31,8 +31,9 @@ public class ConnectionService {
     }
 
    public void sendToServer(String s) throws IOException {
-       System.out.println("_________");
         objectOutputStream.writeObject(s);
+       System.out.println("sent to server");
+
 
    }
 

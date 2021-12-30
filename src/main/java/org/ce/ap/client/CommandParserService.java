@@ -107,6 +107,10 @@ public class CommandParserService {
 
                 // delete
             }
+           else if(n==4)
+            {
+               break;
+            }
 
 
         }
@@ -258,7 +262,7 @@ public class CommandParserService {
         request.setTitle("Add Tweet");
         ArrayList<Object> parameters = new ArrayList<>();
 
-        parameters.add( s);
+        parameters.add(s);
         request.setParameterValue(parameters);
         try {
             connectionService.sendToServer(gson.toJson(request));
@@ -282,14 +286,6 @@ public class CommandParserService {
             System.out.println("We can't connect to server for receive tweet\nplease again");
             return;
         }
-
-
-
-
-
-
-
-
 
     }
 
@@ -331,7 +327,8 @@ public class CommandParserService {
             Scanner scanner = new Scanner(System.in);
 
             int n;
-            System.out.println("1-Follow\n2-Unfollow\n3-remove follower");
+            //System.out.println("1-Follow\n2-Unfollow\n3-remove follower\n4-exit");
+            System.out.println("1-Followers and followings\n2-Add Tweet\n3-my Tweets & replies\n4-Likes  ,......");
             System.out.println("");
             try {
                 n = Integer.parseInt(scanner.nextLine());
@@ -343,15 +340,21 @@ public class CommandParserService {
 
 
             if (n == 1) {
-                follow();
-
-
+                followersAndFollowingsMenu();
             } else if (n == 2) {
-               unfollow();
+
+               addTweet();
 
             } else if (n == 3) {
-        deleteFollower();
+                myTweetAndReplies();
 
+            }
+            else if(n==4) {
+                myFavoriteTweets();
+
+            }
+            else if(n==5){
+                break;
             }
         }
     }
@@ -360,8 +363,30 @@ public class CommandParserService {
 
         request.setTitle("Show AllUsernames");
         request.setParameterValue(null);
-        connectionService.sendToServer(gson.toJson(request));
-        response = gson.fromJson(connectionService.receiveFromServer(),Response.class);
+        try {
+            connectionService.sendToServer(gson.toJson(request));
+            refreshRequest();
+        }catch (IOException e)
+        {
+            System.out.println("We can't connect to server to add tweet.\nplease again");
+            return;
+        }
+
+        try{
+            response = gson.fromJson(connectionService.receiveFromServer(),Response.class);
+
+            if(response.isHasError())
+            {
+                throw new RuntimeException();
+            }
+
+        }catch (IOException | ClassNotFoundException e)
+        {
+            System.out.println("We can't connect to server for receive tweet\nplease again");
+            return;
+        }
+
+
         consoleViewService.printList(response);
 
         System.out.println("How many?");
@@ -377,14 +402,6 @@ public class CommandParserService {
 
         request.setTitle("follow");
         request.setParameterValue(result);
-        connectionService.sendToServer(gson.toJson(request));
-
-
-    }
-
-    public void unfollow(){
-        request.setTitle("Show Followings");
-        request.setParameterValue(null);
 
         try {
             connectionService.sendToServer(gson.toJson(request));
@@ -409,7 +426,39 @@ public class CommandParserService {
             return;
         }
 
-        consoleViewService.printList(response);
+
+
+
+    }
+
+    public void unfollow(){
+//        request.setTitle("Show Followings");
+//        request.setParameterValue(null);
+//
+//        try {
+//            connectionService.sendToServer(gson.toJson(request));
+//            refreshRequest();
+//        }catch (IOException e)
+//        {
+//            System.out.println("We can't connect to server to add tweet.\nplease again");
+//            return;
+//        }
+//
+//        try{
+//            response = gson.fromJson(connectionService.receiveFromServer(),Response.class);
+//
+//            if(response.isHasError())
+//            {
+//                throw new RuntimeException();
+//            }
+//
+//        }catch (IOException | ClassNotFoundException e)
+//        {
+//            System.out.println("We can't connect to server for receive tweet\nplease again");
+//            return;
+//        }
+//
+//        consoleViewService.printList(response);
 
 
         System.out.println("Enter user name :");
@@ -450,33 +499,33 @@ public class CommandParserService {
 
     public void deleteFollower(){
 
-        request.setTitle("Show Followers");
-        request.setParameterValue(null);
-
-        try {
-            connectionService.sendToServer(gson.toJson(request));
-            refreshRequest();
-        }catch (IOException e)
-        {
-            System.out.println("We can't connect to server for add tweet.\nplease again");
-            return;
-        }
-
-        try{
-            response = gson.fromJson(connectionService.receiveFromServer(),Response.class);
-
-            if(response.isHasError())
-            {
-                throw new RuntimeException();
-            }
-
-        }catch (IOException | ClassNotFoundException e)
-        {
-            System.out.println("We can't connect to server for receive tweet\nplease again");
-            return;
-        }
-
-        consoleViewService.printList(response);
+//        request.setTitle("Show Followers");
+//        request.setParameterValue(null);
+//
+//        try {
+//            connectionService.sendToServer(gson.toJson(request));
+//            refreshRequest();
+//        }catch (IOException e)
+//        {
+//            System.out.println("We can't connect to server for add tweet.\nplease again");
+//            return;
+//        }
+//
+//        try{
+//            response = gson.fromJson(connectionService.receiveFromServer(),Response.class);
+//
+//            if(response.isHasError())
+//            {
+//                throw new RuntimeException();
+//            }
+//
+//        }catch (IOException | ClassNotFoundException e)
+//        {
+//            System.out.println("We can't connect to server for receive tweet\nplease again");
+//            return;
+//        }
+//
+//        consoleViewService.printList(response);
 
 
         System.out.println("Enter user name :");
@@ -513,6 +562,7 @@ public class CommandParserService {
 
 
     }
+
     public void fixGson(){
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(LocalDate.class, new Server.LocalDateSerializer());
@@ -527,6 +577,101 @@ public class CommandParserService {
 
     }
 
+    public void showFollowersAndFollowing() throws IOException {
+        request.setTitle("showFollowersAndFollowings");
+        request.setParameterValue(null);
+
+        try {
+            connectionService.sendToServer(gson.toJson(request));
+            refreshRequest();
+        }catch (IOException e)
+        {
+            System.out.println("We can't connect to server for add tweet.\nplease again");
+            return;
+        }
+
+        try{
+            response = gson.fromJson(connectionService.receiveFromServer(),Response.class);
+
+            if(response.isHasError())
+            {
+                throw new RuntimeException();
+            }
+
+        }catch (IOException | ClassNotFoundException e)
+        {
+            System.out.println("We can't connect to server for receive tweet\nplease again");
+            return;
+        }
+
+
+        consoleViewService.printFollowersAndFollowings(response);
+
+    }
+
+    public void  followersAndFollowingsMenu() throws IOException, ClassNotFoundException {
+       while (true) {
+
+           showFollowersAndFollowing();
+           System.out.println();
+
+           System.out.println("1-Follow\n2-Unfollow\n3-remove follower\n4-exit");
+           int number = Integer.parseInt(scanner.nextLine());
+
+           if (number == 1) {
+               follow();
+           } else if (number == 2) {
+               unfollow();
+           } else if (number == 3) {
+               deleteFollower();
+           } else if (number == 4) {
+               break;
+           }
+           else {
+               System.out.println("Invalid number!\nplease again.");
+           }
+
+       }
+
+    }
+
+    public void myTweetAndReplies(){
+
+        request.setTitle("myTweetAndReplies");
+        request.setParameterValue(null);
+
+        try {
+            connectionService.sendToServer(gson.toJson(request));
+            refreshRequest();
+        }catch (IOException e)
+        {
+            System.out.println("We can't connect to server to add tweet.\nplease again");
+            return;
+        }
+
+        try{
+            response = gson.fromJson(connectionService.receiveFromServer(),Response.class);
+
+            if(response.isHasError())
+            {
+                throw new RuntimeException();
+            }
+
+        }catch (IOException | ClassNotFoundException e)
+        {
+            System.out.println("We can't connect to server for receive tweet\nplease again");
+            return;
+        }
+
+        consoleViewService.printMyTweets(response.getResults(),0);
+
+    }
+
+    public void myFavoriteTweets(){
+
+
+
+    }
 
 }
 

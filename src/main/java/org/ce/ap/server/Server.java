@@ -23,11 +23,12 @@ public class Server {
     boolean shouldRun = true;
     ServerSocket serverSocket;
 
-
     ExecutorService executorService = Executors.newCachedThreadPool();
 
-    public Server() throws NoSuchAlgorithmException {
 
+
+
+    public Server() throws NoSuchAlgorithmException {
 
 
         database = new Database();
@@ -35,6 +36,7 @@ public class Server {
         authenticationService = new AuthenticationService(database);
         timelineService = new TimelineService(database);
         tweetingService = new TweetingService(database);
+        sampleDatabase();
 
 
         try {
@@ -60,11 +62,28 @@ public class Server {
     }
 
 
+
+
+
     public static void main(String[] args) throws NoSuchAlgorithmException {
 
         new Server();
 
 
+    }
+
+
+
+
+    public void sampleDatabase() throws NoSuchAlgorithmException {
+
+        authenticationService.signUp(new Client(1 + "", 1 + "", LocalDate.now(), new PersonalInformation(1 + "", 1 + "")), 1 + "", 1 + "");
+        authenticationService.signUp(new Client(2 + "", 2 + "", LocalDate.now(), new PersonalInformation(2 + "", 2 + "")), 12 + "", 2 + "");
+        observerService.follow(1 + "", 2 + "");
+        tweetingService.addTweet(new Tweet(1 + "", "hello"));
+        tweetingService.addTweet(new Tweet(2 + "", "hello"));
+        tweetingService.addTweet(new Tweet(1 + "", "waeawellsd"));
+        observerService.follow(2+"",1+"");
     }
 
 
@@ -97,6 +116,7 @@ public class Server {
         }
     }
 
+
     public static class LocalDateTimeDeserializer implements JsonDeserializer<LocalDateTime> {
         @Override
         public LocalDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
@@ -105,4 +125,5 @@ public class Server {
                     DateTimeFormatter.ofPattern("d::MMM::uuuu HH::mm::ss").withLocale(Locale.ENGLISH));
         }
     }
+
 }

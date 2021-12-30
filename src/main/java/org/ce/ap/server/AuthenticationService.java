@@ -9,8 +9,7 @@ public class AuthenticationService {
     Database database;
     public AuthenticationService(Database database) throws NoSuchAlgorithmException {
         this.database=database;
-        Client client=new Client(1+"",1+"", LocalDate.now(),new PersonalInformation(1+"",1+""));
-        signUp(client,1+"",1+"");
+
 
     }
 
@@ -50,6 +49,7 @@ public class AuthenticationService {
         return database.getUserNames();
 
     }
+
 
 
 }

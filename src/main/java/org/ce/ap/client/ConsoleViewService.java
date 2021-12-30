@@ -27,31 +27,12 @@ public class ConsoleViewService {
             LinkedTreeMap<String,Object> treeMap = (LinkedTreeMap<String, Object>) obj;
             System.out.println("|" + treeMap.get("clientUsername") + "                         " + treeMap.get("date") );
             System.out.println("|" + treeMap.get("text") );
-            System.out.println("|" + ((ArrayList<Object>) treeMap.get("retweets")).size() + " Retweets, " + ((ArrayList<String>) treeMap.get("likes")).size() + " Likes");
+            System.out.println("|" + ((ArrayList<Object>) treeMap.get("retweets")).size() + " Retweets, " + ((ArrayList<String>) treeMap.get("likes")).size() + " Likes\n");
             printReply((ArrayList<Object>)treeMap.get("replies"), 0);
         }
-//            }
-//            else if(obj instanceof Retweet){
-//                Retweet retweet =(Retweet) obj;
-//                System.out.println("|" + retweet.getRetweetClient() +" (Retweeted)"+ "                         " + retweet.getDate());
-//                if(retweet.getText()!=null)
-//                {
-//                    System.out.println("|"+retweet.getText());
-//                }
-//                System.out.println("--|"+retweet.getTweet().getClient()+"                         "+retweet.getTweet().getDate());
-//                System.out.println("--|" + retweet.getTweet().getText());
-//                System.out.print("--|"+retweet.getTweet().getRetweets().size()+" Retweets, "+retweet.getTweet().getLikes().size()+ " Likes");
-//                System.out.println("|" + retweet.getRetweets().size() + " Retweets, " + retweet.getLikes().size() + " Likes");
-//                printReply(retweet, 0);
-//
-//
-//
-//            }
-//            else {
-//                System.out.println("problem opening response results."); }
-//
-//        }
+
         }
+
 
 
 
@@ -71,6 +52,7 @@ public class ConsoleViewService {
     }
 
 
+
     public void printReply(ArrayList<Object> repliers, int degree){
     degree+=1;
 
@@ -81,7 +63,7 @@ public class ConsoleViewService {
             initLine(degree);
             System.out.println(treeMap1.get("text"));
             initLine(degree);
-            System.out.println(((ArrayList<Object>) treeMap1.get("retweets")).size()+" Retweets, "+((ArrayList<String>) treeMap1.get("likes")).size()+ " Likes");
+            System.out.println(((ArrayList<Object>) treeMap1.get("retweets")).size()+" Retweets, "+((ArrayList<String>) treeMap1.get("likes")).size()+ " Likes\n");
             printReply((ArrayList<Object>) treeMap1.get("replies"),degree);
         }
 
@@ -103,8 +85,60 @@ public class ConsoleViewService {
         }
     }
 
+    public void printFollowersAndFollowings(Response response) {
+
+        ArrayList<Object> result = response.getResults();
+        ArrayList<Object> followers = (ArrayList<Object>) result.get(0);
+        ArrayList<Object> followings = (ArrayList<Object>) result.get(1);
+
+        System.out.println("Followers : ");
+        for(Object userNameFollower : followers )
+        {
+            System.out.println((String) userNameFollower);
+
+        }
+        System.out.println();
+        System.out.println("Followings : ");
+        for(Object userNameFollowing : followings)
+        {
+            System.out.println((String) userNameFollowing);
+        }
+
+    }
 
 
+    public void printMyTweets(ArrayList<Object> repliers, int degree){
+        degree += 1;
+
+        for (Object msg : repliers){
+            TreeMap<String,Object> treeMap1 = (TreeMap<String, Object>)msg;
+            initLine(degree);
+            System.out.println(treeMap1.get("clientUsername"));
+            initLine(degree);
+            System.out.println(treeMap1.get("text"));
+            initLine(degree);
+            System.out.println("Retweets  " + ((ArrayList<Object>) treeMap1.get("retweets")).size());
+            for(int i=0 ;i < ((ArrayList<Object>) treeMap1.get("retweets")).size() ;i++)
+            {
+                initLine(degree);
+                System.out.print("----");
+                System.out.println(((ArrayList<Object>)treeMap1.get("retweets")).get(i));
+            }
+            System.out.println();
+
+            System.out.println("Likes "+ ((ArrayList<String>) treeMap1.get("likes")).size());
+            for(int i=0 ;i < ((ArrayList<Object>) treeMap1.get("likes")).size() ;i++)
+            {
+                initLine(degree);
+                System.out.print("----");
+                System.out.println(((ArrayList<Object>)treeMap1.get("likes")).get(i));
+            }
+            System.out.println();
+
+            printReply((ArrayList<Object>) treeMap1.get("replies"),degree);
+        }
+
+    }
 
 
 }

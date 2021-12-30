@@ -34,6 +34,10 @@ public class ObserverService {
     {
         return database.getClientPageFromUsername(userName).getFollowers();
     }
+    public ArrayList<String> getFollowings(String userName)
+    {
+        return database.getClientPageFromUsername(userName).getFollowingsList();
+    }
 
 
 
