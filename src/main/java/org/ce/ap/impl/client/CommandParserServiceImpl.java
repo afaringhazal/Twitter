@@ -8,12 +8,12 @@ import main.java.org.ce.ap.client.CommandParserService;
 import main.java.org.ce.ap.client.ConnectionService;
 import main.java.org.ce.ap.client.ConsoleViewService;
 import main.java.org.ce.ap.server.Server;
-
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 public class CommandParserServiceImpl implements CommandParserService {
     Scanner scanner = new Scanner(System.in);
@@ -68,11 +68,12 @@ public class CommandParserServiceImpl implements CommandParserService {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             int n;
-            System.out.println("1-Add tweet\n2-Timeline\n3-My Page\n4-Sign Out");
+            System.out.println("1-Add tweet\n2-timeline\n3-My Page\n4-Sign Out");
             try {
                 n = Integer.parseInt(scanner.nextLine());
 
             } catch (Exception e) {
+
                 System.out.println("Invalid number\nplease again!");
                 continue;
             }
@@ -82,12 +83,12 @@ public class CommandParserServiceImpl implements CommandParserService {
                 addTweet();
 
 
-            } else if (n == 2) {
+            }
+            else if (n == 2) {
                 requestTimeline();
 
-            } else if (n == 3) {
-
-
+            }
+            else if (n == 3) {
                 showPageMenu();
                 // add tweet
                 //show tweet
@@ -96,7 +97,8 @@ public class CommandParserServiceImpl implements CommandParserService {
 
 
                 // delete
-            } else if (n == 4) {
+            }
+            else if (n == 4) {
                 break;
             }
 

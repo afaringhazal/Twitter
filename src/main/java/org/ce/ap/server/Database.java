@@ -7,7 +7,10 @@ import java.util.HashMap;
 
 public class Database implements Serializable {
     public Database() throws NoSuchAlgorithmException {
-
+        clients=new ArrayList<>();
+        allTweets=new ArrayList<>();
+        ClientPage = new HashMap<>();
+        ClientId = new HashMap<>();
     }
 
     private ArrayList<Client> clients=new ArrayList<>();

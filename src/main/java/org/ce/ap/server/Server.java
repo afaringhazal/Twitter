@@ -40,7 +40,7 @@ public class Server {
 
     public Server() throws NoSuchAlgorithmException {
         initializeServer();
-        logger=Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+        initializeLogger();
         acceptClients();
     }
 
@@ -117,6 +117,13 @@ public class Server {
     }
 
 
+    private void initializeLogger(){
+        logger=Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+    }
+
+
+
+
     public static class LocalDateSerializer implements JsonSerializer<LocalDate> {
         private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MMM-yyyy");
 
@@ -152,4 +159,5 @@ public class Server {
                     DateTimeFormatter.ofPattern("d::MMM::uuuu HH::mm::ss").withLocale(Locale.ENGLISH));
         }
     }
+
 }

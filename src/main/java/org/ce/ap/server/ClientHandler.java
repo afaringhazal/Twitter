@@ -10,7 +10,7 @@ public interface ClientHandler extends Runnable {
     @Override
     public void run() ;
 
-    public void sendMyTweetAndReplies() ;
+    public void sendMyTweetAndReplies() throws IOException;
 
     public void processSignUp() throws IOException, NoSuchAlgorithmException, ClassNotFoundException ;
 

@@ -118,9 +118,16 @@ public class ClientHandlerImpl implements ClientHandler {
 
     }
     @Override
-    public void sendMyTweetAndReplies() {
-
-
+    public void sendMyTweetAndReplies() throws IOException {
+        ArrayList<Object> result = new ArrayList<>();
+        result.addAll(observerService.sendMyTweet(page.getClient().getUserName()));
+      //  System.out.println("In clientHandlerImpl Tweet : ");
+       // System.out.println((observerService.sendMyTweet(page.getClient().getUserName())).get(0).getText());
+        response.setResults(result);
+      //  System.out.println("---------");
+        //System.out.println(gson.toJson(response));
+        objectOutputStream.writeObject(gson.toJson(response));
+        refreshResponse();
     }
 
     @Override

@@ -58,11 +58,10 @@ public class ConsoleViewServiceImpl implements ConsoleViewService {
 
     @Override
     public void initLine(int degree) {
-
-        System.out.print("|");
         for (int i = 0; i < 4 * degree; i++) {
             System.out.print("-");
         }
+        System.out.print("|");
     }
 
     @Override
@@ -95,31 +94,28 @@ public class ConsoleViewServiceImpl implements ConsoleViewService {
 
     @Override
     public void printMyTweets(ArrayList<Object> repliers, int degree) {
-        degree += 1;
-
         for (Object msg : repliers) {
-            TreeMap<String, Object> treeMap1 = (TreeMap<String, Object>) msg;
+            LinkedTreeMap<String, Object> treeMap1 = (LinkedTreeMap<String, Object>) msg;
             initLine(degree);
-            System.out.println(treeMap1.get("clientUsername"));
+            System.out.println(treeMap1.get("clientUsername")+ "                         " + treeMap1.get("date"));
             initLine(degree);
             System.out.println(treeMap1.get("text"));
             initLine(degree);
             System.out.println("Retweets  " + ((ArrayList<Object>) treeMap1.get("retweets")).size());
             for (int i = 0; i < ((ArrayList<Object>) treeMap1.get("retweets")).size(); i++) {
-                initLine(degree);
-                System.out.print("----");
+                initLine(degree+1);
                 System.out.println(((ArrayList<Object>) treeMap1.get("retweets")).get(i));
             }
             System.out.println();
-
+            initLine(degree);
             System.out.println("Likes " + ((ArrayList<String>) treeMap1.get("likes")).size());
             for (int i = 0; i < ((ArrayList<Object>) treeMap1.get("likes")).size(); i++) {
-                initLine(degree);
-                System.out.print("----");
+                initLine(degree+1);
                 System.out.println(((ArrayList<Object>) treeMap1.get("likes")).get(i));
             }
             System.out.println();
-
+            initLine(degree);
+            System.out.println("Replies " + ((ArrayList<String>) treeMap1.get("replies")).size());
             printReply((ArrayList<Object>) treeMap1.get("replies"), degree);
         }
 

@@ -15,5 +15,6 @@ public interface ObserverService {
     public boolean unfollow(String followingUsername, String userName);
     public ArrayList<String> getFollowers(String userName);
     public ArrayList<String> getFollowings(String userName);
+    public ArrayList<Tweet> sendMyTweet (String userName);
 
 }

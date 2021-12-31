@@ -2,6 +2,7 @@ package main.java.org.ce.ap.impl.server;
 
 import main.java.org.ce.ap.server.Database;
 import main.java.org.ce.ap.server.ObserverService;
+import main.java.org.ce.ap.server.Tweet;
 
 import java.util.ArrayList;
 
@@ -80,6 +81,12 @@ public class ObserverServiceImpl implements ObserverService {
     @Override
     public ArrayList<String> getFollowings(String userName) {
         return database.getClientPageFromUsername(userName).getFollowingsList();
+    }
+
+    @Override
+    public ArrayList<Tweet> sendMyTweet(String userName)
+    {
+        return database.getClientPageFromUsername(userName).getTweets();
     }
 
 }
