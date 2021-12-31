@@ -1,14 +1,14 @@
 package main.java.org.ce.ap.server;
 
+import main.java.org.ce.ap.impl.server.TweetingServiceImpl;
+
 import java.io.*;
 import java.security.NoSuchAlgorithmException;
 
 public interface FileManagement {
 
 
-    public void saveDatabase(Database database);
 
-    public Database loadDatabase() throws NoSuchAlgorithmException;
 
     public void refreshFilesInFolder(File Folder);
 
@@ -23,4 +23,11 @@ public interface FileManagement {
 
 
     public void initFolders();
+
+    public void saveDatabase(Database database, TweetingServiceImpl tweetingService);
+
+    public Database loadDatabase(TweetingService tweetingService) throws NoSuchAlgorithmException;
+
+
+    public void initTweetingService(TweetingServiceImpl tweetingService);
 }

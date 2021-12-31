@@ -21,13 +21,13 @@ import java.util.logging.Logger;
 public class Server {
     ExecutorService executorService = Executors.newCachedThreadPool();
     AuthenticationService authenticationService;
-    TweetingService tweetingService;
+    TweetingServiceImpl tweetingService;
     TimelineService timelineService;
     ObserverService observerService;
     ServerSocket serverSocket;
     Database database;
     Logger logger;
-    FileManagement fileManagement = new FileManagementImpl();
+    FileManagement fileManagement =new FileManagementImpl();
     Scanner sc = new Scanner(System.in);
     Properties props = new Properties();
     boolean shouldRun = true;
@@ -56,6 +56,7 @@ public class Server {
         observerService = new ObserverServiceImpl(database);
         timelineService = new TimelineServiceImpl(database);
         tweetingService = new TweetingServiceImpl(database);
+        fileManagement.initTweetingService(tweetingService);
 
     }
 
@@ -82,6 +83,7 @@ public class Server {
 
             Socket socket = serverSocket.accept();
             if (socket.isConnected()) {
+                //logger.info("socket: " + socket.toString() + "Connected.");
                 System.out.println("new user joined.");
                 executorService.execute(new ClientHandlerImpl(socket, authenticationService, tweetingService, observerService, timelineService));
 
@@ -107,13 +109,12 @@ public class Server {
 
 
     private void loadDatabase() throws NoSuchAlgorithmException {
-        database =new Database();
-                //fileManagement.loadDatabase();
+        database = fileManagement.loadDatabase(tweetingService);
     }
 
 
     private void saveDatabase() {
-        fileManagement.saveDatabase(database);
+        fileManagement.saveDatabase(database,tweetingService);
     }
 
 
@@ -139,8 +140,6 @@ public class Server {
     private void initializeLogger(){
         logger=Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     }
-
-
 
 
     public static class LocalDateSerializer implements JsonSerializer<LocalDate> {

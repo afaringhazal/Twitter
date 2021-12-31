@@ -2,6 +2,7 @@ package main.java.org.ce.ap.impl.server;
 
 import main.java.org.ce.ap.server.Database;
 import main.java.org.ce.ap.server.FileManagement;
+import main.java.org.ce.ap.server.TweetingService;
 
 import java.io.*;
 import java.security.NoSuchAlgorithmException;
@@ -26,8 +27,9 @@ public class FileManagementImpl implements FileManagement {
         readDatabaseFolder();
     }
 
+
     @Override
-    public void saveDatabase(Database database) {
+    public void saveDatabase(Database database,TweetingServiceImpl tweetingService) {
         String fileName;
         FileOutputStream fileOutputStream = null;
         ObjectOutputStream objectOutputStream = null;
@@ -38,6 +40,9 @@ public class FileManagementImpl implements FileManagement {
             objectOutputStream = new ObjectOutputStream(fileOutputStream);
             objectOutputStream.writeObject(database);
             logger.info("database saved.");
+            props.setProperty("numberOfMessages",tweetingService.counter+"");
+            String propsName="src/main/resources/server-application.properties";
+            props.store(new FileOutputStream (propsName),null);
             objectOutputStream.flush();
             objectOutputStream.close();
 
@@ -50,8 +55,9 @@ public class FileManagementImpl implements FileManagement {
 
     }
 
+
     @Override
-    public Database loadDatabase() throws NoSuchAlgorithmException {
+    public Database loadDatabase(TweetingService tweetingService) throws NoSuchAlgorithmException {
         refreshFilesInFolder(databaseFolder);
         Database database = new Database();
         try {
@@ -81,11 +87,14 @@ public class FileManagementImpl implements FileManagement {
         return database;
     }
 
+
+
     @Override
     public void refreshFilesInFolder(File Folder) {
         filesInDatabaseFolder = Folder.listFiles();
 
     }
+
 
     @Override
     public void readProps() {
@@ -99,6 +108,7 @@ public class FileManagementImpl implements FileManagement {
         }
 
     }
+
 
     @Override
     public void initLogger() {
@@ -153,5 +163,16 @@ public class FileManagementImpl implements FileManagement {
 
     }
 
+    public void initTweetingService(TweetingServiceImpl tweetingService){
+        readProps();
+        if (!props.keySet().contains("numberOfMessages")) {
+            tweetingService.counter = 1;
+        }
+        else {
+            tweetingService.counter=Integer.parseInt((String) props.get("numberOfMessages"));
+        }
+
+
+    }
 }
 

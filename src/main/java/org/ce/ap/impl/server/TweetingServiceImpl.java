@@ -6,7 +6,7 @@ import main.java.org.ce.ap.server.*;
 public class TweetingServiceImpl implements TweetingService {
 
     Database database;
-    private int counter;
+    protected int counter;
 
 
     public TweetingServiceImpl(Database database) {
