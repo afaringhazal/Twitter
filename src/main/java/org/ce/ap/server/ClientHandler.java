@@ -18,6 +18,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class ClientHandler implements Runnable {
 
@@ -36,6 +37,7 @@ public class ClientHandler implements Runnable {
     ObjectOutputStream objectOutputStream;
     String message = "";
     Page page = null;
+    public Logger logger;
 
     Gson gson;
 

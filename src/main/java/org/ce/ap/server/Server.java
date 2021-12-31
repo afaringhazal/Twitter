@@ -15,6 +15,7 @@ import java.util.Properties;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.logging.Logger;
 
 public class Server {
 
@@ -28,6 +29,8 @@ public class Server {
     Properties props = new Properties();
     ExecutorService executorService = Executors.newCachedThreadPool();
     Scanner sc = new Scanner(System.in);
+    Logger logger;
+    FileManagement fileManagement = new FileManagement();
 
     public static void main(String[] args) throws NoSuchAlgorithmException {
         new Server();
@@ -36,6 +39,7 @@ public class Server {
 
     public Server() throws NoSuchAlgorithmException {
         initializeServer();
+        logger=Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
         acceptClients();
     }
 
@@ -48,6 +52,7 @@ public class Server {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
+
         observerService = new ObserverService(database);
         timelineService = new TimelineService(database);
         tweetingService = new TweetingService(database);
@@ -99,13 +104,12 @@ public class Server {
 
 
     private void loadDatabase() throws NoSuchAlgorithmException {
-        FileManagement fileManagement = new FileManagement();
         database = fileManagement.loadDatabase();
     }
 
 
     private void saveDatabase() {
-        FileManagement fileManagement = new FileManagement();
+
         fileManagement.saveDatabase(database);
 
 
