@@ -4,12 +4,12 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public abstract class Message implements Serializable {
+public  class Message implements Serializable {
 
     public LocalDateTime date;
     public String text;
     private ArrayList<String> likes = new ArrayList<>();
-    private ArrayList<Message> replies=new ArrayList<>();
+    private ArrayList<Message> replies = new ArrayList<>();
     protected ArrayList<String> retweets = new ArrayList<>();
 
 
@@ -18,25 +18,22 @@ public abstract class Message implements Serializable {
     }
 
     public void addReply(Message message) {
-       replies.add(message);
+        replies.add(message);
     }
 
     public void removeReply(Message message) {
         replies.remove(message);
     }
 
-    public void Like(String userName)
-    {
+    public void Like(String userName) {
         likes.add(userName);
     }
 
-    public void dislike(String clientId)
-    {
+    public void dislike(String clientId) {
         likes.remove(clientId);
     }
 
-    public ArrayList<String> getLikes()
-    {
+    public ArrayList<String> getLikes() {
         return likes;
     }
 
@@ -56,6 +53,7 @@ public abstract class Message implements Serializable {
     public void setText(String text) {
         this.text = text;
     }
+
     public ArrayList<String> getRetweets() {
         return retweets;
     }

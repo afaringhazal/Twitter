@@ -1,6 +1,7 @@
 package main.java.org.ce.ap.server;
 
 import com.google.gson.*;
+import main.java.org.ce.ap.impl.server.*;
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -30,7 +31,7 @@ public class Server {
     ExecutorService executorService = Executors.newCachedThreadPool();
     Scanner sc = new Scanner(System.in);
     Logger logger;
-    FileManagement fileManagement = new FileManagement();
+    FileManagement fileManagement = new FileManagementImpl();
 
     public static void main(String[] args) throws NoSuchAlgorithmException {
         new Server();
@@ -48,14 +49,14 @@ public class Server {
         readProps();
         try {
             loadDatabase();
-            authenticationService = new AuthenticationService(database);
+            authenticationService = new AuthenticationServiceImpl(database);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
 
-        observerService = new ObserverService(database);
-        timelineService = new TimelineService(database);
-        tweetingService = new TweetingService(database);
+        observerService = new ObserverServiceImpl(database);
+        timelineService = new TimelineServiceImpl(database);
+        tweetingService = new TweetingServiceImpl(database);
 
     }
 
@@ -80,7 +81,7 @@ public class Server {
             while (shouldRun) {
                 Socket socket = serverSocket.accept();
                 System.out.println("socket " + socket.toString());
-                executorService.execute(new ClientHandler(socket, authenticationService, tweetingService, observerService, timelineService));
+                executorService.execute(new ClientHandlerImpl(socket, authenticationService, tweetingService, observerService, timelineService));
 
 
             }

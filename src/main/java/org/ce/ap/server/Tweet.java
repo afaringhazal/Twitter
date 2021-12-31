@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Tweet  extends Message {
-    String clientUsername;
+    public String clientUsername;
 
     public int id;
 

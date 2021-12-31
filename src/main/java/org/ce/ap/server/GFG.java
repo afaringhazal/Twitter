@@ -7,7 +7,7 @@ import java.security.NoSuchAlgorithmException;
 
 // Java program to calculate SHA hash value
 
-class GFG {
+public class GFG {
 
 
     public static byte[] getSHA(String input) throws NoSuchAlgorithmException {
