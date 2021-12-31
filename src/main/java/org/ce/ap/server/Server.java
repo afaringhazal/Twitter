@@ -1,7 +1,8 @@
 package main.java.org.ce.ap.server;
 
 import com.google.gson.*;
-import java.io.IOException;
+
+import java.io.*;
 import java.lang.reflect.Type;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -10,6 +11,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import java.util.Properties;
+import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -17,63 +20,70 @@ public class Server {
 
     TweetingService tweetingService;
     TimelineService timelineService;
-    static AuthenticationService  authenticationService;
+    static AuthenticationService authenticationService;
     ObserverService observerService;
     Database database;
     boolean shouldRun = true;
     ServerSocket serverSocket;
-
+    Properties props = new Properties();
     ExecutorService executorService = Executors.newCachedThreadPool();
+    Scanner sc = new Scanner(System.in);
 
-
+    public static void main(String[] args) throws NoSuchAlgorithmException {
+        new Server();
+    }
 
 
     public Server() throws NoSuchAlgorithmException {
+        initializeServer();
+        acceptClients();
+    }
 
 
-        database = new Database();
+    private void initializeServer() {
+        readProps();
+        try {
+            loadDatabase();
+            authenticationService = new AuthenticationService(database);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
         observerService = new ObserverService(database);
-        authenticationService = new AuthenticationService(database);
         timelineService = new TimelineService(database);
         tweetingService = new TweetingService(database);
-        sampleDatabase();
+
+    }
 
 
+    private void readProps() {
 
         try {
-            serverSocket = new ServerSocket(1111);
+            FileReader reader;
+            reader = new FileReader("src/main/resources/server-application.properties");
+            props.load(reader);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    private void acceptClients() {
+
+        try {
+            serverSocket = new ServerSocket(Integer.parseInt((String) props.get("server.port")));
             while (shouldRun) {
                 Socket socket = serverSocket.accept();
                 System.out.println("socket " + socket.toString());
-                executorService.execute(new ClientHandler(socket,authenticationService,tweetingService,observerService,timelineService));
+                executorService.execute(new ClientHandler(socket, authenticationService, tweetingService, observerService, timelineService));
 
 
             }
+            saveDatabase();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-
-
-
-    public Database loadDatabase() throws NoSuchAlgorithmException {
-        FileManagement fileManagement = new FileManagement();
-        return fileManagement.loadAll();
-    }
-
-
-
-
-
-    public static void main(String[] args) throws NoSuchAlgorithmException {
-
-        new Server();
-
-
-    }
-
-
 
 
     public void sampleDatabase() throws NoSuchAlgorithmException {
@@ -84,17 +94,25 @@ public class Server {
         tweetingService.addTweet(new Tweet(1 + "", "hello"));
         tweetingService.addTweet(new Tweet(2 + "", "hello"));
         tweetingService.addTweet(new Tweet(1 + "", "waeawellsd"));
-        observerService.follow(2+"",1+"");
-
-
-        System.out.println("In Server : (section followers client 1)");
-        System.out.println(observerService.getFollowers(1+""));
+        observerService.follow(2 + "", 1 + "");
     }
 
 
+    private void loadDatabase() throws NoSuchAlgorithmException {
+        FileManagement fileManagement = new FileManagement();
+        database = fileManagement.loadDatabase();
+    }
 
 
-    public static class LocalDateSerializer implements JsonSerializer < LocalDate > {
+    private void saveDatabase() {
+        FileManagement fileManagement = new FileManagement();
+        fileManagement.saveDatabase(database);
+
+
+    }
+
+
+    public static class LocalDateSerializer implements JsonSerializer<LocalDate> {
         private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MMM-yyyy");
 
         @Override
@@ -103,7 +121,7 @@ public class Server {
         }
     }
 
-    public static class LocalDateTimeSerializer implements JsonSerializer < LocalDateTime > {
+    public static class LocalDateTimeSerializer implements JsonSerializer<LocalDateTime> {
         private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d::MMM::uuuu HH::mm::ss");
 
         @Override
@@ -112,7 +130,7 @@ public class Server {
         }
     }
 
-    public static class LocalDateDeserializer implements JsonDeserializer < LocalDate > {
+    public static class LocalDateDeserializer implements JsonDeserializer<LocalDate> {
         @Override
         public LocalDate deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
                 throws JsonParseException {
@@ -120,7 +138,6 @@ public class Server {
                     DateTimeFormatter.ofPattern("d-MMM-yyyy").withLocale(Locale.ENGLISH));
         }
     }
-
 
     public static class LocalDateTimeDeserializer implements JsonDeserializer<LocalDateTime> {
         @Override
@@ -130,5 +147,4 @@ public class Server {
                     DateTimeFormatter.ofPattern("d::MMM::uuuu HH::mm::ss").withLocale(Locale.ENGLISH));
         }
     }
-
 }

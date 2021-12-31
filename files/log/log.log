@@ -1,0 +1,4 @@
+Dec 30, 2021 3:21:25 PM main.java.org.ce.ap.server.FileManagement initLogger
+INFO: properties read and logger started.
+Dec 30, 2021 3:21:26 PM main.java.org.ce.ap.server.FileManagement readDatabaseFolder
+INFO: database Folder Successfully read.

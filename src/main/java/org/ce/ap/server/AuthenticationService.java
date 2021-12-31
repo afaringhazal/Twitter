@@ -7,6 +7,8 @@ import java.util.ArrayList;
 public class AuthenticationService {
 
     Database database;
+
+
     public AuthenticationService(Database database) throws NoSuchAlgorithmException {
         this.database=database;
 

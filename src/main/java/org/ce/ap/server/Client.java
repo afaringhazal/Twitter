@@ -6,12 +6,13 @@ package main.java.org.ce.ap.server;
 
 //import main.java.org.ce.ap.server.PersonalInformation;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
 
 
-public class Client {
+public class Client implements Serializable {
 
     private String firstName;
     private String lastName;

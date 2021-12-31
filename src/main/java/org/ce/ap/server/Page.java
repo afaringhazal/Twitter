@@ -1,11 +1,12 @@
 package main.java.org.ce.ap.server;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 import java.util.Iterator;
 
-public class Page {
+public class Page implements Serializable {
 
     private Client client;
     private String id;

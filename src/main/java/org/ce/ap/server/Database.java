@@ -1,11 +1,12 @@
 package main.java.org.ce.ap.server;
 
+import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Database {
+public class Database implements Serializable {
     public Database() throws NoSuchAlgorithmException {
 
     }
@@ -32,10 +33,13 @@ public class Database {
         return getClientPage(ClientId.get(s));
     }
 
+
     public HashMap<String,Client> getClientIds(){
 
         return ClientId;
     }
+
+
 
     public Client getClientFromUsername(String s){
         Client client=null;
@@ -46,6 +50,8 @@ public class Database {
         }
         return client;
     }
+
+
     public ArrayList <String> getUserNames(){
         ArrayList<String> usernames=new ArrayList<>();
         for (Client client:clients){
@@ -56,9 +62,13 @@ public class Database {
 
         return usernames;
     }
+
+
     public void addTweetToAllTweets(Tweet tweet){
         allTweets.add(tweet);
     }
+
+
    public Tweet getTweet(int id){
 
         for (Tweet tweet:allTweets){

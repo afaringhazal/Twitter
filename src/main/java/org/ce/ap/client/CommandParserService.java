@@ -32,19 +32,14 @@ public class CommandParserService {
     public static void main(String[] args) {new CommandParserService();}
 
 
-    public CommandParserService(){
-    fixGson();
-        try {
-            connectionService = new ConnectionService();
-        } catch (IOException e) {
-            System.out.println("Not connected to server ...\nfinish.");
-            return;
-        }
+    public CommandParserService() {
+        fixGson();
+        connectionService = new ConnectionService();
 
         while (shouldRun) {
             System.out.println("1-Sign in\n2-Sign up\n3-Exit");
             try {
-                int n =Integer.parseInt(scanner.nextLine());
+                int n = Integer.parseInt(scanner.nextLine());
 
                 if (n == 1) {
                     processSignIn();
@@ -56,15 +51,14 @@ public class CommandParserService {
 
                 } else if (n == 3) {
 
-                    shouldRun=false;
+                    shouldRun = false;
                     connectionService.stop();
-                }
-                else {
+                } else {
                     System.out.println("Invalid number!");
                 }
             } catch (Exception e) {
                 System.out.println("Invalid number\nPlease again!");
-               // scanner.nextLine();
+                // scanner.nextLine();
             }
         }
 
