@@ -19,19 +19,19 @@ import java.util.concurrent.Executors;
 import java.util.logging.Logger;
 
 public class Server {
-
+    ExecutorService executorService = Executors.newCachedThreadPool();
+    AuthenticationService authenticationService;
     TweetingService tweetingService;
     TimelineService timelineService;
-    static AuthenticationService authenticationService;
     ObserverService observerService;
-    Database database;
-    boolean shouldRun = true;
     ServerSocket serverSocket;
-    Properties props = new Properties();
-    ExecutorService executorService = Executors.newCachedThreadPool();
-    Scanner sc = new Scanner(System.in);
+    Database database;
     Logger logger;
     FileManagement fileManagement = new FileManagementImpl();
+    Scanner sc = new Scanner(System.in);
+    Properties props = new Properties();
+    boolean shouldRun = true;
+
 
     public static void main(String[] args) throws NoSuchAlgorithmException {
         new Server();
@@ -40,7 +40,6 @@ public class Server {
 
     public Server() throws NoSuchAlgorithmException {
         initializeServer();
-        initializeLogger();
         acceptClients();
     }
 
@@ -78,9 +77,13 @@ public class Server {
 
         try {
             serverSocket = new ServerSocket(Integer.parseInt((String) props.get("server.port")));
-            while (shouldRun) {
-                Socket socket = serverSocket.accept();
-                System.out.println("socket " + socket.toString());
+            SaveThread saveThread = new SaveThread();
+            executorService.execute(saveThread);
+
+            Socket socket = serverSocket.accept();
+            if (socket.isConnected()) {
+                logger.info("socket: " + socket.toString() + "Connected.");
+                System.out.println("new user joined.");
                 executorService.execute(new ClientHandlerImpl(socket, authenticationService, tweetingService, observerService, timelineService));
 
 
@@ -94,8 +97,8 @@ public class Server {
 
     public void sampleDatabase() throws NoSuchAlgorithmException {
 
-        authenticationService.signUp(new Client(1 + "", 1 + "", LocalDate.now(), new PersonalInformation(1 + "", 1 + "")), 1 + "", 1 + "");
-        authenticationService.signUp(new Client(2 + "", 2 + "", LocalDate.now(), new PersonalInformation(2 + "", 2 + "")), 12 + "", 2 + "");
+        authenticationService.signUp(new Client("MohammadHadi", "Sheikholeslami", LocalDate.of(2002, 2, 16), new PersonalInformation(1 + "", 1 + "")), "sheikh", 0 + "");
+        authenticationService.signUp(new Client("Ghazal", "Afarin", LocalDate.of(2000, 12, 30), new PersonalInformation(2 + "", 2 + "")), "afaringhazal", 0 + "");
         observerService.follow(1 + "", 2 + "");
         tweetingService.addTweet(new Tweet(1 + "", "hello"));
         tweetingService.addTweet(new Tweet(2 + "", "hello"));
@@ -110,11 +113,27 @@ public class Server {
 
 
     private void saveDatabase() {
-
         fileManagement.saveDatabase(database);
-
-
     }
+
+
+
+
+    private class SaveThread extends Thread {
+        public void run() {
+
+            while (shouldRun) {
+                try {
+
+                    sleep(60000);
+                    saveDatabase();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
 
 
     private void initializeLogger(){

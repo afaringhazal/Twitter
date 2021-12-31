@@ -47,12 +47,6 @@ public class Client implements Serializable {
     }
 
 
-
-
-
-    //setters and getters
-
-
     public String getFirstName() {
         return firstName;
     }
@@ -80,14 +74,14 @@ public class Client implements Serializable {
     public String getUserName(){
         return personalInformation.getUserName();
     }
+
     public String getPassword(){
         return personalInformation.getPassword();
     }
+
     public void setPersonalInformation(PersonalInformation personalInformation) {
         this.personalInformation = personalInformation;
     }
-
-
 
 
 }

@@ -6,17 +6,23 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Database implements Serializable {
+
+    private ArrayList<Client> clients;
+    private ArrayList<Tweet> allTweets;
+    private HashMap<Client, Page> ClientPage ;
+    private HashMap<String, Client> ClientId ;
+
+
+
+
     public Database() throws NoSuchAlgorithmException {
         clients=new ArrayList<>();
         allTweets=new ArrayList<>();
         ClientPage = new HashMap<>();
-        ClientId = new HashMap<>();
+        ClientId= new HashMap<>();
+
     }
 
-    private ArrayList<Client> clients=new ArrayList<>();
-    private ArrayList<Tweet> allTweets=new ArrayList<>();
-    private HashMap<Client, Page> ClientPage = new HashMap<>();
-    private HashMap<String, Client> ClientId = new HashMap<>();
 
     public ArrayList<Client> getClients() {
         return clients;
