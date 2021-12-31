@@ -99,6 +99,10 @@ public class ClientHandlerImpl implements ClientHandler {
                 } else if (request.getTitle().equals("Display Page Information")) {
                     DisplayPageInformation();
                 }
+                else if(request.getTitle().equals("LikeMessage"))
+                {
+                    LikedMessage();
+                }
 
 
             }
@@ -424,6 +428,40 @@ public class ClientHandlerImpl implements ClientHandler {
         objectOutputStream.writeObject(gson.toJson(response));
         refreshResponse();
 
+
+    }
+
+
+    public void LikedMessage() throws IOException {
+        int IdMessageToLike = Integer.parseInt((String) request.getParameterValue().get(0));
+        System.out.println("The ID for Like is"+IdMessageToLike);
+
+        ParameterValue parameterValue = tweetingService.findMessage(IdMessageToLike);
+        if(parameterValue.getName().equals("Tweet"))
+        {
+            System.out.println("Now Like Tweet :");
+            Tweet tweet = (Tweet) parameterValue.getValue();
+            System.out.println("The text Of tweet to like :"+tweet.getText());
+            tweetingService.like(tweet.clientUsername,tweet,page.getClient().getUserName());
+        }
+        else if(parameterValue.getName().equals("Retweet")){
+
+            Retweet retweet = (Retweet) parameterValue.getValue();
+            tweetingService.LikeRetweet(retweet.clientUsername,retweet,page.getClient().getUserName());
+        }
+        else if(parameterValue.getName().equals("Reply")){
+            Reply reply = (Reply) parameterValue.getValue();
+            tweetingService.LikeReply(reply.clientUsername,reply,page.getClient().getUserName());
+
+        }
+        else {
+
+            System.out.println("*******");
+            response.setHasError(true);
+            response.setErrorCode(33);
+        }
+        objectOutputStream.writeObject(gson.toJson(response));
+        refreshResponse();
 
     }
 

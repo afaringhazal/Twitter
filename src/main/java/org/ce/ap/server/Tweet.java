@@ -5,9 +5,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Tweet  extends Message {
-    public String clientUsername;
-
-    public int id;
 
     public Tweet(String client, String text) throws RuntimeException {
         if (text.length() < 256)

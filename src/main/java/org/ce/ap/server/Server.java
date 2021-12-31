@@ -82,7 +82,6 @@ public class Server {
 
             Socket socket = serverSocket.accept();
             if (socket.isConnected()) {
-                logger.info("socket: " + socket.toString() + "Connected.");
                 System.out.println("new user joined.");
                 executorService.execute(new ClientHandlerImpl(socket, authenticationService, tweetingService, observerService, timelineService));
 
@@ -108,7 +107,8 @@ public class Server {
 
 
     private void loadDatabase() throws NoSuchAlgorithmException {
-        database = fileManagement.loadDatabase();
+        database =new Database();
+                //fileManagement.loadDatabase();
     }
 
 

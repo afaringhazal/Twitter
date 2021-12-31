@@ -72,17 +72,50 @@ public class Database implements Serializable {
     }
 
 
-    public void addTweetToAllTweets(Tweet tweet){
-        allTweets.add(tweet);
+
+
+    public ArrayList<Tweet> getAllTweets(){
+
+        ArrayList<Tweet> arrayList=new ArrayList<>();
+        for (Client client : clients){
+            arrayList.addAll(getClientPage(client).getTweets());
+        }
+        return arrayList;
+
+    }
+    public ArrayList<Reply> getAllReplies(){
+
+        ArrayList<Reply> arrayList=new ArrayList<>();
+        for (Client client : clients){
+            arrayList.addAll(getClientPage(client).getReplies());
+        }
+        return arrayList;
+
+    }
+    public ArrayList<Retweet> getAllRetweets(){
+
+        ArrayList<Retweet> arrayList=new ArrayList<>();
+        for (Client client : clients){
+            arrayList.addAll(getClientPage(client).getRetweets());
+        }
+        return arrayList;
+
     }
 
 
-   public Tweet getTweet(int id){
 
-        for (Tweet tweet:allTweets){
-            if (tweet.id==id){return tweet;}
-        }
-        return null ;
-   }
+//    public void addTweetToAllTweets(Tweet tweet){
+//        allTweets.add(tweet);
+//    }
+//
+//
+//   public Tweet getTweet(int id){
+//
+//        for (Tweet tweet:allTweets){
+//            if (tweet.id==id){return tweet;}
+//        }
+//        return null ;
+//   }
+
 
 }

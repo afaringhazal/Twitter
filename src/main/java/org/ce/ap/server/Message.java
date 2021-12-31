@@ -5,7 +5,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public  class Message implements Serializable {
+    public String clientUsername;
 
+    public int id;
     public LocalDateTime date;
     public String text;
     private ArrayList<String> likes = new ArrayList<>();

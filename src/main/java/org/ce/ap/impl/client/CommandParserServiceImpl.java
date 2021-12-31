@@ -290,6 +290,7 @@ public class CommandParserServiceImpl implements CommandParserService {
             System.out.println("Couldn't create new profile\nplease again");
             return;
         }
+        showTimelineMenu();
 
 
     }
@@ -690,6 +691,66 @@ public class CommandParserServiceImpl implements CommandParserService {
 
     }
 
+    public void showTimelineMenu(){
+        System.out.println("1-Like\n2-Reply\n3-Retweet\n");
+        int choice= Integer.parseInt(scanner.nextLine());
+        if (choice==1){
+            requestToLike();
+
+        } else if (choice == 2) {
+
+        }
+        else if (choice==3){
+
+        }
+        else {
+
+
+        }
+    }
+
+    public void requestToLike(){
+
+        System.out.println("Enter id Message : ");
+        String idToLike = scanner.nextLine();
+
+        request.setTitle("LikeMessage");
+
+        ArrayList<Object> requestLike = new ArrayList<>();
+        requestLike.add(idToLike);
+        request.setParameterValue(requestLike);
+
+        try {
+            connectionService.sendToServer(gson.toJson(request));
+            refreshRequest();
+        } catch (IOException e) {
+            System.out.println("We can't connect to server for add tweet.\nplease again");
+            return;
+        }
+
+        try {
+            String s = connectionService.receiveFromServer();
+            System.out.println(s);
+            response = gson.fromJson(s/*connectionService.receiveFromServer()*/, Response.class);
+
+            if (response.isHasError()) {
+                throw new RuntimeException();
+            }
+
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("We can't connect to server for receive tweet\nplease again");
+            return;
+        }
+
+        if(response.isHasError())
+        {
+            System.out.println("we can't like");
+        }
+        else {
+            System.out.println("successful!");
+        }
+
+    }
 
 }
 

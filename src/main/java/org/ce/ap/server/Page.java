@@ -15,8 +15,9 @@ public class Page implements Serializable {
     private ArrayList<Tweet> tweets;
     private ArrayList<String> followersList;
     private ArrayList<String> followingsList;
-    private ArrayList<Tweet> retweets;
+    private ArrayList<Retweet> retweets;
     private ArrayList<Message> LikedTweetsList;
+    private ArrayList<Reply> replies ;
 
 
     public Page(Client client, String id, String biography, LocalDate joinDate) throws RuntimeException {
@@ -29,6 +30,7 @@ public class Page implements Serializable {
         followersList = new ArrayList<>();
         followingsList = new ArrayList<>();
         LikedTweetsList = new ArrayList<>();
+        replies = new ArrayList<>();
         retweets=new ArrayList<>();
 
         if (biography.length() > 256)
@@ -38,6 +40,9 @@ public class Page implements Serializable {
 
     }
 
+    public ArrayList<Reply> getReplies() {
+        return replies;
+    }
 
     public  boolean addFollowing(String username) {
         return followingsList.add(username);
@@ -60,22 +65,26 @@ public class Page implements Serializable {
     }
 
 
-    public void addOrDislikeTweet(Tweet tweet) {
+    public void addOrDislikeTweet(Message tweet) {
 
+        System.out.println("Now we in addOrDislikedTweet :");
         Iterator<Message> it = LikedTweetsList.iterator();
         while (it.hasNext()) {
-            if (it.equals(tweet)) {
+            if (it.next().equals(tweet)) {
                // System.out.println("This tweet has been liked before and is now disliked!");
                 it.remove();
+                System.out.println("Exit Tweet So Dislike");
                 return;
 
             }
         }
 
+        System.out.println("don't Exit => so added");
         LikedTweetsList.add(tweet);
     }
 
-    public boolean addRetweet(Tweet tweet) {
+
+    public boolean addRetweet(Retweet tweet) {
         return retweets.add(tweet);
     }
 
@@ -95,7 +104,7 @@ public class Page implements Serializable {
         return followingsList;
     }
 
-    public ArrayList<Tweet> getRetweets() {
+    public ArrayList<Retweet> getRetweets() {
         return retweets;
     }
 
