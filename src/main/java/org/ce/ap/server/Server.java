@@ -39,8 +39,9 @@ public class Server {
         sampleDatabase();
 
 
+
         try {
-            serverSocket = new ServerSocket(1234);
+            serverSocket = new ServerSocket(1111);
             while (shouldRun) {
                 Socket socket = serverSocket.accept();
                 System.out.println("socket " + socket.toString());
@@ -84,6 +85,10 @@ public class Server {
         tweetingService.addTweet(new Tweet(2 + "", "hello"));
         tweetingService.addTweet(new Tweet(1 + "", "waeawellsd"));
         observerService.follow(2+"",1+"");
+
+
+        System.out.println("In Server : (section followers client 1)");
+        System.out.println(observerService.getFollowers(1+""));
     }
 
 

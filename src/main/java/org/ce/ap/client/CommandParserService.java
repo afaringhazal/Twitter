@@ -71,8 +71,6 @@ public class CommandParserService {
 
     }
 
-
-
     public  void showMainMenu() throws IOException, ClassNotFoundException {
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -324,20 +322,19 @@ public class CommandParserService {
     public void showPageMenu() throws IOException, ClassNotFoundException {
 
         while (true) {
+            DisplayPageInformation();
+            System.out.println();
             Scanner scanner = new Scanner(System.in);
-
-            int n;
-            //System.out.println("1-Follow\n2-Unfollow\n3-remove follower\n4-exit");
-            System.out.println("1-Followers and followings\n2-Add Tweet\n3-my Tweets & replies\n4-Likes  ,......");
-            System.out.println("");
+            int n =0 ;
+            System.out.println("1-Followers and followings\n2-Add Tweet\n3-my Tweets & replies\n4-Likes\n5-Edit profile\n6-exit");
             try {
                 n = Integer.parseInt(scanner.nextLine());
 
             } catch (Exception e) {
+               // System.out.println("__________________");
                 System.out.println("Invalid number\nplease again!");
                 continue;
             }
-
 
             if (n == 1) {
                 followersAndFollowingsMenu();
@@ -347,13 +344,15 @@ public class CommandParserService {
 
             } else if (n == 3) {
                 myTweetAndReplies();
-
             }
             else if(n==4) {
                 myFavoriteTweets();
-
             }
             else if(n==5){
+                editProfile();
+
+            }
+            else if(n==6){
                 break;
             }
         }
@@ -590,8 +589,10 @@ public class CommandParserService {
             return;
         }
 
-        try{
-            response = gson.fromJson(connectionService.receiveFromServer(),Response.class);
+         try{
+            String s = connectionService.receiveFromServer();
+            System.out.println(s);
+            response = gson.fromJson(s/*connectionService.receiveFromServer()*/,Response.class);
 
             if(response.isHasError())
             {
@@ -669,9 +670,77 @@ public class CommandParserService {
 
     public void myFavoriteTweets(){
 
+        request.setTitle("myFavoriteTweets");
+        request.setParameterValue(null);
+
+        try {
+            connectionService.sendToServer(gson.toJson(request));
+            refreshRequest();
+        }catch (IOException e)
+        {
+            System.out.println("We can't connect to server to add tweet.\nplease again");
+            return;
+        }
+
+        try{
+            response = gson.fromJson(connectionService.receiveFromServer(),Response.class);
+
+            if(response.isHasError())
+            {
+                throw new RuntimeException();
+            }
+
+        }catch (IOException | ClassNotFoundException e)
+        {
+            System.out.println("We can't connect to server for receive tweet\nplease again");
+            return;
+        }
+
+        consoleViewService.printList(response);
+
+    }
+
+    public void  DisplayPageInformation(){
+
+        request.setTitle("Display Page Information");
+        request.setParameterValue(null);
+
+        try {
+            connectionService.sendToServer(gson.toJson(request));
+            refreshRequest();
+        }catch (IOException e)
+        {
+            System.out.println("We can't connect to server for add tweet.\nplease again");
+            return;
+        }
+
+        try{
+            response = gson.fromJson(connectionService.receiveFromServer(),Response.class);
+
+            if(response.isHasError())
+            {
+                throw new RuntimeException();
+            }
+
+        }catch (IOException | ClassNotFoundException e)
+        {
+            System.out.println("We can't connect to server for receive tweet\nplease again");
+            return;
+        }
+
+        consoleViewService.printList(response);
+
+    }
+
+    public void editProfile()
+    {
+        System.out.println("1-Edit firstname \n2-Edit Lastname \n3-Edit birthday \n4-Edit biography \n5-Edit id \n6-Exit");
+
 
 
     }
+
+
 
 }
 

@@ -18,7 +18,7 @@ public class ConnectionService {
 
     public ConnectionService() throws IOException {
 
-        socket = new Socket("127.0.0.1", 1234);
+        socket = new Socket("127.0.0.1", 1111);
         objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
         objectInputStream = new ObjectInputStream(socket.getInputStream());
         System.out.println("Connected!");

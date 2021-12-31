@@ -101,7 +101,14 @@ public class ClientHandler implements Runnable {
                     showFollowersAndFollowings();
                 }
                 else if(request.getTitle().equals("myTweetAndReplies")){
-                    sentMyTweetAndReplies();
+                    sendMyTweetAndReplies();
+                }
+                else if(request.getTitle().equals("myFavoriteTweets"))
+                {
+                    myFavoriteTweets();
+                }
+                else if(request.getTitle().equals("Display Page Information")){
+                    DisplayPageInformation();
                 }
 
 
@@ -120,6 +127,12 @@ public class ClientHandler implements Runnable {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
+
+
+    }
+
+    private void sendMyTweetAndReplies() {
+
 
 
     }
@@ -157,12 +170,12 @@ public class ClientHandler implements Runnable {
         System.out.println(request.getParameterValue().get(2));
         System.out.println(request.getParameterValue().get(3));
         System.out.println(request.getParameterValue().get(4));
-        int year = Integer.parseInt((String)request.getParameterValue().get(3));
+        int year = Integer.parseInt((String)request.getParameterValue().get(2));
         System.out.println("year " +year);
 
         int month = Integer.parseInt((String)request.getParameterValue().get(3));
-        int day = Integer.parseInt((String)request.getParameterValue().get(3));
-        LocalDate localDate = LocalDate.of(9, month, day);
+        int day = Integer.parseInt((String)request.getParameterValue().get(4));
+        LocalDate localDate = LocalDate.of(year, month, day);
         System.out.println("2222222");
         System.out.println(localDate);
 
@@ -348,10 +361,16 @@ public class ClientHandler implements Runnable {
 
     public void showFollowersAndFollowings() throws IOException {
 
-        ArrayList<Object> UserNameFollowers = null;
-        ArrayList<Object> UserNameFollowings= null;
+        ArrayList<Object> UserNameFollowers = new ArrayList<>();
+        ArrayList<Object> UserNameFollowings= new ArrayList<>();
+        System.out.println("Show in observerService (section follower)  : ");
+
+        System.out.println(observerService.getFollowers(page.getClient().getUserName()));
         try {
+            System.out.println("In try");
+
             UserNameFollowers.addAll(observerService.getFollowers(page.getClient().getUserName()));
+            System.out.println("can add");
             UserNameFollowings.addAll(observerService.getFollowings(page.getClient().getUserName()));
 
         } catch (Exception e) {
@@ -362,6 +381,10 @@ public class ClientHandler implements Runnable {
         ArrayList<Object> result = new ArrayList<>();
         result.add(UserNameFollowers);
         result.add(UserNameFollowings);
+        System.out.println("UserName followers:");
+        System.out.println(UserNameFollowers);
+        System.out.println("UserNameFollowings :");
+        System.out.println(UserNameFollowings);
 
         response.setResults(result);
 
@@ -381,6 +404,39 @@ public class ClientHandler implements Runnable {
 
 
     }
+
+    public void myFavoriteTweets() throws IOException {
+        ArrayList<Object> result = new ArrayList<>();
+        result.addAll(page.getLikedTweetsList());
+        response.setResults(result);
+        objectOutputStream.writeObject(gson.toJson(response));
+        refreshResponse();
+
+    }
+
+    public void DisplayPageInformation() throws IOException {
+
+        ArrayList<Object> result = new ArrayList<>();
+        result.add("UserName : "+page.getClient().getUserName()); //usrName
+        result.add("FirstName : "+page.getClient().getFirstName());//firstName
+        result.add("LastName : "+page.getClient().getLastName());//lastName
+        result.add("Birthday : ");
+        result.add(page.getClient().getBirthday());//birthday
+        result.add("Bio : "+page.getBiography()); //bio
+        result.add("Id : "+page.getId());//id
+        result.add("JoinDate : ");
+        result.add(page.getJoinDate()); //joinDate
+
+
+        response.setResults(result);
+        objectOutputStream.writeObject(gson.toJson(response));
+        refreshResponse();
+
+
+
+
+    }
+
 }
 
 

@@ -41,6 +41,10 @@ public class Page {
     public  boolean addFollowing(String username) {
         return followingsList.add(username);
     }
+    public boolean addFollower(String userName)
+    {
+        return followersList.add(userName);
+    }
 
     public boolean deleteFollowing(String username) {
         return followingsList.remove(username);
@@ -105,5 +109,10 @@ public class Page {
 
     public String getId() {
         return id;
+    }
+
+
+    public LocalDate getJoinDate() {
+        return joinDate;
     }
 }
