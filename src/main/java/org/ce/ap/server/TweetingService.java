@@ -16,4 +16,7 @@ public interface TweetingService {
     public void LikeRetweet(String clientUsername, Message tweet, String mine);
 
     public void LikeReply(String clientUsername, Message tweet, String mine);
+
+    public boolean addRetweet(Message tweet ,String userName,String quoteTweet);
+
 }

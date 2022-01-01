@@ -1,82 +1,10 @@
-Dec 31, 2021 8:09:31 PM main.java.org.ce.ap.impl.server.FileManagementImpl initLogger
+Jan 01, 2022 2:09:30 PM main.java.org.ce.ap.impl.server.FileManagementImpl initLogger
 INFO: properties read and logger started.
-Dec 31, 2021 8:09:31 PM main.java.org.ce.ap.impl.server.FileManagementImpl readDatabaseFolder
+Jan 01, 2022 2:09:30 PM main.java.org.ce.ap.impl.server.FileManagementImpl readDatabaseFolder
 INFO: database Folder Successfully read.
-Dec 31, 2021 8:09:34 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
+Jan 01, 2022 2:09:30 PM main.java.org.ce.ap.impl.server.FileManagementImpl loadDatabase
+INFO: database read.
+Jan 01, 2022 2:09:33 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
 INFO: database saved.
-Dec 31, 2021 8:10:31 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Dec 31, 2021 8:11:31 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Dec 31, 2021 8:12:31 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Dec 31, 2021 8:13:31 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Dec 31, 2021 8:14:31 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Dec 31, 2021 8:15:31 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Dec 31, 2021 8:16:31 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Dec 31, 2021 8:17:31 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Dec 31, 2021 8:18:31 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Dec 31, 2021 8:19:31 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Dec 31, 2021 8:20:31 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Dec 31, 2021 8:21:31 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Dec 31, 2021 8:22:31 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Dec 31, 2021 8:23:31 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Dec 31, 2021 8:24:31 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Dec 31, 2021 8:25:31 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Dec 31, 2021 8:26:32 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Dec 31, 2021 8:27:32 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Dec 31, 2021 8:28:32 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Dec 31, 2021 8:29:32 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Dec 31, 2021 8:30:32 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Dec 31, 2021 8:31:32 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Dec 31, 2021 8:32:32 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Dec 31, 2021 8:33:32 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Dec 31, 2021 8:34:32 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Dec 31, 2021 8:35:32 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Dec 31, 2021 8:36:32 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Dec 31, 2021 8:37:32 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Dec 31, 2021 8:38:32 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Dec 31, 2021 8:39:32 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Dec 31, 2021 8:40:32 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Dec 31, 2021 8:41:32 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Dec 31, 2021 8:42:32 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Dec 31, 2021 8:43:32 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Dec 31, 2021 8:44:32 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Dec 31, 2021 8:45:32 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Dec 31, 2021 8:46:32 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Dec 31, 2021 8:47:32 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
+Jan 01, 2022 2:10:30 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
 INFO: database saved.

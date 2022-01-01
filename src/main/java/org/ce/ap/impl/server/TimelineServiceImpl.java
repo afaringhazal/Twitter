@@ -74,6 +74,7 @@ public class TimelineServiceImpl implements TimelineService {
         for (String userName : database.getClientPage(client).getFollowingsList()) {
             followingsRetweets.addAll(database.getClientPageFromUsername(userName).getRetweets());
         }
+        followingsRetweets.addAll(database.getClientPage(client).getRetweets());
         return followingsRetweets;
 
     }

@@ -60,6 +60,10 @@ public  class Message implements Serializable {
         return retweets;
     }
 
+    public boolean addUserNameToRetweet(String username){
+      return  retweets.add(username);
+
+    }
 }
 
 

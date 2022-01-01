@@ -41,6 +41,8 @@ public interface ClientHandler extends Runnable {
 
     public void DisplayPageInformation() throws IOException ;
 
+    public void editProfile();
+
 }
 
 

@@ -102,6 +102,11 @@ public class ClientHandlerImpl implements ClientHandler {
                 else if(request.getTitle().equals("LikeMessage"))
                 {
                     LikedMessage();
+                }else if(request.getTitle().equals("RetweetMessage")){
+                    retweetMessage();
+                }
+                else if(request.getTitle().equals("Edit Profile")){
+                    editProfile();
                 }
 
 
@@ -465,7 +470,94 @@ public class ClientHandlerImpl implements ClientHandler {
 
     }
 
+    public void retweetMessage() throws IOException {
+        int IdMessageToRetweet = Integer.parseInt((String) request.getParameterValue().get(0));
+        String quoteTweet = (String) request.getParameterValue().get(1);
+       // System.out.println("The ID for Like is"+IdMessageToLike);
 
+        ParameterValue parameterValue = tweetingService.findMessage(IdMessageToRetweet);
+
+
+        if(parameterValue.getName().equals("Tweet"))
+        {
+            Tweet tweet = (Tweet) parameterValue.getValue();
+          if(!tweetingService.addRetweet(tweet ,page.getClient().getUserName(),quoteTweet))
+          {
+              response.setHasError(true);
+              response.setErrorCode(44);
+          }
+
+        }
+        else if(parameterValue.getName().equals("Retweet")){
+
+            Retweet retweet = (Retweet) parameterValue.getValue();
+            if(!tweetingService.addRetweet(retweet ,page.getClient().getUserName(),quoteTweet))
+            {
+                response.setHasError(true);
+                response.setErrorCode(44);
+            }
+        }
+        else if(parameterValue.getName().equals("Reply")){
+            Reply reply = (Reply) parameterValue.getValue();
+            if(!tweetingService.addRetweet(reply ,page.getClient().getUserName(),quoteTweet))
+            {
+                response.setHasError(true);
+                response.setErrorCode(44);
+            }
+
+        }
+        else {
+
+            System.out.println("*******");
+            response.setHasError(true);
+            response.setErrorCode(33);
+        }
+        objectOutputStream.writeObject(gson.toJson(response));
+        refreshResponse();
+
+    }
+
+
+    @Override
+    public void editProfile() {
+
+
+//        try {
+//            message = (String) objectInputStream.readObject();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
+
+
+        System.out.println("received further request.");
+        request = gson.fromJson(message, Request.class);
+        String fistName = (String) request.getParameterValue().get(0);
+        String lastName = (String) request.getParameterValue().get(1);
+        int year = Integer.parseInt((String) request.getParameterValue().get(2));
+        System.out.println("year " + year);
+        int month = Integer.parseInt((String) request.getParameterValue().get(3));
+        int day = Integer.parseInt((String) request.getParameterValue().get(4));
+        String id = (String) request.getParameterValue().get(5);
+        String bio = (String) request.getParameterValue().get(6);
+        LocalDate localDate = LocalDate.of(year, month, day);
+        System.out.println("2222222");
+        System.out.println(localDate);
+        page.getClient().setFirstName(fistName);
+        page.getClient().setLastName(lastName);
+        page.getClient().setBirthday(localDate);
+        page.setId(id);
+        page.setBiography(bio);
+        refreshResponse();
+        try {
+            objectOutputStream.writeObject(gson.toJson(response));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
     public void fixGson() {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(LocalDate.class, new Server.LocalDateSerializer());
@@ -479,6 +571,7 @@ public class ClientHandlerImpl implements ClientHandler {
         gson = gsonBuilder.setPrettyPrinting().create();
 
     }
+
 }
 
 

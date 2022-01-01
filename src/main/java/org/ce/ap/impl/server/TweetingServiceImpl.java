@@ -23,7 +23,7 @@ public class TweetingServiceImpl implements TweetingService {
     }
 
     @Override
-
+ // we have problem this method
     public void deleteTweet(Tweet tweet) {
         database.getClientPageFromUsername(tweet.getClient()).getTweets().remove(tweet);
         // observerService.DeletingForOtherPeople(database.getClientPageFromUsername(tweet.clientUsername).getClient(), tweet);
@@ -170,4 +170,14 @@ public class TweetingServiceImpl implements TweetingService {
     }
 
 
+
+
+    public boolean addRetweet(Message tweet ,String userName,String quoteTweet) {
+        Retweet retweet = new Retweet(tweet,userName,quoteTweet);
+        retweet.id = counter;
+        counter++;
+
+        return  tweet.addUserNameToRetweet(userName) &&  database.getClientPageFromUsername(userName).addRetweet(retweet);
+
+    }
 }

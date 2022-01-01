@@ -122,6 +122,14 @@ public class Page implements Serializable {
     }
 
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setBiography(String biography) {
+        this.biography = biography;
+    }
+
     public LocalDate getJoinDate() {
         return joinDate;
     }
