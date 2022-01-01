@@ -2,23 +2,63 @@ package main.java.org.ce.ap.server;
 
 import main.java.org.ce.ap.ParameterValue;
 
+/**
+ * The interface Tweeting service.
+ */
 public interface TweetingService {
 
+    /**
+     * Add tweet boolean.
+     *
+     * @param tweet the tweet
+     * @return the boolean
+     */
+     boolean addTweet(Tweet tweet);
 
 
-    public boolean addTweet(Tweet tweet);
+    /**
+     * Delete tweet boolean.
+     *
+     * @param id the id
+     * @return the boolean
+     */
+     boolean deleteTweet(int id);
 
 
-    public boolean deleteTweet(int id);
+    /**
+     * Like.
+     *
+     * @param clientUsername the client username
+     * @param tweet          the tweet
+     * @param mine           the mine
+     */
+     void like(String clientUsername, Message tweet, String mine) ;
 
+    /**
+     * Find message parameter value.
+     *
+     * @param id the id
+     * @return the parameter value
+     */
+     ParameterValue findMessage(int id);
 
-    public void like(String clientUsername, Message tweet, String mine) ;
+    /**
+     * Like retweet.
+     *
+     * @param clientUsername the client username
+     * @param tweet          the tweet
+     * @param mine           the mine
+     */
+     void LikeRetweet(String clientUsername, Message tweet, String mine);
 
-    public ParameterValue findMessage(int id);
-    public void LikeRetweet(String clientUsername, Message tweet, String mine);
-
-
-
-    public boolean addRetweet(Message tweet ,String userName,String quoteTweet);
+     /**
+     * Add retweet boolean.
+     *
+     * @param tweet      the tweet
+     * @param userName   the user name
+     * @param quoteTweet the quote tweet
+     * @return the boolean
+     */
+     boolean addRetweet(Message tweet ,String userName,String quoteTweet);
 
 }

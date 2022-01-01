@@ -1,39 +1,31 @@
 package main.java.org.ce.ap.client;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.internal.LinkedTreeMap;
 import main.java.org.ce.ap.Response;
-import main.java.org.ce.ap.server.*;
-
 import java.util.ArrayList;
-import java.util.TreeMap;
 
-
+/**
+ * The interface Console view service.
+ */
 public interface ConsoleViewService {
 
-    //  String jsonText = JSONValue.toJSONString(obj);
+    /**
+     * Print all tweets.
+     *
+     * @param response the response
+     */
+     void printAllTweets(Response response) ;
+     /**
+     * Print list.
+     *
+     * @param response the response
+     */
+     void printList(Response response) ;
 
-
-    public void printAllTweets(Response response) ;
-
-
-
-
-    public String toGsonString(Response response);
-
-
-
-    public void printReply(ArrayList<Object> repliers, int degree);
-
-    public void initLine(int degree);
-
-    public void printList(Response response) ;
-
-    public void printFollowersAndFollowings(Response response) ;
-
-
-    public void printMyTweets(ArrayList<Object> repliers, int degree);
+    /**
+     * Print followers and followings.
+     *
+     * @param response the response
+     */
+     void printFollowersAndFollowings(Response response) ;
 
 
 }

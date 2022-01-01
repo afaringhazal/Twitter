@@ -1,8 +1,6 @@
 package main.java.org.ce.ap.server;
-
 import com.google.gson.*;
 import main.java.org.ce.ap.impl.server.*;
-
 import java.io.*;
 import java.lang.reflect.Type;
 import java.net.ServerSocket;
@@ -20,25 +18,78 @@ import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
+/**
+ * class :  The type Server.
+ * @author MohammadHdi sheikhEslami
+ * @author Rezvan Afari
+ * @version 1.0.0
+ */
 public class Server {
+    /**
+     * The Executor service.
+     */
     ExecutorService executorService = Executors.newCachedThreadPool();
+    /**
+     * The Authentication service.
+     */
     AuthenticationService authenticationService;
+    /**
+     * The Tweeting service.
+     */
     TweetingServiceImpl tweetingService;
+    /**
+     * The Timeline service.
+     */
     TimelineService timelineService;
+    /**
+     * The Observer service.
+     */
     ObserverService observerService;
+    /**
+     * The Server socket.
+     */
     ServerSocket serverSocket;
+    /**
+     * The Database.
+     */
     Database database;
+    /**
+     * The Logger.
+     */
     Logger logger;
+    /**
+     * The File management.
+     */
     FileManagement fileManagement =new FileManagementImpl();
+    /**
+     * The Sc.
+     */
     Scanner sc = new Scanner(System.in);
+    /**
+     * The Props.
+     */
     Properties props = new Properties();
+    /**
+     * The Should run.
+     */
     boolean shouldRun = true;
 
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     * @throws NoSuchAlgorithmException the no such algorithm exception
+     */
     public static void main(String[] args) throws NoSuchAlgorithmException {
         new Server();
     }
 
+    /**
+     * Instantiates a new Server.
+     *
+     * @throws NoSuchAlgorithmException the no such algorithm exception
+     */
     public Server() throws NoSuchAlgorithmException {
         initializeServer();
         acceptClients();
@@ -73,6 +124,9 @@ public class Server {
 
     }
 
+    /**
+     * Init logger.
+     */
     public void initLogger() {
         FileHandler fh=null;
         logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
@@ -143,7 +197,9 @@ public class Server {
     }
 
 
-
+    /**
+     * The type Local date serializer.
+     */
     public static class LocalDateSerializer implements JsonSerializer<LocalDate> {
         private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MMM-yyyy");
 
@@ -153,6 +209,9 @@ public class Server {
         }
     }
 
+    /**
+     * The type Local date time serializer.
+     */
     public static class LocalDateTimeSerializer implements JsonSerializer<LocalDateTime> {
         private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d::MMM::uuuu HH::mm::ss");
 
@@ -162,6 +221,9 @@ public class Server {
         }
     }
 
+    /**
+     * The type Local date deserializer.
+     */
     public static class LocalDateDeserializer implements JsonDeserializer<LocalDate> {
         @Override
         public LocalDate deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
@@ -171,6 +233,9 @@ public class Server {
         }
     }
 
+    /**
+     * The type Local date time deserializer.
+     */
     public static class LocalDateTimeDeserializer implements JsonDeserializer<LocalDateTime> {
         @Override
         public LocalDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)

@@ -1,35 +1,54 @@
 package main.java.org.ce.ap.impl.server;
-
 import main.java.org.ce.ap.server.Database;
 import main.java.org.ce.ap.server.FileManagement;
 import main.java.org.ce.ap.server.TweetingService;
-
 import java.io.*;
 import java.security.NoSuchAlgorithmException;
 import java.util.Properties;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
-
+/**
+ * class : The type File management.
+ * @author MohammadHdi sheikhEslami
+ * @author Rezvan Afari
+ * @version 1.0.0
+ */
 public class FileManagementImpl implements FileManagement {
-
 
     private File databaseFolder = null;
     private File[] filesInDatabaseFolder;
+    /**
+     * The Logger.
+     */
     public Logger logger;
+    /**
+     * The Props.
+     */
     Properties props = new Properties();
+    /**
+     * The Fh.
+     */
     FileHandler fh = null;
 
+    /**
+     * Instantiates a new File management.
+     */
     public FileManagementImpl() {
         readProps();
         initFolders();
-        logger=Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+        logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
         readDatabaseFolder();
     }
 
-
+    /**
+     * Save database.
+     *
+     * @param database        the database
+     * @param tweetingService the tweeting service
+     */
     @Override
-    public void saveDatabase(Database database,TweetingServiceImpl tweetingService) {
+    public void saveDatabase(Database database, TweetingServiceImpl tweetingService) {
         String fileName;
         FileOutputStream fileOutputStream = null;
         ObjectOutputStream objectOutputStream = null;
@@ -40,9 +59,9 @@ public class FileManagementImpl implements FileManagement {
             objectOutputStream = new ObjectOutputStream(fileOutputStream);
             objectOutputStream.writeObject(database);
             logger.info("database saved.");
-            props.setProperty("numberOfMessages",tweetingService.counter+"");
-            String propsName="src/main/resources/server-application.properties";
-            props.store(new FileOutputStream (propsName),null);
+            props.setProperty("numberOfMessages", tweetingService.counter + "");
+            String propsName = "src/main/resources/server-application.properties";
+            props.store(new FileOutputStream(propsName), null);
             objectOutputStream.flush();
             objectOutputStream.close();
 
@@ -55,7 +74,13 @@ public class FileManagementImpl implements FileManagement {
 
     }
 
-
+    /**
+     * Load database database.
+     *
+     * @param tweetingService the tweeting service
+     * @return the database
+     * @throws NoSuchAlgorithmException the no such algorithm exception
+     */
     @Override
     public Database loadDatabase(TweetingService tweetingService) throws NoSuchAlgorithmException {
         refreshFilesInFolder(databaseFolder);
@@ -87,15 +112,20 @@ public class FileManagementImpl implements FileManagement {
         return database;
     }
 
-
-
+    /**
+     * Refresh files in folder.
+     *
+     * @param Folder the folder
+     */
     @Override
     public void refreshFilesInFolder(File Folder) {
         filesInDatabaseFolder = Folder.listFiles();
 
     }
 
-
+    /**
+     * Read props.
+     */
     @Override
     public void readProps() {
 
@@ -108,7 +138,6 @@ public class FileManagementImpl implements FileManagement {
         }
 
     }
-
 
     @Override
     public void initLogger() {
@@ -134,6 +163,9 @@ public class FileManagementImpl implements FileManagement {
         logger.info("properties read and logger started.");
     }
 
+    /**
+     * Read database folder.
+     */
     @Override
     public void readDatabaseFolder() {
 
@@ -144,6 +176,9 @@ public class FileManagementImpl implements FileManagement {
         logger.info("database Folder Successfully read.");
     }
 
+    /**
+     * Init folders.
+     */
     @Override
     public void initFolders() {
         File notesFolder;
@@ -162,16 +197,22 @@ public class FileManagementImpl implements FileManagement {
 
     }
 
-    public void initTweetingService(TweetingServiceImpl tweetingService){
+    /**
+     * Init tweeting service.
+     *
+     * @param tweetingService the tweeting service
+     */
+    @Override
+    public void initTweetingService(TweetingServiceImpl tweetingService) {
         readProps();
         if (!props.keySet().contains("numberOfMessages")) {
             tweetingService.counter = 1;
-        }
-        else {
-            tweetingService.counter=Integer.parseInt((String) props.get("numberOfMessages"));
+        } else {
+            tweetingService.counter = Integer.parseInt((String) props.get("numberOfMessages"));
         }
 
 
     }
+
 }
 

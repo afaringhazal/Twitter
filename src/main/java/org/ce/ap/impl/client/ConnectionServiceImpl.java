@@ -9,19 +9,40 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Properties;
 
+/**
+ * class : The type Connection service.
+ * @author MohammadHdi sheikhEslami
+ * @author Rezvan Afari
+ * @version 1.0.0
+ */
 public class ConnectionServiceImpl implements ConnectionService {
 
     private Socket socket;
     private ObjectOutputStream objectOutputStream = null;
+    /**
+     * The Object input stream.
+     */
     public ObjectInputStream objectInputStream = null;
+    /**
+     * The Props.
+     */
     Properties props = new Properties();
 
+    /**
+     * Instantiates a new Connection service.
+     */
     public ConnectionServiceImpl() {
         readProps();
         connectToServer();
-
     }
 
+    /**
+     * Receive from server string.
+     *
+     * @return the string
+     * @throws IOException            the io exception
+     * @throws ClassNotFoundException the class not found exception
+     */
     @Override
     public String receiveFromServer() throws IOException, ClassNotFoundException {
         return (String) objectInputStream.readObject();
@@ -29,6 +50,12 @@ public class ConnectionServiceImpl implements ConnectionService {
 
     }
 
+    /**
+     * Send to server.
+     *
+     * @param s the s
+     * @throws IOException the io exception
+     */
     @Override
     public void sendToServer(String s) throws IOException {
         objectOutputStream.writeObject(s);
@@ -37,6 +64,12 @@ public class ConnectionServiceImpl implements ConnectionService {
 
     }
 
+    /**
+     * Stop string.
+     *
+     * @return the string
+     * @throws IOException the io exception
+     */
     @Override
     public String stop() throws IOException {
         objectInputStream.close();
@@ -72,9 +105,14 @@ public class ConnectionServiceImpl implements ConnectionService {
 
     }
 
+    /**
+     * Socket is connected boolean.
+     *
+     * @return the boolean
+     */
     @Override
     public boolean socketIsConnected() {
-        if (socket==null){
+        if (socket == null) {
             return false;
         }
         return socket.isConnected();

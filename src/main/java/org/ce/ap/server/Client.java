@@ -1,17 +1,13 @@
 package main.java.org.ce.ap.server;
-
-//import org.json.JSONObject;
-
-//import main.java.org.ce.ap.server.PersonalInformation;
-
-//import main.java.org.ce.ap.server.PersonalInformation;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
-
-
-
+/**
+ * class :The type Client.
+ * @author MohammadHdi sheikhEslami
+ * @author Rezvan Afari
+ * @version 1.0.0
+ */
 public class Client implements Serializable {
 
     private String firstName;
@@ -19,22 +15,26 @@ public class Client implements Serializable {
     private LocalDate birthday;
     private PersonalInformation personalInformation;
 
-    /** constructor of client
-     * @param firstName first name of client
-     * @param lastName last name of client
-     * @param birthday client's date of birth
+    /**
+     * constructor of client
+     *
+     * @param firstName           first name of client
+     * @param lastName            last name of client
+     * @param birthday            client's date of birth
      * @param personalInformation the personal information about logging in
      */
-    public Client(String firstName, String lastName, LocalDate birthday ,PersonalInformation personalInformation)  {
+    public Client(String firstName, String lastName, LocalDate birthday, PersonalInformation personalInformation) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthday = birthday;
-        this.personalInformation=personalInformation;
+        this.personalInformation = personalInformation;
 
     }
 
 
-    /** compares an object to this client
+    /**
+     * compares an object to this client
+     *
      * @param o the object to compare
      * @return true if two objects are equal, false otherwise
      */
@@ -47,38 +47,83 @@ public class Client implements Serializable {
     }
 
 
+    /**
+     * Gets first name.
+     *
+     * @return the first name
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     * Sets first name.
+     *
+     * @param firstName the first name
+     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
+    /**
+     * Gets last name.
+     *
+     * @return the last name
+     */
     public String getLastName() {
         return lastName;
     }
 
+    /**
+     * Sets last name.
+     *
+     * @param lastName the last name
+     */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
+    /**
+     * Gets birthday.
+     *
+     * @return the birthday
+     */
     public LocalDate getBirthday() {
         return birthday;
     }
 
+    /**
+     * Sets birthday.
+     *
+     * @param birthday the birthday
+     */
     public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
 
-    public String getUserName(){
+    /**
+     * Get user name string.
+     *
+     * @return the string
+     */
+    public String getUserName() {
         return personalInformation.getUserName();
     }
 
-    public String getPassword(){
+    /**
+     * Get password string.
+     *
+     * @return the string
+     */
+    public String getPassword() {
         return personalInformation.getPassword();
     }
 
+    /**
+     * Sets personal information.
+     *
+     * @param personalInformation the personal information
+     */
     public void setPersonalInformation(PersonalInformation personalInformation) {
         this.personalInformation = personalInformation;
     }

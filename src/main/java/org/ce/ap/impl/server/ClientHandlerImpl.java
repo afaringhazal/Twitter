@@ -1,12 +1,10 @@
 package main.java.org.ce.ap.impl.server;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import main.java.org.ce.ap.ParameterValue;
 import main.java.org.ce.ap.Request;
 import main.java.org.ce.ap.Response;
 import main.java.org.ce.ap.server.*;
-
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -16,8 +14,13 @@ import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.logging.Logger;
 
+/**
+ * class : The type Client handler.
+ * @author MohammadHdi sheikhEslami
+ * @author Rezvan Afari
+ * @version 1.0.0
+ */
 public class ClientHandlerImpl implements ClientHandler {
 
     private Socket socket;
@@ -26,16 +29,46 @@ public class ClientHandlerImpl implements ClientHandler {
     private TweetingService tweetingService;
     private ObserverService observerService;
     private TimelineService timelineService;
+    /**
+     * The Response.
+     */
     Response response = new Response(false, 0, 0, null);
+    /**
+     * The Request.
+     */
     Request request;
+    /**
+     * The Object input stream.
+     */
     ObjectInputStream objectInputStream;
+    /**
+     * The Object output stream.
+     */
     ObjectOutputStream objectOutputStream;
+    /**
+     * The Message.
+     */
     String message = "";
+    /**
+     * The Page.
+     */
     Page page = null;
 
 
+    /**
+     * The Gson.
+     */
     Gson gson;
 
+    /**
+     * Instantiates a new Client handler.
+     *
+     * @param socket                the socket
+     * @param authenticationService the authentication service
+     * @param tweetingService       the tweeting service
+     * @param observerService       the observer service
+     * @param timelineService       the timeline service
+     */
     public ClientHandlerImpl(Socket socket, AuthenticationService authenticationService, TweetingService tweetingService, ObserverService observerService, TimelineService timelineService) {
         fixGson();
         this.socket = socket;
@@ -56,8 +89,8 @@ public class ClientHandlerImpl implements ClientHandler {
             objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
 
             while (clientIsConnected) {
-                if (!socket.isConnected()){
-                    clientIsConnected=false;
+                if (!socket.isConnected()) {
+                    clientIsConnected = false;
                     break;
                 }
                 refreshResponse();
@@ -99,17 +132,13 @@ public class ClientHandlerImpl implements ClientHandler {
                     myFavoriteTweets();
                 } else if (request.getTitle().equals("Display Page Information")) {
                     DisplayPageInformation();
-                }
-                else if(request.getTitle().equals("LikeMessage"))
-                {
+                } else if (request.getTitle().equals("LikeMessage")) {
                     LikedMessage();
-                }else if(request.getTitle().equals("RetweetMessage")){
+                } else if (request.getTitle().equals("RetweetMessage")) {
                     retweetMessage();
-                }
-                else if(request.getTitle().equals("Edit Profile")){
+                } else if (request.getTitle().equals("Edit Profile")) {
                     editProfile();
-                }
-                else if(request.getTitle().equals("Delete Tweet")){
+                } else if (request.getTitle().equals("Delete Tweet")) {
 
                     deleteTweet();
                 }
@@ -132,6 +161,12 @@ public class ClientHandlerImpl implements ClientHandler {
 
 
     }
+
+    /**
+     * Send my tweet and replies.
+     *
+     * @throws IOException the io exception
+     */
     @Override
     public void sendMyTweetAndReplies() throws IOException {
         ArrayList<Object> result = new ArrayList<>();
@@ -141,6 +176,13 @@ public class ClientHandlerImpl implements ClientHandler {
         refreshResponse();
     }
 
+    /**
+     * Process sign up.
+     *
+     * @throws IOException              the io exception
+     * @throws NoSuchAlgorithmException the no such algorithm exception
+     * @throws ClassNotFoundException   the class not found exception
+     */
     @Override
     public void processSignUp() throws IOException, NoSuchAlgorithmException, ClassNotFoundException {
 
@@ -199,6 +241,12 @@ public class ClientHandlerImpl implements ClientHandler {
         System.out.println("signUp successful.");
     }
 
+    /**
+     * Process sign in.
+     *
+     * @throws NoSuchAlgorithmException the no such algorithm exception
+     * @throws IOException              the io exception
+     */
     @Override
     public void processSignIn() throws NoSuchAlgorithmException, IOException {
 
@@ -226,6 +274,11 @@ public class ClientHandlerImpl implements ClientHandler {
 
     }
 
+    /**
+     * Process tweet.
+     *
+     * @throws IOException the io exception
+     */
     @Override
     public void processTweet() throws IOException {
 
@@ -236,32 +289,14 @@ public class ClientHandlerImpl implements ClientHandler {
         }
         objectOutputStream.writeObject(gson.toJson(response));
         refreshResponse();
-        //
-//        parameters.add(new ParameterValue("Text", tweet.text));
-//        parameters.add(new ParameterValue("UserName", page.getClient().getUserName()));
-//        ArrayList<ParameterValue> retweets=new ArrayList<>();
-//        for (String clientUsername : tweet.getRetweets()) {
-//            retweets.add(new ParameterValue("retweeter", clientUsername));
-//
-//        }
-//        parameters.add(new ParameterValue("Retweets",retweets));
-//
-//        ArrayList<String> tweetLikes =new ArrayList<>() ;
-//        for (String string: tweet.getLikes()) {
-//            retweets.add(new ParameterValue("liker", string));
-//
-//        }
-//        parameters.add(new ParameterValue("likes",tweetLikes));
-//
-//        ArrayList<String> tweetReplies =new ArrayList<>() ;
-//        for (Message msg:tweet.getReplies() ) {
-//
-//            retweets.add(new ParameterValue(((Reply) msg).getReplier(),((Reply) msg).getText()));
-//
-//        }
-//        parameters.add(new ParameterValue("Replies",tweetReplies));
+
     }
 
+    /**
+     * Process time line.
+     *
+     * @throws IOException the io exception
+     */
     @Override
     public void processTimeLine() throws IOException {
 
@@ -277,9 +312,13 @@ public class ClientHandlerImpl implements ClientHandler {
 
     }
 
+    /**
+     * Show all followers.
+     *
+     * @throws IOException the io exception
+     */
     @Override
     public void ShowAllFollowers() throws IOException {
-        ///////
         ArrayList<Object> UserNameFollower = null;
         try {
             UserNameFollower.addAll(observerService.getFollowers(page.getClient().getUserName()));
@@ -295,6 +334,11 @@ public class ClientHandlerImpl implements ClientHandler {
 
     }
 
+    /**
+     * Request delete follower.
+     *
+     * @throws IOException the io exception
+     */
     @Override
     public void requestDeleteFollower() throws IOException {
 
@@ -311,6 +355,11 @@ public class ClientHandlerImpl implements ClientHandler {
         refreshResponse();
     }
 
+    /**
+     * Request unfollow.
+     *
+     * @throws IOException the io exception
+     */
     @Override
     public void requestUnfollow() throws IOException {
 
@@ -327,6 +376,11 @@ public class ClientHandlerImpl implements ClientHandler {
         refreshResponse();
     }
 
+    /**
+     * Request follow.
+     *
+     * @throws IOException the io exception
+     */
     @Override
     public void requestFollow() throws IOException {
         ArrayList<Object> follow = request.getParameterValue();
@@ -336,23 +390,19 @@ public class ClientHandlerImpl implements ClientHandler {
             if (observerService.follow((String) obj, page.getClient().getUserName())) {
                 checked.add(true);
                 counter++;
-            }
-            else {
-                checked.add(false) ;
+            } else {
+                checked.add(false);
                 counter++;
             }
         }
-        counter =0 ;
-        for(Object obj  : checked)
-        {
-            if(obj.equals(false))
-            {
+        counter = 0;
+        for (Object obj : checked) {
+            if (obj.equals(false)) {
                 counter++;
             }
         }
 
-        if(counter == checked.size())
-        {
+        if (counter == checked.size()) {
             response.setHasError(true);
             response.setErrorCode(22);
         }
@@ -363,20 +413,27 @@ public class ClientHandlerImpl implements ClientHandler {
 
     }
 
+    /**
+     * Refresh response.
+     */
     @Override
     public void refreshResponse() {
         response = new Response(false, 0, 0, null);
     }
 
 
+    /**
+     * Show all usernames.
+     *
+     * @throws IOException the io exception
+     */
     @Override
     public void ShowAllUsernames() throws IOException {
 
         ArrayList<Object> x = new ArrayList<>();
         x.addAll(authenticationService.AllUserNames());
         x.remove(page.getClient().getUserName());
-        for(String following : page.getFollowingsList())
-        {
+        for (String following : page.getFollowingsList()) {
             x.remove(following);
         }
 
@@ -385,6 +442,11 @@ public class ClientHandlerImpl implements ClientHandler {
         refreshResponse();
     }
 
+    /**
+     * Show followers and followings.
+     *
+     * @throws IOException the io exception
+     */
     @Override
     public void showFollowersAndFollowings() throws IOException {
 
@@ -418,7 +480,11 @@ public class ClientHandlerImpl implements ClientHandler {
 
     }
 
-
+    /**
+     * My favorite tweets.
+     *
+     * @throws IOException the io exception
+     */
     @Override
     public void myFavoriteTweets() throws IOException {
         ArrayList<Object> result = new ArrayList<>();
@@ -429,6 +495,11 @@ public class ClientHandlerImpl implements ClientHandler {
 
     }
 
+    /**
+     * Display page information.
+     *
+     * @throws IOException the io exception
+     */
     @Override
     public void DisplayPageInformation() throws IOException {
 
@@ -452,25 +523,27 @@ public class ClientHandlerImpl implements ClientHandler {
     }
 
 
+    /**
+     * Liked message.
+     *
+     * @throws IOException the io exception
+     */
+    @Override
     public void LikedMessage() throws IOException {
         int IdMessageToLike = Integer.parseInt((String) request.getParameterValue().get(0));
-        System.out.println("The ID for Like is"+IdMessageToLike);
+        System.out.println("The ID for Like is" + IdMessageToLike);
 
         ParameterValue parameterValue = tweetingService.findMessage(IdMessageToLike);
-        if(parameterValue.getName().equals("Tweet"))
-        {
+        if (parameterValue.getName().equals("Tweet")) {
             System.out.println("Now Like Tweet :");
             Tweet tweet = (Tweet) parameterValue.getValue();
-            System.out.println("The text Of tweet to like :"+tweet.getText());
-            tweetingService.like(tweet.clientUsername,tweet,page.getClient().getUserName());
-        }
-        else if(parameterValue.getName().equals("Retweet")){
+            System.out.println("The text Of tweet to like :" + tweet.getText());
+            tweetingService.like(tweet.clientUsername, tweet, page.getClient().getUserName());
+        } else if (parameterValue.getName().equals("Retweet")) {
 
             Retweet retweet = (Retweet) parameterValue.getValue();
-            tweetingService.LikeRetweet(retweet.clientUsername,retweet,page.getClient().getUserName());
-        }
-
-        else {
+            tweetingService.LikeRetweet(retweet.clientUsername, retweet, page.getClient().getUserName());
+        } else {
 
             System.out.println("*******");
             response.setHasError(true);
@@ -481,43 +554,42 @@ public class ClientHandlerImpl implements ClientHandler {
 
     }
 
+    /**
+     * Retweet message.
+     *
+     * @throws IOException the io exception
+     */
+    @Override
     public void retweetMessage() throws IOException {
         int IdMessageToRetweet = Integer.parseInt((String) request.getParameterValue().get(0));
         String quoteTweet = (String) request.getParameterValue().get(1);
-       // System.out.println("The ID for Like is"+IdMessageToLike);
+        // System.out.println("The ID for Like is"+IdMessageToLike);
 
         ParameterValue parameterValue = tweetingService.findMessage(IdMessageToRetweet);
 
 
-        if(parameterValue.getName().equals("Tweet"))
-        {
+        if (parameterValue.getName().equals("Tweet")) {
             Tweet tweet = (Tweet) parameterValue.getValue();
-          if(!tweetingService.addRetweet(tweet ,page.getClient().getUserName(),quoteTweet))
-          {
-              response.setHasError(true);
-              response.setErrorCode(44);
-          }
+            if (!tweetingService.addRetweet(tweet, page.getClient().getUserName(), quoteTweet)) {
+                response.setHasError(true);
+                response.setErrorCode(44);
+            }
 
-        }
-        else if(parameterValue.getName().equals("Retweet")){
+        } else if (parameterValue.getName().equals("Retweet")) {
 
             Retweet retweet = (Retweet) parameterValue.getValue();
-            if(!tweetingService.addRetweet(retweet ,page.getClient().getUserName(),quoteTweet))
-            {
+            if (!tweetingService.addRetweet(retweet, page.getClient().getUserName(), quoteTweet)) {
                 response.setHasError(true);
                 response.setErrorCode(44);
             }
-        }
-        else if(parameterValue.getName().equals("Reply")){
+        } else if (parameterValue.getName().equals("Reply")) {
             Reply reply = (Reply) parameterValue.getValue();
-            if(!tweetingService.addRetweet(reply ,page.getClient().getUserName(),quoteTweet))
-            {
+            if (!tweetingService.addRetweet(reply, page.getClient().getUserName(), quoteTweet)) {
                 response.setHasError(true);
                 response.setErrorCode(44);
             }
 
-        }
-        else {
+        } else {
 
             System.out.println("*******");
             response.setHasError(true);
@@ -528,10 +600,15 @@ public class ClientHandlerImpl implements ClientHandler {
 
     }
 
+    /**
+     * Delete tweet.
+     *
+     * @throws IOException the io exception
+     */
+    @Override
     public void deleteTweet() throws IOException {
         String userName = (String) request.getParameterValue().get(0);
-        if(!tweetingService.deleteTweet(Integer.parseInt(userName)))
-        {
+        if (!tweetingService.deleteTweet(Integer.parseInt(userName))) {
             response.setHasError(true);
             response.setErrorCode(33);
         }
@@ -540,6 +617,9 @@ public class ClientHandlerImpl implements ClientHandler {
 
     }
 
+    /**
+     * Edit profile.
+     */
 
     @Override
     public void editProfile() {
@@ -573,6 +653,9 @@ public class ClientHandlerImpl implements ClientHandler {
     }
 
 
+    /**
+     * Fix gson.
+     */
     public void fixGson() {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(LocalDate.class, new Server.LocalDateSerializer());

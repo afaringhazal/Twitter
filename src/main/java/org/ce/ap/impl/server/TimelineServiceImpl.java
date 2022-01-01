@@ -1,5 +1,4 @@
 package main.java.org.ce.ap.impl.server;
-
 import main.java.org.ce.ap.server.Client;
 import main.java.org.ce.ap.server.Database;
 import main.java.org.ce.ap.server.Message;
@@ -10,14 +9,39 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
+/**
+ * class : The type Timeline service.
+ * @author MohammadHdi sheikhEslami
+ * @author Rezvan Afari
+ * @version 1.0.0
+ */
 public class TimelineServiceImpl implements TimelineService {
 
+    /**
+     * The Database.
+     */
     Database database;
-Logger logger;
+    /**
+     * The Logger.
+     */
+    Logger logger;
+
+    /**
+     * Instantiates a new Timeline service.
+     *
+     * @param database the database
+     */
     public TimelineServiceImpl(Database database) {
         this.database = database;
-        logger=Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+        logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     }
+
+    /**
+     * Sort messages list.
+     *
+     * @param messages the messages
+     * @return the list
+     */
 
     @Override
     public List<Message> sortMessages(List<Message> messages) {
@@ -35,10 +59,16 @@ Logger logger;
             messageList.remove(latestMessage);
         }
         messages = newList;
-        logger.info("all messages were gathered and sorted. details:" +messages);
+        logger.info("all messages were gathered and sorted. details:" + messages);
         return messages;
     }
 
+    /**
+     * Gather timeline array list.
+     *
+     * @param username the username
+     * @return the array list
+     */
     @Override
     public ArrayList<Message> gatherTimeline(String username) {
         ArrayList<Message> timeline = new ArrayList<>(gatherRetweets(username));
@@ -57,6 +87,12 @@ Logger logger;
         return timeline;
     }
 
+    /**
+     * Gather tweets array list.
+     *
+     * @param username the username
+     * @return the array list
+     */
     @Override
     public ArrayList<Message> gatherTweets(String username) {
         Client client = database.getClientFromUsername(username);
@@ -68,6 +104,12 @@ Logger logger;
         return followingsTweets;
     }
 
+    /**
+     * Gather retweets array list.
+     *
+     * @param username the username
+     * @return the array list
+     */
     @Override
     public ArrayList<Message> gatherRetweets(String username) {
         Client client = database.getClientFromUsername(username);

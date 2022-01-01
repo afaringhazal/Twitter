@@ -1,60 +1,138 @@
 package main.java.org.ce.ap.client;
-
-import com.google.gson.Gson;
-//import main.java.org.ce.ap.ParameterValue;
-import com.google.gson.GsonBuilder;
-import main.java.org.ce.ap.Request;
-import main.java.org.ce.ap.Response;
-import main.java.org.ce.ap.server.Server;
-//import org.json.JSONArray;
-//import org.json.JSONException;
-//import org.json.JSONObject;
-
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Scanner;
 
+/**
+ * The interface Command parser service.
+ */
 public interface CommandParserService {
 
-    public  void showMainMenu() throws IOException, ClassNotFoundException;
-    public void refreshRequest();
+    /**
+     * Show main menu.
+     *
+     * @throws IOException            the io exception
+     * @throws ClassNotFoundException the class not found exception
+     */
+    void showMainMenu() throws IOException, ClassNotFoundException;
+
+    /**
+     * Refresh request.
+     */
+    void refreshRequest();
 
 
-    public void processSignIn() throws IOException, ClassNotFoundException ;
+    /**
+     * Process sign in.
+     *
+     * @throws IOException            the io exception
+     * @throws ClassNotFoundException the class not found exception
+     */
+    void processSignIn() throws IOException, ClassNotFoundException ;
 
 
-    public void processSignUp() throws IOException, ClassNotFoundException ;
+    /**
+     * Process sign up.
+     *
+     * @throws IOException            the io exception
+     * @throws ClassNotFoundException the class not found exception
+     */
+    void processSignUp() throws IOException, ClassNotFoundException ;
 
 
-    public void addTweet() ;
+    /**
+     * Add tweet.
+     */
+    void addTweet() ;
 
-    public void requestTimeline();
+    /**
+     * Request timeline.
+     */
+    void requestTimeline();
 
-    public void showPageMenu() throws IOException, ClassNotFoundException ;
+    /**
+     * Show page menu.
+     *
+     * @throws IOException            the io exception
+     * @throws ClassNotFoundException the class not found exception
+     */
+    void showPageMenu() throws IOException, ClassNotFoundException ;
 
-    public void follow() throws IOException, ClassNotFoundException ;
+    /**
+     * Follow.
+     *
+     * @throws IOException            the io exception
+     * @throws ClassNotFoundException the class not found exception
+     */
+    void follow() throws IOException, ClassNotFoundException ;
 
+    /**
+     * Unfollow.
+     */
     public void unfollow();
 
-    public void deleteFollower();
+    /**
+     * Delete follower.
+     */
+    void deleteFollower();
 
-    public void fixGson();
+    /**
+     * Fix gson.
+     */
+    void fixGson();
 
-    public void showFollowersAndFollowing() throws IOException;
+    /**
+     * Show followers and following.
+     *
+     * @throws IOException the io exception
+     */
+    void showFollowersAndFollowing() throws IOException;
 
-    public void  followersAndFollowingsMenu() throws IOException, ClassNotFoundException ;
+    /**
+     * Followers and followings menu.
+     *
+     * @throws IOException            the io exception
+     * @throws ClassNotFoundException the class not found exception
+     */
+    void  followersAndFollowingsMenu() throws IOException, ClassNotFoundException ;
 
-    public void myTweet();
+    /**
+     * My tweet.
+     */
+    void myTweet();
 
-    public void myFavoriteTweets();
+    /**
+     * My favorite tweets.
+     */
+    void myFavoriteTweets();
 
-    public void  DisplayPageInformation();
+    /**
+     * Display page information.
+     */
+    void  DisplayPageInformation();
 
-    public void editProfile();
+    /**
+     * Edit profile.
+     */
+    void editProfile();
+
+    /**
+     * Request to retweet.
+     */
+    void requestToRetweet();
 
 
+    /**
+     * Request to like.
+     */
+    void requestToLike();
+
+    /**
+     * Send request and listen for response.
+     *
+     * @param title           the title
+     * @param parameterValues the parameter values
+     */
+    void sendRequestAndListenForResponse(String title, ArrayList<Object> parameterValues);
 
 }
 

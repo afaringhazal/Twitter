@@ -4,17 +4,62 @@ package main.java.org.ce.ap.server;
 
 import java.util.ArrayList;
 
+/**
+ * The interface Observer service.
+ */
 public interface ObserverService {
 
 
-    public boolean deleteFollower(String followerUserName, String userName);
+    /**
+     * Delete follower boolean.
+     *
+     * @param followerUserName the follower user name
+     * @param userName         the user name
+     * @return the boolean
+     */
+     boolean deleteFollower(String followerUserName, String userName);
 
-    public boolean follow(String UserNameFollowing, String userName);
+    /**
+     * Follow boolean.
+     *
+     * @param UserNameFollowing the user name following
+     * @param userName          the user name
+     * @return the boolean
+     */
+     boolean follow(String UserNameFollowing, String userName);
 
 
-    public boolean unfollow(String followingUsername, String userName);
-    public ArrayList<String> getFollowers(String userName);
-    public ArrayList<String> getFollowings(String userName);
-    public ArrayList<Tweet> sendMyTweet (String userName);
+    /**
+     * Unfollow boolean.
+     *
+     * @param followingUsername the following username
+     * @param userName          the user name
+     * @return the boolean
+     */
+     boolean unfollow(String followingUsername, String userName);
+
+    /**
+     * Gets followers.
+     *
+     * @param userName the user name
+     * @return the followers
+     */
+     ArrayList<String> getFollowers(String userName);
+
+    /**
+     * Gets followings.
+     *
+     * @param userName the user name
+     * @return the followings
+     */
+     ArrayList<String> getFollowings(String userName);
+
+    /**
+     * Send my tweet array list.
+     *
+     * @param userName the user name
+     * @return the array list
+     */
+     ArrayList<Tweet> sendMyTweet (String userName);
 
 }

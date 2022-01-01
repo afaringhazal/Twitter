@@ -12,13 +12,33 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+/**
+ * class : The type Command parser service.
+ * @author MohammadHdi sheikhEslami
+ * @author Rezvan Afari
+ * @version 1.0.0
+ */
 public class CommandParserServiceImpl implements CommandParserService {
 
+    /**
+     * The Gson.
+     */
     Gson gson;
+    /**
+     * The Response.
+     */
     Response response = null;
+    /**
+     * The Request.
+     */
     Request request = new Request("", null);
+    /**
+     * The Should run.
+     */
     boolean shouldRun = false;
+    /**
+     * The Scanner.
+     */
     Scanner scanner = new Scanner(System.in);
     private ConnectionService connectionService;
     private ConsoleViewService consoleViewService = new ConsoleViewServiceImpl();
@@ -27,13 +47,14 @@ public class CommandParserServiceImpl implements CommandParserService {
     public static void main(String[] args) {
         new CommandParserServiceImpl();
     }
-
-
+    /**
+     * Instantiates a new Command parser service.
+     */
     public CommandParserServiceImpl() {
         fixGson();
         connectionService = new ConnectionServiceImpl();
-        if(connectionService.socketIsConnected()){
-            shouldRun=true;
+        if (connectionService.socketIsConnected()) {
+            shouldRun = true;
         }
         while (shouldRun) {
             System.out.println("1-Sign in\n2-Sign up\n3-Exit");
@@ -64,10 +85,16 @@ public class CommandParserServiceImpl implements CommandParserService {
 
     }
 
+    /**
+     * Show main menu.
+     *
+     * @throws IOException            the io exception
+     * @throws ClassNotFoundException the class not found exception
+     */
     @Override
     public void showMainMenu() throws IOException, ClassNotFoundException {
         while (true) {
-            int n=0;
+            int n = 0;
 
             System.out.println("1-Add tweet\n2-timeline\n3-My Page\n4-Sign Out");
             try {
@@ -101,6 +128,12 @@ public class CommandParserServiceImpl implements CommandParserService {
         request = new Request("", null);
     }
 
+    /**
+     * Process sign in.
+     *
+     * @throws IOException            the io exception
+     * @throws ClassNotFoundException the class not found exception
+     */
     @Override
     public void processSignIn() throws IOException, ClassNotFoundException {
         System.out.println("Enter UserName and password : ");
@@ -119,6 +152,12 @@ public class CommandParserServiceImpl implements CommandParserService {
 
     }
 
+    /**
+     * Process sign up.
+     *
+     * @throws IOException            the io exception
+     * @throws ClassNotFoundException the class not found exception
+     */
     @Override
     public void processSignUp() throws IOException, ClassNotFoundException {
         System.out.println("Enter UserName and password: ");
@@ -152,14 +191,13 @@ public class CommandParserServiceImpl implements CommandParserService {
         signUpParameters.add(id);
         signUpParameters.add(bio);
         try {
-            int d =Integer.parseInt(day);
+            int d = Integer.parseInt(day);
             int m = Integer.parseInt(month);
-            int y =Integer.parseInt(year);
+            int y = Integer.parseInt(year);
 
-            if(d > 31 || m > 12 || d < 0 || m < 0 || y <0)
+            if (d > 31 || m > 12 || d < 0 || m < 0 || y < 0)
                 throw new RuntimeException();
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             System.out.println("Invalid number!");
             return;
         }
@@ -172,6 +210,9 @@ public class CommandParserServiceImpl implements CommandParserService {
 
     }
 
+    /**
+     * Add tweet.
+     */
     @Override
     public void addTweet() {
         System.out.println("Please enter the tweet text.\nTweets should not have more than 256 characters.\nWhen finished enter -1 as last line.");
@@ -203,6 +244,9 @@ public class CommandParserServiceImpl implements CommandParserService {
 
     }
 
+    /**
+     * Request timeline.
+     */
     @Override
     public void requestTimeline() {
 
@@ -213,6 +257,12 @@ public class CommandParserServiceImpl implements CommandParserService {
         showTimelineMenu();
     }
 
+    /**
+     * Show page menu.
+     *
+     * @throws IOException            the io exception
+     * @throws ClassNotFoundException the class not found exception
+     */
     @Override
     public void showPageMenu() {
 
@@ -246,6 +296,12 @@ public class CommandParserServiceImpl implements CommandParserService {
         }
     }
 
+    /**
+     * Follow.
+     *
+     * @throws IOException            the io exception
+     * @throws ClassNotFoundException the class not found exception
+     */
     @Override
     public void follow() {
 
@@ -257,17 +313,17 @@ public class CommandParserServiceImpl implements CommandParserService {
         System.out.println("How many people do you want to follow now?");
         ArrayList<Object> result = new ArrayList<>();
         int num = 0;
-        while (true){
-        try {
-             num = Integer.parseInt(scanner.nextLine());
-             if(num >response.getResults().size())
-                 throw new RuntimeException();
-            break;
+        while (true) {
+            try {
+                num = Integer.parseInt(scanner.nextLine());
+                if (num > response.getResults().size())
+                    throw new RuntimeException();
+                break;
 
-        }catch (Exception e){
-            System.out.println("Invalid number!");
-            continue;
-        }
+            } catch (Exception e) {
+                System.out.println("Invalid number!");
+                continue;
+            }
 
         }
 
@@ -281,16 +337,19 @@ public class CommandParserServiceImpl implements CommandParserService {
         if (response == null) {
             return;
         }
-        for(int i =0 ;i< response.getResults().size() ;i++){
-            if(response.getResults().get(i).equals(true))
-                System.out.println("successful  : "+ result.get(i) );
+        for (int i = 0; i < response.getResults().size(); i++) {
+            if (response.getResults().get(i).equals(true))
+                System.out.println("successful  : " + result.get(i));
             else
-                System.out.println("failed : "+ result.get(i));
+                System.out.println("failed : " + result.get(i));
         }
 
 
     }
 
+    /**
+     * Unfollow.
+     */
     @Override
     public void unfollow() {
         System.out.println("Enter user name :");
@@ -305,6 +364,9 @@ public class CommandParserServiceImpl implements CommandParserService {
 
     }
 
+    /**
+     * Delete follower.
+     */
     @Override
     public void deleteFollower() {
         System.out.println("Enter user name :");
@@ -317,7 +379,11 @@ public class CommandParserServiceImpl implements CommandParserService {
         }
         System.out.println("You successfully Deleted follower: " + use + " .");
     }
-    public void deleteTweet(){
+
+    /**
+     * Delete tweet.
+     */
+    public void deleteTweet() {
         System.out.println("Enter tweet id: ");
         String id = scanner.nextLine();
         ArrayList<Object> parameters = new ArrayList<>();
@@ -329,6 +395,11 @@ public class CommandParserServiceImpl implements CommandParserService {
         System.out.println("You successfully Deleted tweet with id " + id + " .");
     }
 
+    /**
+     * Show followers and following.
+     *
+     * @throws IOException the io exception
+     */
     @Override
     public void showFollowersAndFollowing() {
         sendRequestAndListenForResponse("showFollowersAndFollowings", null);
@@ -338,6 +409,12 @@ public class CommandParserServiceImpl implements CommandParserService {
 
     }
 
+    /**
+     * Followers and followings menu.
+     *
+     * @throws IOException            the io exception
+     * @throws ClassNotFoundException the class not found exception
+     */
     @Override
     public void followersAndFollowingsMenu() {
         while (true) {
@@ -391,13 +468,11 @@ public class CommandParserServiceImpl implements CommandParserService {
                 deleteTweet();
             } else if (number == 2) {
                 break;
-            }
-            else {
+            } else {
                 System.out.println("Invalid number!\nplease again.");
             }
 
         }
-
 
 
     }
@@ -421,6 +496,10 @@ public class CommandParserServiceImpl implements CommandParserService {
 
     }
 
+    /**
+     * Request to like.
+     */
+    @Override
     public void requestToLike() {
         System.out.println("Enter id Message : ");
         String idToLike = scanner.nextLine();
@@ -434,9 +513,16 @@ public class CommandParserServiceImpl implements CommandParserService {
         System.out.println("You successfully liked message with id: " + idToLike + " .");
     }
 
-    public void sendRequestAndListenForResponse(String title, ArrayList<Object> parameterValues)  {
-        if (!connectionService.socketIsConnected()){
-            shouldRun=false;
+    /**
+     * Send request and listen for response.
+     *
+     * @param title           the title
+     * @param parameterValues the parameter values
+     */
+    @Override
+    public void sendRequestAndListenForResponse(String title, ArrayList<Object> parameterValues) {
+        if (!connectionService.socketIsConnected()) {
+            shouldRun = false;
             try {
                 connectionService.stop();
             } catch (IOException e) {
@@ -479,8 +565,9 @@ public class CommandParserServiceImpl implements CommandParserService {
 
     }
 
-
-
+    /**
+     * Show timeline menu.
+     */
     public void showTimelineMenu() {
         while (true) {
             System.out.println("1-Like\n2-Retweet-\n3-back");
@@ -502,25 +589,26 @@ public class CommandParserServiceImpl implements CommandParserService {
         }
     }
 
-    public void requestToRetweet(){
+    /**
+     * Request to retweet.
+     */
+    @Override
+    public void requestToRetweet() {
         System.out.println("Enter id Message : ");
-        String idToRetweet= scanner.nextLine();
+        String idToRetweet = scanner.nextLine();
         System.out.println("Enter text(Quote Tweet) : ");
         String TextToRetweet = scanner.nextLine();
         ArrayList<Object> requestRetweet = new ArrayList<>();
         requestRetweet.add(idToRetweet);
         requestRetweet.add(TextToRetweet);
-        sendRequestAndListenForResponse("RetweetMessage",requestRetweet);
-        if(response==null||response.isHasError())
-        {
+        sendRequestAndListenForResponse("RetweetMessage", requestRetweet);
+        if (response == null || response.isHasError()) {
             System.out.println("Retweet failed. Please try again.");
             return;
         }
 
         System.out.println("successfully retweeted.!");
     }
-
-
 
     @Override
     public void editProfile() {
@@ -548,14 +636,13 @@ public class CommandParserServiceImpl implements CommandParserService {
                 signUpParameters.add(id);
                 signUpParameters.add(bio);
                 try {
-                    int d =Integer.parseInt(day);
+                    int d = Integer.parseInt(day);
                     int m = Integer.parseInt(month);
-                    int y =Integer.parseInt(year);
+                    int y = Integer.parseInt(year);
 
-                    if(d > 31 || m > 12 || d < 0 || m < 0 || y <0)
+                    if (d > 31 || m > 12 || d < 0 || m < 0 || y < 0)
                         throw new RuntimeException();
-                }catch (Exception e)
-                {
+                } catch (Exception e) {
                     System.out.println("Invalid number!");
                     return;
                 }

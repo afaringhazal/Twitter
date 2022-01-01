@@ -5,11 +5,40 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * The interface Timeline service.
+ */
 public interface TimelineService {
-    //public ArrayList<Message> sortMessages(ArrayList<Message> messages);
-    public List<Message> sortMessages(List<Message> messages);
-    public ArrayList<Message> gatherTimeline(String username) ;
-    public ArrayList<Message> gatherTweets(String username);
+    /**
+     * Sort messages list.
+     *
+     * @param messages the messages
+     * @return the list
+     */
 
-    public ArrayList<Message> gatherRetweets(String username) ;
+     List<Message> sortMessages(List<Message> messages);
+
+    /**
+     * Gather timeline array list.
+     *
+     * @param username the username
+     * @return the array list
+     */
+     ArrayList<Message> gatherTimeline(String username) ;
+
+    /**
+     * Gather tweets array list.
+     *
+     * @param username the username
+     * @return the array list
+     */
+     ArrayList<Message> gatherTweets(String username);
+
+    /**
+     * Gather retweets array list.
+     *
+     * @param username the username
+     * @return the array list
+     */
+     ArrayList<Message> gatherRetweets(String username) ;
 }
