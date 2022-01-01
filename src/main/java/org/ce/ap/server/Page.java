@@ -87,6 +87,12 @@ public class Page implements Serializable {
     public boolean addRetweet(Retweet tweet) {
         return retweets.add(tweet);
     }
+    public boolean removeRetweet(Retweet tweet) {
+        return retweets.remove(tweet);
+    }
+    public boolean removeTweet(Tweet tweet) {
+        return tweets.remove(tweet);
+    }
 
     public boolean addTweet(Tweet tweet){
         return tweets.add(tweet);

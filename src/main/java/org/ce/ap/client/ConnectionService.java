@@ -4,6 +4,7 @@ import java.io.IOException;
 
 
 public interface ConnectionService {
+    public boolean  isConnected=false;
 
     public String receiveFromServer() throws IOException, ClassNotFoundException ;
 
@@ -18,5 +19,6 @@ public interface ConnectionService {
 
 
     public void connectToServer();
+    public boolean socketIsConnected();
 
 }

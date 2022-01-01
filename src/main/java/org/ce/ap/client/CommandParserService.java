@@ -46,7 +46,7 @@ public interface CommandParserService {
 
     public void  followersAndFollowingsMenu() throws IOException, ClassNotFoundException ;
 
-    public void myTweetAndReplies();
+    public void myTweet();
 
     public void myFavoriteTweets();
 

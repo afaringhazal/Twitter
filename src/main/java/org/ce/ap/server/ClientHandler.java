@@ -35,7 +35,7 @@ public interface ClientHandler extends Runnable {
 
     public void showFollowersAndFollowings() throws IOException ;
 
-    public void sentMyTweetAndReplies() throws IOException ;
+//    public void sentMyTweetAndReplies() throws IOException ;
 
     public void myFavoriteTweets() throws IOException ;
 

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 public interface TimelineService {
-
+    //public ArrayList<Message> sortMessages(ArrayList<Message> messages);
     public List<Message> sortMessages(List<Message> messages);
     public ArrayList<Message> gatherTimeline(String username) ;
     public ArrayList<Message> gatherTweets(String username);

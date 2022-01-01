@@ -16,7 +16,9 @@ import java.util.Properties;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.logging.FileHandler;
 import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 public class Server {
     ExecutorService executorService = Executors.newCachedThreadPool();
@@ -37,15 +39,14 @@ public class Server {
         new Server();
     }
 
-
     public Server() throws NoSuchAlgorithmException {
         initializeServer();
         acceptClients();
     }
 
-
     private void initializeServer() {
         readProps();
+        initLogger();
         try {
             loadDatabase();
             authenticationService = new AuthenticationServiceImpl(database);
@@ -60,7 +61,6 @@ public class Server {
 
     }
 
-
     private void readProps() {
 
         try {
@@ -73,6 +73,27 @@ public class Server {
 
     }
 
+    public void initLogger() {
+        FileHandler fh=null;
+        logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+        File logFolder = new File(props.getProperty("server.log.file"));
+        if (!logFolder.exists()) {
+            logFolder.mkdir();
+        }
+
+        try {
+            fh = new FileHandler(props.getProperty("server.log.file") + "/log.log");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        logger.addHandler(fh);
+        SimpleFormatter formatter = new SimpleFormatter();
+        fh.setFormatter(formatter);
+
+
+        logger.info("properties were read and logger started.");
+    }
 
     private void acceptClients() {
 
@@ -80,44 +101,30 @@ public class Server {
             serverSocket = new ServerSocket(Integer.parseInt((String) props.get("server.port")));
             SaveThread saveThread = new SaveThread();
             executorService.execute(saveThread);
+            while (true) {
+                Socket socket = serverSocket.accept();
+                if (socket.isConnected()) {
+                    logger.info("socket: " + socket.toString() + "Connected.");
+                    System.out.println("new user joined.");
+                    executorService.execute(new ClientHandlerImpl(socket, authenticationService, tweetingService, observerService, timelineService));
 
-            Socket socket = serverSocket.accept();
-            if (socket.isConnected()) {
-                //logger.info("socket: " + socket.toString() + "Connected.");
-                System.out.println("new user joined.");
-                executorService.execute(new ClientHandlerImpl(socket, authenticationService, tweetingService, observerService, timelineService));
-
-
+                }
             }
-            saveDatabase();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-
-    public void sampleDatabase() throws NoSuchAlgorithmException {
-
-        authenticationService.signUp(new Client("MohammadHadi", "Sheikholeslami", LocalDate.of(2002, 2, 16), new PersonalInformation(1 + "", 1 + "")), "sheikh", 0 + "");
-        authenticationService.signUp(new Client("Ghazal", "Afarin", LocalDate.of(2000, 12, 30), new PersonalInformation(2 + "", 2 + "")), "afaringhazal", 0 + "");
-        observerService.follow(1 + "", 2 + "");
-        tweetingService.addTweet(new Tweet(1 + "", "hello"));
-        tweetingService.addTweet(new Tweet(2 + "", "hello"));
-        tweetingService.addTweet(new Tweet(1 + "", "waeawellsd"));
-        observerService.follow(2 + "", 1 + "");
-    }
-
-
     private void loadDatabase() throws NoSuchAlgorithmException {
         database = fileManagement.loadDatabase(tweetingService);
-    }
 
+    }
 
     private void saveDatabase() {
         fileManagement.saveDatabase(database,tweetingService);
+
     }
-
-
 
 
     private class SaveThread extends Thread {
@@ -135,11 +142,6 @@ public class Server {
         }
     }
 
-
-
-    private void initializeLogger(){
-        logger=Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-    }
 
 
     public static class LocalDateSerializer implements JsonSerializer<LocalDate> {

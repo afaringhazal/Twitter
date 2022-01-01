@@ -4,18 +4,19 @@ import main.java.org.ce.ap.server.Client;
 import main.java.org.ce.ap.server.Database;
 import main.java.org.ce.ap.server.Message;
 import main.java.org.ce.ap.server.TimelineService;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Logger;
 
 public class TimelineServiceImpl implements TimelineService {
 
     Database database;
-
+Logger logger;
     public TimelineServiceImpl(Database database) {
         this.database = database;
+        logger=Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     }
 
     @Override
@@ -34,7 +35,7 @@ public class TimelineServiceImpl implements TimelineService {
             messageList.remove(latestMessage);
         }
         messages = newList;
-
+        logger.info("all messages were gathered and sorted. details:" +messages);
         return messages;
     }
 
@@ -50,7 +51,7 @@ public class TimelineServiceImpl implements TimelineService {
         timeline.clear();
         timeline.addAll(set);
         System.out.println(timeline);
-        //sortMessages(timeline);
+        timeline = (ArrayList<Message>) sortMessages(timeline);
         System.out.println("sorted");
         System.out.println(timeline);
         return timeline;

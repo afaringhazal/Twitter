@@ -104,18 +104,5 @@ public class Database implements Serializable {
 
 
 
-//    public void addTweetToAllTweets(Tweet tweet){
-//        allTweets.add(tweet);
-//    }
-//
-//
-//   public Tweet getTweet(int id){
-//
-//        for (Tweet tweet:allTweets){
-//            if (tweet.id==id){return tweet;}
-//        }
-//        return null ;
-//   }
-
 
 }

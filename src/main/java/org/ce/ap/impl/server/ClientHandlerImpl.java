@@ -22,20 +22,17 @@ public class ClientHandlerImpl implements ClientHandler {
 
     private Socket socket;
     private boolean clientIsConnected;
-
     private AuthenticationService authenticationService;
     private TweetingService tweetingService;
     private ObserverService observerService;
-
     private TimelineService timelineService;
-
     Response response = new Response(false, 0, 0, null);
     Request request;
     ObjectInputStream objectInputStream;
     ObjectOutputStream objectOutputStream;
     String message = "";
     Page page = null;
-    public Logger logger;
+
 
     Gson gson;
 
@@ -59,6 +56,10 @@ public class ClientHandlerImpl implements ClientHandler {
             objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
 
             while (clientIsConnected) {
+                if (!socket.isConnected()){
+                    clientIsConnected=false;
+                    break;
+                }
                 refreshResponse();
                 message = (String) objectInputStream.readObject();
                 System.out.println("request received");
@@ -92,7 +93,7 @@ public class ClientHandlerImpl implements ClientHandler {
                     requestFollow();
                 } else if (request.getTitle().equals("showFollowersAndFollowings")) {
                     showFollowersAndFollowings();
-                } else if (request.getTitle().equals("myTweetAndReplies")) {
+                } else if (request.getTitle().equals("myTweet")) {
                     sendMyTweetAndReplies();
                 } else if (request.getTitle().equals("myFavoriteTweets")) {
                     myFavoriteTweets();
@@ -108,12 +109,17 @@ public class ClientHandlerImpl implements ClientHandler {
                 else if(request.getTitle().equals("Edit Profile")){
                     editProfile();
                 }
+                else if(request.getTitle().equals("Delete Tweet")){
+
+                    deleteTweet();
+                }
 
 
             }
             objectInputStream.close();
             objectOutputStream.close();
             socket.close();
+
         } catch (EOFException e) {
             clientIsConnected = false;
         } catch (IOException e) {
@@ -130,11 +136,7 @@ public class ClientHandlerImpl implements ClientHandler {
     public void sendMyTweetAndReplies() throws IOException {
         ArrayList<Object> result = new ArrayList<>();
         result.addAll(observerService.sendMyTweet(page.getClient().getUserName()));
-      //  System.out.println("In clientHandlerImpl Tweet : ");
-       // System.out.println((observerService.sendMyTweet(page.getClient().getUserName())).get(0).getText());
         response.setResults(result);
-      //  System.out.println("---------");
-        //System.out.println(gson.toJson(response));
         objectOutputStream.writeObject(gson.toJson(response));
         refreshResponse();
     }
@@ -328,13 +330,34 @@ public class ClientHandlerImpl implements ClientHandler {
     @Override
     public void requestFollow() throws IOException {
         ArrayList<Object> follow = request.getParameterValue();
+        ArrayList<Object> checked = new ArrayList<>();
+        int counter = 0;
         for (Object obj : follow) {
-            if (!observerService.follow((String) obj, page.getClient().getUserName())) {
-                response.setHasError(true);
-                response.setErrorCode(22);
+            if (observerService.follow((String) obj, page.getClient().getUserName())) {
+                checked.add(true);
+                counter++;
+            }
+            else {
+                checked.add(false) ;
+                counter++;
+            }
+        }
+        counter =0 ;
+        for(Object obj  : checked)
+        {
+            if(obj.equals(false))
+            {
+                counter++;
             }
         }
 
+        if(counter == checked.size())
+        {
+            response.setHasError(true);
+            response.setErrorCode(22);
+        }
+
+        response.setResults(checked);
         objectOutputStream.writeObject(gson.toJson(response));
         refreshResponse();
 
@@ -351,6 +374,12 @@ public class ClientHandlerImpl implements ClientHandler {
 
         ArrayList<Object> x = new ArrayList<>();
         x.addAll(authenticationService.AllUserNames());
+        x.remove(page.getClient().getUserName());
+        for(String following : page.getFollowingsList())
+        {
+            x.remove(following);
+        }
+
         response.setResults(x);
         objectOutputStream.writeObject(gson.toJson(response));
         refreshResponse();
@@ -365,10 +394,7 @@ public class ClientHandlerImpl implements ClientHandler {
 
         System.out.println(observerService.getFollowers(page.getClient().getUserName()));
         try {
-            System.out.println("In try");
-
             UserNameFollowers.addAll(observerService.getFollowers(page.getClient().getUserName()));
-            System.out.println("can add");
             UserNameFollowings.addAll(observerService.getFollowings(page.getClient().getUserName()));
 
         } catch (Exception e) {
@@ -392,17 +418,6 @@ public class ClientHandlerImpl implements ClientHandler {
 
     }
 
-    @Override
-    public void sentMyTweetAndReplies() throws IOException {
-
-        ArrayList<Object> result = new ArrayList<>();
-        result.addAll(page.getTweets());
-        response.setResults(result);
-        objectOutputStream.writeObject(gson.toJson(response));
-        refreshResponse();
-
-
-    }
 
     @Override
     public void myFavoriteTweets() throws IOException {
@@ -454,11 +469,7 @@ public class ClientHandlerImpl implements ClientHandler {
             Retweet retweet = (Retweet) parameterValue.getValue();
             tweetingService.LikeRetweet(retweet.clientUsername,retweet,page.getClient().getUserName());
         }
-        else if(parameterValue.getName().equals("Reply")){
-            Reply reply = (Reply) parameterValue.getValue();
-            tweetingService.LikeReply(reply.clientUsername,reply,page.getClient().getUserName());
 
-        }
         else {
 
             System.out.println("*******");
@@ -517,19 +528,21 @@ public class ClientHandlerImpl implements ClientHandler {
 
     }
 
+    public void deleteTweet() throws IOException {
+        String userName = (String) request.getParameterValue().get(0);
+        if(!tweetingService.deleteTweet(Integer.parseInt(userName)))
+        {
+            response.setHasError(true);
+            response.setErrorCode(33);
+        }
+        objectOutputStream.writeObject(gson.toJson(response));
+        refreshResponse();
+
+    }
+
 
     @Override
     public void editProfile() {
-
-
-//        try {
-//            message = (String) objectInputStream.readObject();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
-
 
         System.out.println("received further request.");
         request = gson.fromJson(message, Request.class);
@@ -558,6 +571,8 @@ public class ClientHandlerImpl implements ClientHandler {
 
 
     }
+
+
     public void fixGson() {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(LocalDate.class, new Server.LocalDateSerializer());

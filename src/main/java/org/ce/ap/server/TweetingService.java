@@ -8,14 +8,16 @@ public interface TweetingService {
 
     public boolean addTweet(Tweet tweet);
 
-    public void deleteTweet(Tweet tweet) ;
+
+    public boolean deleteTweet(int id);
+
 
     public void like(String clientUsername, Message tweet, String mine) ;
 
     public ParameterValue findMessage(int id);
     public void LikeRetweet(String clientUsername, Message tweet, String mine);
 
-    public void LikeReply(String clientUsername, Message tweet, String mine);
+
 
     public boolean addRetweet(Message tweet ,String userName,String quoteTweet);
 

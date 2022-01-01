@@ -1,10 +1,50 @@
-Jan 01, 2022 2:09:30 PM main.java.org.ce.ap.impl.server.FileManagementImpl initLogger
-INFO: properties read and logger started.
-Jan 01, 2022 2:09:30 PM main.java.org.ce.ap.impl.server.FileManagementImpl readDatabaseFolder
-INFO: database Folder Successfully read.
-Jan 01, 2022 2:09:30 PM main.java.org.ce.ap.impl.server.FileManagementImpl loadDatabase
+Jan 01, 2022 7:42:06 PM main.java.org.ce.ap.server.Server initLogger
+INFO: properties were read and logger started.
+Jan 01, 2022 7:42:06 PM main.java.org.ce.ap.impl.server.FileManagementImpl loadDatabase
 INFO: database read.
-Jan 01, 2022 2:09:33 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Jan 01, 2022 2:10:30 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
+Jan 01, 2022 7:42:08 PM main.java.org.ce.ap.server.Server acceptClients
+INFO: socket: Socket[addr=/127.0.0.1,port=56662,localport=8080]Connected.
+Jan 01, 2022 7:42:16 PM main.java.org.ce.ap.server.Server acceptClients
+INFO: socket: Socket[addr=/127.0.0.1,port=56666,localport=8080]Connected.
+Jan 01, 2022 7:42:17 PM main.java.org.ce.ap.server.Server acceptClients
+INFO: socket: Socket[addr=/127.0.0.1,port=56670,localport=8080]Connected.
+Jan 01, 2022 7:42:19 PM main.java.org.ce.ap.impl.server.AuthenticationServiceImpl signInRequest
+INFO: username 1was requested for sign in and was allowed to sign in.
+Jan 01, 2022 7:42:22 PM main.java.org.ce.ap.impl.server.TweetingServiceImpl addTweet
+INFO: tweet 17was added.
+Jan 01, 2022 7:42:27 PM main.java.org.ce.ap.impl.server.AuthenticationServiceImpl signUpRequest
+INFO: username gwas requested for sign up and was allowed to sign up.
+Jan 01, 2022 7:42:29 PM main.java.org.ce.ap.impl.server.AuthenticationServiceImpl signUp
+INFO: username gwas signed up.
+Jan 01, 2022 7:42:36 PM main.java.org.ce.ap.impl.server.TweetingServiceImpl addTweet
+INFO: tweet 18was added.
+Jan 01, 2022 7:42:44 PM main.java.org.ce.ap.impl.server.ObserverServiceImpl getFollowers
+INFO: all followers of username: g were gathered and returned. details:
+[]
+Jan 01, 2022 7:42:44 PM main.java.org.ce.ap.impl.server.ObserverServiceImpl getFollowers
+INFO: all followers of username: g were gathered and returned. details:
+[]
+Jan 01, 2022 7:42:44 PM main.java.org.ce.ap.impl.server.ObserverServiceImpl getFollowings
+INFO: all followings of username: g were gathered and returned. details:
+[]
+Jan 01, 2022 7:42:46 PM main.java.org.ce.ap.impl.server.AuthenticationServiceImpl AllUserNames
+INFO: all usernames were returned.
+Jan 01, 2022 7:42:50 PM main.java.org.ce.ap.impl.server.ObserverServiceImpl follow
+INFO: user: g requested to follow 1
+Jan 01, 2022 7:42:50 PM main.java.org.ce.ap.impl.server.ObserverServiceImpl follow
+INFO: request was accepted and user was followed
+Jan 01, 2022 7:42:50 PM main.java.org.ce.ap.impl.server.ObserverServiceImpl getFollowers
+INFO: all followers of username: g were gathered and returned. details:
+[]
+Jan 01, 2022 7:42:50 PM main.java.org.ce.ap.impl.server.ObserverServiceImpl getFollowers
+INFO: all followers of username: g were gathered and returned. details:
+[]
+Jan 01, 2022 7:42:50 PM main.java.org.ce.ap.impl.server.ObserverServiceImpl getFollowings
+INFO: all followings of username: g were gathered and returned. details:
+[1]
+Jan 01, 2022 7:42:59 PM main.java.org.ce.ap.impl.server.AuthenticationServiceImpl signInRequest
+INFO: username 1was requested for sign in and was allowed to sign in.
+Jan 01, 2022 7:43:00 PM main.java.org.ce.ap.impl.server.TimelineServiceImpl sortMessages
+INFO: all messages were gathered and sorted. details:[main.java.org.ce.ap.server.Tweet@50, main.java.org.ce.ap.server.Tweet@50, main.java.org.ce.ap.server.Tweet@50]
+Jan 01, 2022 7:43:06 PM main.java.org.ce.ap.impl.server.FileManagementImpl saveDatabase
 INFO: database saved.

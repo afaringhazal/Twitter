@@ -3,34 +3,54 @@ package main.java.org.ce.ap.impl.server;
 import main.java.org.ce.ap.ParameterValue;
 import main.java.org.ce.ap.server.*;
 
+import java.util.logging.Logger;
+
 public class TweetingServiceImpl implements TweetingService {
 
     Database database;
     protected int counter;
-
+Logger logger;
 
     public TweetingServiceImpl(Database database) {
         this.database = database;
+        logger=Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
         counter = 1;
     }
 
     @Override
-    public boolean addTweet(Tweet tweet) {
+    public synchronized boolean addTweet(Tweet tweet) {
         tweet.id = counter;
         counter++;
+        logger.info("tweet "+tweet.id +"was added.");
         return database.getClientPageFromUsername(tweet.clientUsername).addTweet(tweet);
 
     }
 
     @Override
  // we have problem this method
-    public void deleteTweet(Tweet tweet) {
-        database.getClientPageFromUsername(tweet.getClient()).getTweets().remove(tweet);
-        // observerService.DeletingForOtherPeople(database.getClientPageFromUsername(tweet.clientUsername).getClient(), tweet);
-    }
+    public synchronized boolean deleteTweet(int id) {
 
+        ParameterValue pm = findMessage(id);
+        if (pm == null) {
+            logger.info("delete tweet was requested but tweet did not exist.");
+            return false;
+        }
+        if (pm.getName().equals("Tweet")) {
+
+            Tweet tweet = ((Tweet) pm.getValue());
+            logger.info("delete tweet was requested for tweet: "+tweet.id+ "and was removed.");
+           return database.getClientPageFromUsername(tweet.clientUsername).removeTweet(tweet);
+        } else {
+
+            Retweet tweet = ((Retweet) pm.getValue());
+            logger.info("delete tweet was requested for retweet: "+tweet.id+ "and was removed.");
+            return database.getClientPageFromUsername(tweet.clientUsername).removeRetweet(tweet);
+        }
+    }
     @Override
-    public void like(String clientUsername, Message tweet, String mine) {
+
+
+    public synchronized void like(String clientUsername, Message tweet, String mine) {
 
         System.out.println("The clientUsername : "+clientUsername);
         System.out.println("The mine : "+ mine);
@@ -42,13 +62,13 @@ public class TweetingServiceImpl implements TweetingService {
                 for (String username : t.getLikes()) {
                     if (username.equals(mine)){
                         System.out.println(mine + " exit in likedList => disLike");
-                        // before exit , now dislike
+                        logger.info("tweet :"+tweet.id+" was already liked by"+ clientUsername+" so it was disliked.");
                         disLike(clientUsername, t, mine);
                         database.getClientPage(database.getClientFromUsername(mine)).addOrDislikeTweet(t);
                         return;
                     }
                 }
-
+                logger.info("tweet :"+tweet.id+" was by"+ clientUsername+" .");
                 t.Like(mine);
                 System.out.println(mine+" add in Like List in tweet t :" +t.getText());
                 database.getClientPageFromUsername(mine).addOrDislikeTweet(t);
@@ -76,6 +96,7 @@ public class TweetingServiceImpl implements TweetingService {
 
         for (Tweet tweet : database.getAllTweets()) {
             if (tweet.id==id) {
+                logger.info("tweet with id: "+id+"was requested to find and was found.");
                 return new ParameterValue("Tweet",tweet);
             }
 
@@ -84,34 +105,30 @@ public class TweetingServiceImpl implements TweetingService {
 
         for (Retweet retweet : database.getAllRetweets()) {
             if (retweet.id==id) {
+                logger.info("retweet with id: "+id+"was requested to find and was found.");
                 return new ParameterValue("Retweet",retweet);
             }
 
         }
 
-
-        for (Reply reply: database.getAllReplies()) {
-            if (reply.id==id) {
-                return new ParameterValue("Reply",reply);
-            }
-
-        }
+        logger.info("message with id: "+id+"was requested to find but was not found.");
         return null;
     }
 
 
 
-    public void LikeRetweet(String clientUsername, Message tweet, String mine)
+    public synchronized void LikeRetweet(String clientUsername, Message tweet, String mine)
     {
         for (Retweet t : database.getClientPageFromUsername(clientUsername).getRetweets()) {
             if (t.equals(tweet)) {
                 for (String username : t.getLikes()) {
                     if (username.equals(mine)){
-                        // before exit , now dislike
+                        logger.info("retweet with id: "+ t.clientUsername+"was requested to be liked by"+ clientUsername+"but was already liked so got disliked.");
                         disLikeRetweet(clientUsername, t, mine);
                         database.getClientPage(database.getClientFromUsername(mine)).addOrDislikeTweet(t);
                     }
                 }
+                logger.info("retweet with id: "+ t.clientUsername+"was requested to be liked by"+ clientUsername+"and was liked.");
 
                 t.Like(mine);
                 database.getClientPage(database.getClientFromUsername(mine)).addOrDislikeTweet(t);
@@ -126,28 +143,7 @@ public class TweetingServiceImpl implements TweetingService {
 
     }
 
-    public void LikeReply(String clientUsername, Message tweet, String mine){
-        for (Reply t : database.getClientPageFromUsername(clientUsername).getReplies()) {
-            if (t.equals(tweet)) {
-                for (String username : t.getLikes()) {
-                    if (username.equals(mine)){
-                        // before exit , now dislike
-                        disLikeReply(clientUsername, t, mine);
-                        database.getClientPage(database.getClientFromUsername(mine)).addOrDislikeTweet(t);
-                    }
-                }
 
-                t.Like(mine);
-                database.getClientPage(database.getClientFromUsername(mine)).addOrDislikeTweet(t);
-
-                //Like++
-                return;
-            }
-        }
-
-
-
-    }
     private void disLikeRetweet(String clientUsername, Message tweet, String mine) {
         for (Retweet t : database.getClientPage(database.getClientFromUsername(clientUsername)).getRetweets()) {
             if (t.equals(tweet)) {
@@ -158,25 +154,14 @@ public class TweetingServiceImpl implements TweetingService {
 
 
     }
-    private void disLikeReply(String clientUsername, Message tweet, String mine) {
-        for (Reply t : database.getClientPage(database.getClientFromUsername(clientUsername)).getReplies()) {
-            if (t.equals(tweet)) {
-                t.dislike(mine);
-                return;
-            }
-        }
-
-
-    }
 
 
 
-
-    public boolean addRetweet(Message tweet ,String userName,String quoteTweet) {
+    public synchronized boolean addRetweet(Message tweet ,String userName,String quoteTweet) {
         Retweet retweet = new Retweet(tweet,userName,quoteTweet);
         retweet.id = counter;
         counter++;
-
+        logger.info("retweet "+tweet.id +"was added. retweet source:"+ tweet.id+" .");
         return  tweet.addUserNameToRetweet(userName) &&  database.getClientPageFromUsername(userName).addRetweet(retweet);
 
     }

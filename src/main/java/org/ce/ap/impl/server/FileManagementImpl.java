@@ -23,7 +23,7 @@ public class FileManagementImpl implements FileManagement {
     public FileManagementImpl() {
         readProps();
         initFolders();
-        initLogger();
+        logger=Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
         readDatabaseFolder();
     }
 
@@ -113,7 +113,6 @@ public class FileManagementImpl implements FileManagement {
     @Override
     public void initLogger() {
         logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-
         File logFolder = new File(props.getProperty("server.log.file"));
         if (!logFolder.exists()) {
 
