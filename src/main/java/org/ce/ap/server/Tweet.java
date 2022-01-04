@@ -18,6 +18,7 @@ public class Tweet  extends Message {
      * @throws RuntimeException the runtime exception
      */
     public Tweet(String client, String text) throws RuntimeException {
+        System.out.println(text);
         if (text.length() < 256)
             this.text = text;
         else {

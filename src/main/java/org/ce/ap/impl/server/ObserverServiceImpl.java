@@ -1,5 +1,6 @@
 package main.java.org.ce.ap.impl.server;
 import main.java.org.ce.ap.server.Database;
+import main.java.org.ce.ap.server.Message;
 import main.java.org.ce.ap.server.ObserverService;
 import main.java.org.ce.ap.server.Tweet;
 import java.util.ArrayList;
@@ -145,10 +146,12 @@ public class ObserverServiceImpl implements ObserverService {
      * @return the array list
      */
     @Override
-    public ArrayList<Tweet> sendMyTweet(String userName) {
+    public ArrayList<Message> sendMyTweet(String userName) {
         logger.info("all tweets of username: " + userName + " were gathered and returned. details:\n" + database.getClientPageFromUsername(userName).getTweets());
-
-        return database.getClientPageFromUsername(userName).getTweets();
+        ArrayList<Message> myTweet = new ArrayList<>();
+        myTweet.addAll(database.getClientPageFromUsername(userName).getTweets());
+        myTweet.addAll(database.getClientPageFromUsername(userName).getRetweets());
+        return myTweet;
     }
 
 }

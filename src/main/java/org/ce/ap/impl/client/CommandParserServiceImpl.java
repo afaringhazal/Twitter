@@ -174,15 +174,39 @@ public class CommandParserServiceImpl implements CommandParserService {
             return;
         }
         System.out.println("Username is allowed. Enter details in separate lines as follows: ");
-        System.out.println("FirstName , Last name, Birthday(year,month,day each in a separate line),Page Id,Bio.");
-        String firstName = scanner.nextLine();
-        String lastName = scanner.nextLine();
-        String year = scanner.nextLine();
-        String month = scanner.nextLine();
-        String day = scanner.nextLine();
-        String id = scanner.nextLine();
-        String bio = scanner.nextLine();
         ArrayList<Object> signUpParameters = new ArrayList<>();
+
+        String firstName;
+        String lastName;
+        String year;
+        String month ;
+        String day;
+        String id ;
+        String bio;
+        while (true) {
+            System.out.println("FirstName , Last name, Birthday(year,month,day each in a separate line),Page Id,Bio.");
+             firstName = scanner.nextLine();
+             lastName = scanner.nextLine();
+             year = scanner.nextLine();
+             month = scanner.nextLine();
+             day = scanner.nextLine();
+             id = scanner.nextLine();
+             bio = scanner.nextLine();
+
+
+            try {
+                int d = Integer.parseInt(day);
+                int m = Integer.parseInt(month);
+                int y = Integer.parseInt(year);
+
+                if (d > 31 || m > 12 || d < 0 || m < 0 || y < 0)
+                    throw new RuntimeException();
+            } catch (Exception e) {
+                System.out.println("Invalid number!");
+                continue;
+            }
+            break;
+        }
         signUpParameters.add(firstName);
         signUpParameters.add(lastName);
         signUpParameters.add(year);
@@ -190,17 +214,6 @@ public class CommandParserServiceImpl implements CommandParserService {
         signUpParameters.add(day);
         signUpParameters.add(id);
         signUpParameters.add(bio);
-        try {
-            int d = Integer.parseInt(day);
-            int m = Integer.parseInt(month);
-            int y = Integer.parseInt(year);
-
-            if (d > 31 || m > 12 || d < 0 || m < 0 || y < 0)
-                throw new RuntimeException();
-        } catch (Exception e) {
-            System.out.println("Invalid number!");
-            return;
-        }
         sendRequestAndListenForResponse("Sign Up Details", signUpParameters);
         if (response == null || response.isHasError())
             return;
@@ -321,7 +334,7 @@ public class CommandParserServiceImpl implements CommandParserService {
                 break;
 
             } catch (Exception e) {
-                System.out.println("Invalid number!");
+                System.out.println("Invalid number!please try again");
                 continue;
             }
 
@@ -502,7 +515,21 @@ public class CommandParserServiceImpl implements CommandParserService {
     @Override
     public void requestToLike() {
         System.out.println("Enter id Message : ");
-        String idToLike = scanner.nextLine();
+        String idToLike ; //= scanner.nextLine();
+        while (true){
+            idToLike = scanner.nextLine();
+            try {
+                int check = Integer.parseInt(idToLike);
+            }
+            catch (Exception e)
+            {
+                System.out.println("Invalid input!\nplease try again");
+                continue;
+            }
+            break;
+        }
+
+        //String idToLike = scanner.nextLine();
         ArrayList<Object> requestLike = new ArrayList<>();
         requestLike.add(idToLike);
         sendRequestAndListenForResponse("LikeMessage", requestLike);
@@ -571,7 +598,13 @@ public class CommandParserServiceImpl implements CommandParserService {
     public void showTimelineMenu() {
         while (true) {
             System.out.println("1-Like\n2-Retweet-\n3-back");
-            int choice = Integer.parseInt(scanner.nextLine());
+            int choice = 0;
+            try {
+                choice = Integer.parseInt(scanner.nextLine());
+
+            }catch (Exception e){
+                System.out.println("Invalid number\nplease try again.");
+            }
             if (choice == 1) {
                 requestToLike();
 
@@ -579,12 +612,9 @@ public class CommandParserServiceImpl implements CommandParserService {
                 requestToRetweet();
 
             } else if (choice == 3) {
-
                 return;
-
             } else {
                 System.out.println("invalid.");
-
             }
         }
     }
@@ -595,7 +625,21 @@ public class CommandParserServiceImpl implements CommandParserService {
     @Override
     public void requestToRetweet() {
         System.out.println("Enter id Message : ");
-        String idToRetweet = scanner.nextLine();
+        String idToRetweet ;//= scanner.nextLine();
+
+        while (true){
+            idToRetweet = scanner.nextLine();
+
+            try {
+                int check = Integer.parseInt(idToRetweet);
+            }catch (Exception e)
+            {
+                System.out.println("Invalid input!\nplease try again!");
+                continue;
+            }
+            break;
+        }
+
         System.out.println("Enter text(Quote Tweet) : ");
         String TextToRetweet = scanner.nextLine();
         ArrayList<Object> requestRetweet = new ArrayList<>();

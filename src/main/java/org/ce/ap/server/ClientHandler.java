@@ -17,7 +17,7 @@ public interface ClientHandler extends Runnable {
      *
      * @throws IOException the io exception
      */
-    void sendMyTweetAndReplies() throws IOException;
+    void sendMyTweetAndRetweet() throws IOException;
 
     /**
      * Process sign up.

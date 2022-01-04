@@ -127,7 +127,7 @@ public class ClientHandlerImpl implements ClientHandler {
                 } else if (request.getTitle().equals("showFollowersAndFollowings")) {
                     showFollowersAndFollowings();
                 } else if (request.getTitle().equals("myTweet")) {
-                    sendMyTweetAndReplies();
+                    sendMyTweetAndRetweet();
                 } else if (request.getTitle().equals("myFavoriteTweets")) {
                     myFavoriteTweets();
                 } else if (request.getTitle().equals("Display Page Information")) {
@@ -168,9 +168,10 @@ public class ClientHandlerImpl implements ClientHandler {
      * @throws IOException the io exception
      */
     @Override
-    public void sendMyTweetAndReplies() throws IOException {
+    public void sendMyTweetAndRetweet() throws IOException {
         ArrayList<Object> result = new ArrayList<>();
-        result.addAll(observerService.sendMyTweet(page.getClient().getUserName()));
+        result.addAll(timelineService.sortMessages(observerService.sendMyTweet(page.getClient().getUserName())));
+        //result.addAll(observerService.sendMyTweet(page.getClient().getUserName()));
         response.setResults(result);
         objectOutputStream.writeObject(gson.toJson(response));
         refreshResponse();
@@ -195,6 +196,9 @@ public class ClientHandlerImpl implements ClientHandler {
             response.setHasError(true);
             response.setErrorCode(20);
             System.out.println("signup user is already used.");
+            objectOutputStream.writeObject(gson.toJson(response));
+            refreshResponse();
+            return;
         }
         System.out.println("sign up user/pass is allowed.");
 
@@ -534,7 +538,14 @@ public class ClientHandlerImpl implements ClientHandler {
         System.out.println("The ID for Like is" + IdMessageToLike);
 
         ParameterValue parameterValue = tweetingService.findMessage(IdMessageToLike);
-        if (parameterValue.getName().equals("Tweet")) {
+        if(parameterValue == null){
+            response.setHasError(true);
+            response.setErrorCode(33);
+            objectOutputStream.writeObject(gson.toJson(response));
+            refreshResponse();
+            return;
+        }
+        else if (parameterValue.getName().equals("Tweet")) {
             System.out.println("Now Like Tweet :");
             Tweet tweet = (Tweet) parameterValue.getValue();
             System.out.println("The text Of tweet to like :" + tweet.getText());
@@ -568,7 +579,14 @@ public class ClientHandlerImpl implements ClientHandler {
         ParameterValue parameterValue = tweetingService.findMessage(IdMessageToRetweet);
 
 
-        if (parameterValue.getName().equals("Tweet")) {
+        if(parameterValue == null){
+            response.setHasError(true);
+            response.setErrorCode(33);
+            objectOutputStream.writeObject(gson.toJson(response));
+            refreshResponse();
+            return;
+        }
+        else if (parameterValue.getName().equals("Tweet")) {
             Tweet tweet = (Tweet) parameterValue.getValue();
             if (!tweetingService.addRetweet(tweet, page.getClient().getUserName(), quoteTweet)) {
                 response.setHasError(true);
@@ -608,7 +626,7 @@ public class ClientHandlerImpl implements ClientHandler {
     @Override
     public void deleteTweet() throws IOException {
         String userName = (String) request.getParameterValue().get(0);
-        if (!tweetingService.deleteTweet(Integer.parseInt(userName))) {
+        if (!tweetingService.deleteTweet(Integer.parseInt(userName),page.getClient().getUserName())) {
             response.setHasError(true);
             response.setErrorCode(33);
         }

@@ -60,6 +60,6 @@ public interface ObserverService {
      * @param userName the user name
      * @return the array list
      */
-     ArrayList<Tweet> sendMyTweet (String userName);
+     ArrayList<Message> sendMyTweet (String userName);
 
 }

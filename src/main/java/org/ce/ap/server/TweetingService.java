@@ -13,16 +13,17 @@ public interface TweetingService {
      * @param tweet the tweet
      * @return the boolean
      */
-     boolean addTweet(Tweet tweet);
+    boolean addTweet(Tweet tweet);
 
 
     /**
      * Delete tweet boolean.
      *
-     * @param id the id
+     * @param id                    the id
+     * @param userNameWantsToDelete the username wants to delete
      * @return the boolean
      */
-     boolean deleteTweet(int id);
+    boolean deleteTweet(int id,  String usernameWantsToDelete);
 
 
     /**
@@ -32,7 +33,7 @@ public interface TweetingService {
      * @param tweet          the tweet
      * @param mine           the mine
      */
-     void like(String clientUsername, Message tweet, String mine) ;
+    void like(String clientUsername, Message tweet, String mine) ;
 
     /**
      * Find message parameter value.
@@ -40,7 +41,7 @@ public interface TweetingService {
      * @param id the id
      * @return the parameter value
      */
-     ParameterValue findMessage(int id);
+    ParameterValue findMessage(int id);
 
     /**
      * Like retweet.
@@ -49,9 +50,9 @@ public interface TweetingService {
      * @param tweet          the tweet
      * @param mine           the mine
      */
-     void LikeRetweet(String clientUsername, Message tweet, String mine);
+    void LikeRetweet(String clientUsername, Message tweet, String mine);
 
-     /**
+    /**
      * Add retweet boolean.
      *
      * @param tweet      the tweet
@@ -59,6 +60,6 @@ public interface TweetingService {
      * @param quoteTweet the quote tweet
      * @return the boolean
      */
-     boolean addRetweet(Message tweet ,String userName,String quoteTweet);
+    boolean addRetweet(Message tweet ,String userName,String quoteTweet);
 
 }

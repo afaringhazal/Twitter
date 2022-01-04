@@ -56,7 +56,7 @@ public class TweetingServiceImpl implements TweetingService {
      * @return the boolean
      */
     @Override
-    public synchronized boolean deleteTweet(int id) {
+    public synchronized boolean deleteTweet(int id, String usernameWantsToDelete) {
 
         ParameterValue pm = findMessage(id);
         if (pm == null) {
@@ -64,16 +64,20 @@ public class TweetingServiceImpl implements TweetingService {
             return false;
         }
         if (pm.getName().equals("Tweet")) {
-
             Tweet tweet = ((Tweet) pm.getValue());
-            logger.info("delete tweet was requested for tweet: " + tweet.id + "and was removed.");
-            return database.getClientPageFromUsername(tweet.clientUsername).removeTweet(tweet);
+            if(tweet.clientUsername.equals(usernameWantsToDelete)) {
+                logger.info("delete tweet was requested for tweet: " + tweet.id + "and was removed.");
+                return database.getClientPageFromUsername(tweet.clientUsername).removeTweet(tweet);
+            }
         } else {
-
             Retweet tweet = ((Retweet) pm.getValue());
+            if(tweet.clientUsername.equals(usernameWantsToDelete)){
             logger.info("delete tweet was requested for retweet: " + tweet.id + "and was removed.");
-            return database.getClientPageFromUsername(tweet.clientUsername).removeRetweet(tweet);
+            return database.getClientPageFromUsername(tweet.clientUsername).removeRetweet(tweet);}
         }
+
+        logger.info("The request to delete the tweet was not made by its owner!");
+        return false;
     }
 
     /**
