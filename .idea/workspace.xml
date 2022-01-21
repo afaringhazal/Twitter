@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="208410c9-a5f6-4a2f-a43a-11a9f745c101" name="Changes" comment="interfaces">
+      <change afterPath="$PROJECT_DIR$/src/main/Gson/gson-2.8.9.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Twitter" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaFXApplication" />
+        <option value="module-info" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="ProjectId" id="21oHgPL3IJ0GgmfadpH6vhQ6P14" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/Gson/gson-2.8.9.jar" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\ASUS\Desktop\dars\trm5\ap\project\Twitter\src\main\Gson" />
+      <recent name="C:\Users\ASUS\Desktop\New folder (9)\Twitter" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.CommandParserServiceImpl">
+    <configuration name="CommandParserServiceImpl" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.ce.ap.impl.client.CommandParserServiceImpl" />
+      <module name="Java" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.ce.ap.impl.client.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ConnectionService" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ConnectionService" />
+      <module name="Twitter" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Server (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.ce.ap.server.Server" />
+      <module name="Java" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.ce.ap.server.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Test" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Test" />
+      <module name="Twitter" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="one" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Twitter.one" />
+      <module name="Java" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Twitter.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ooo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ooo" />
+      <module name="Java" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="test" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="test" />
+      <module name="Twitter" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="gson-2.8.9.jar" type="JarApplication" temporary="true">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/src/main/resources/gson-2.8.9.jar" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.ConnectionService" />
+      <item itemvalue="Application.Test" />
+      <item itemvalue="Application.test" />
+      <item itemvalue="Application.ooo" />
+      <item itemvalue="Application.one" />
+      <item itemvalue="Application.Server (1)" />
+      <item itemvalue="Application.CommandParserServiceImpl" />
+      <item itemvalue="JAR Application.gson-2.8.9.jar" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.CommandParserServiceImpl" />
+        <item itemvalue="Application.Server (1)" />
+        <item itemvalue="JAR Application.gson-2.8.9.jar" />
+        <item itemvalue="Application.one" />
+        <item itemvalue="Application.ooo" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="208410c9-a5f6-4a2f-a43a-11a9f745c101" name="Changes" comment="" />
+      <created>1638600632742</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1638600632742</updated>
+      <workItem from="1638600633960" duration="2040000" />
+      <workItem from="1638618939892" duration="6278000" />
+      <workItem from="1638629578414" duration="5000" />
+      <workItem from="1638639480340" duration="13000" />
+      <workItem from="1638640623425" duration="168000" />
+      <workItem from="1638690373462" duration="147000" />
+      <workItem from="1638720651712" duration="8425000" />
+      <workItem from="1638888842594" duration="10204000" />
+      <workItem from="1638967517819" duration="1341000" />
+      <workItem from="1638973261842" duration="18418000" />
+      <workItem from="1638995112924" duration="184000" />
+      <workItem from="1639051354622" duration="20000" />
+      <workItem from="1639058539619" duration="5000" />
+      <workItem from="1639058584464" duration="20000" />
+      <workItem from="1639524925745" duration="3857000" />
+      <workItem from="1639588727645" duration="30000" />
+      <workItem from="1639928076992" duration="345000" />
+      <workItem from="1639928557743" duration="126000" />
+      <workItem from="1639928985158" duration="338000" />
+      <workItem from="1639929443638" duration="6301000" />
+      <workItem from="1640013726053" duration="6570000" />
+      <workItem from="1640081214449" duration="51000" />
+      <workItem from="1640092788536" duration="582000" />
+      <workItem from="1640093402786" duration="1811000" />
+      <workItem from="1640095792885" duration="5571000" />
+      <workItem from="1640115600993" duration="2942000" />
+      <workItem from="1640118723652" duration="582000" />
+      <workItem from="1640119520476" duration="16560000" />
+      <workItem from="1640154086666" duration="4312000" />
+      <workItem from="1640159383880" duration="288000" />
+      <workItem from="1640175530002" duration="773000" />
+      <workItem from="1640274483568" duration="742000" />
+      <workItem from="1640285651196" duration="696000" />
+      <workItem from="1640415622457" duration="20203000" />
+      <workItem from="1640464064595" duration="20000" />
+      <workItem from="1640503440069" duration="7477000" />
+      <workItem from="1640513720246" duration="11465000" />
+      <workItem from="1640590457144" duration="11292000" />
+      <workItem from="1640605242124" duration="15362000" />
+      <workItem from="1640672205106" duration="9560000" />
+      <workItem from="1640682185972" duration="7661000" />
+      <workItem from="1640695626706" duration="11664000" />
+      <workItem from="1640757202468" duration="24536000" />
+      <workItem from="1640787568853" duration="3274000" />
+      <workItem from="1640847874314" duration="10538000" />
+      <workItem from="1640858654906" duration="12512000" />
+      <workItem from="1640874917510" duration="1033000" />
+      <workItem from="1640890662636" duration="4810000" />
+      <workItem from="1640929949748" duration="1923000" />
+      <workItem from="1640931946120" duration="796000" />
+      <workItem from="1640932918798" duration="9755000" />
+      <workItem from="1640947662751" duration="8864000" />
+      <workItem from="1640957976234" duration="12893000" />
+      <workItem from="1640971690891" duration="255000" />
+      <workItem from="1640971970687" duration="379000" />
+      <workItem from="1640980280685" duration="706000" />
+      <workItem from="1641016027330" duration="6797000" />
+      <workItem from="1641026083146" duration="5512000" />
+      <workItem from="1641032858307" duration="768000" />
+      <workItem from="1641036466556" duration="9838000" />
+      <workItem from="1641046407498" duration="7243000" />
+      <workItem from="1641061471967" duration="4095000" />
+      <workItem from="1641106429007" duration="7285000" />
+      <workItem from="1641222458135" duration="958000" />
+      <workItem from="1641297090181" duration="3851000" />
+      <workItem from="1641301635427" duration="2000" />
+      <workItem from="1641367881900" duration="1343000" />
+      <workItem from="1642758600965" duration="255000" />
+      <workItem from="1642758882047" duration="45000" />
+      <workItem from="1642758945826" duration="1754000" />
+      <workItem from="1642762556261" duration="1215000" />
+      <workItem from="1642763805938" duration="48000" />
+      <workItem from="1642763875005" duration="1431000" />
+      <workItem from="1642765431310" duration="57000" />
+      <workItem from="1642765617410" duration="67000" />
+      <workItem from="1642765951432" duration="110000" />
+      <workItem from="1642766265670" duration="163000" />
+      <workItem from="1642767781115" duration="454000" />
+      <workItem from="1642768316301" duration="872000" />
+    </task>
+    <task id="LOCAL-00001" summary="fix followers and followings">
+      <created>1640931999796</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1640931999796</updated>
+    </task>
+    <task id="LOCAL-00002" summary="interfaces">
+      <created>1640936841295</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1640936841295</updated>
+    </task>
+    <task id="LOCAL-00003" summary="interfaces">
+      <created>1640942092496</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1640942092496</updated>
+    </task>
+    <task id="LOCAL-00004" summary="interfaces">
+      <created>1640942303742</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1640942303742</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+              <option name="TEXT_FILTER_SETTINGS">
+                <TextFilterSettings>
+                  <option name="REGEX" value="true" />
+                  <option name="MATCH_CASE" value="true" />
+                </TextFilterSettings>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="fix followers and followings" />
+    <MESSAGE value="interfaces" />
+    <option name="LAST_COMMIT_MESSAGE" value="interfaces" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.net.BindException" package="java.net" />
+          <option name="timeStamp" value="9" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="main.java.org.ce.ap.server.ObserverService" memberName="database" />
+      </pinned-members>
+    </pin-to-top-manager>
+  </component>
+</project>
