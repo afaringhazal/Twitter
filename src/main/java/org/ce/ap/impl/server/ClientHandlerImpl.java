@@ -577,7 +577,7 @@ public class ClientHandlerImpl implements ClientHandler {
      */
     @Override
     public void retweetMessage() throws IOException {
-        int IdMessageToRetweet = Integer.parseInt((String) request.getParameterValue().get(0));
+        int IdMessageToRetweet = (int) Double.parseDouble((String) request.getParameterValue().get(0));
         String quoteTweet = (String) request.getParameterValue().get(1);
         // System.out.println("The ID for Like is"+IdMessageToLike);
 

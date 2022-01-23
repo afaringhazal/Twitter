@@ -10,6 +10,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import org.ce.ap.ExceptionNoConnection;
+import org.ce.ap.ExceptionNotValidInput;
 import org.ce.ap.Request;
 import org.ce.ap.Response;
 import org.ce.ap.client.ConnectionService;
@@ -207,62 +209,69 @@ public class FXMLCommandParserServiceImpl {
         // showMainMenu();
 
     }
-/*
+
     /**
      * Process sign up.
      *
      * @throws IOException            the io exception
      * @throws ClassNotFoundException the class not found exception
+     */
 
-    @Override
-    public void processSignUp() throws IOException, ClassNotFoundException {
-        System.out.println("Enter UserName and password: ");
-        String userName = scanner.nextLine();
-        String password = scanner.nextLine();
+    public void processSignUp(String userName, String password ,String firstName,
+            String lastName,
+            String year,
+            String month,
+            String day,
+            String id ,
+            String bio) throws ExceptionNotValidInput, ExceptionNoConnection {
+//        System.out.println("Enter UserName and password: ");
+//        String userName = scanner.nextLine();
+//        String password = scanner.nextLine();
         ArrayList<Object> parameters = new ArrayList<>();
         parameters.add(userName);
         parameters.add(password);
         sendRequestAndListenForResponse("Sign Up", parameters);
         if (response == null)
-            return;
+            throw new ExceptionNotValidInput();
         else if (response.isHasError()) {
             System.out.println("Username already taken.\n Please try again.");
-            return;
+            throw new ExceptionNotValidInput();
         }
+
         System.out.println("Username is allowed. Enter details in separate lines as follows: ");
         ArrayList<Object> signUpParameters = new ArrayList<>();
-
-        String firstName;
-        String lastName;
-        String year;
-        String month ;
-        String day;
-        String id ;
-        String bio;
-        while (true) {
-            System.out.println("FirstName , Last name, Birthday(year,month,day each in a separate line),Page Id,Bio.");
-            firstName = scanner.nextLine();
-            lastName = scanner.nextLine();
-            year = scanner.nextLine();
-            month = scanner.nextLine();
-            day = scanner.nextLine();
-            id = scanner.nextLine();
-            bio = scanner.nextLine();
-
-
-            try {
-                int d = Integer.parseInt(day);
-                int m = Integer.parseInt(month);
-                int y = Integer.parseInt(year);
-
-                if (d > 31 || m > 12 || d < 0 || m < 0 || y < 0)
-                    throw new RuntimeException();
-            } catch (Exception e) {
-                System.out.println("Invalid number!");
-                continue;
-            }
-            break;
-        }
+//
+//        String firstName;
+//        String lastName;
+//        String year;
+//        String month ;
+//        String day;
+//        String id ;
+//        String bio;
+//        while (true) {
+//            System.out.println("FirstName , Last name, Birthday(year,month,day each in a separate line),Page Id,Bio.");
+//            firstName = scanner.nextLine();
+//            lastName = scanner.nextLine();
+//            year = scanner.nextLine();
+//            month = scanner.nextLine();
+//            day = scanner.nextLine();
+//            id = scanner.nextLine();
+//            bio = scanner.nextLine();
+//
+//
+//            try {
+//                int d = Integer.parseInt(day);
+//                int m = Integer.parseInt(month);
+//                int y = Integer.parseInt(year);
+//
+//                if (d > 31 || m > 12 || d < 0 || m < 0 || y < 0)
+//                    throw new RuntimeException();
+//            } catch (Exception e) {
+//                System.out.println("Invalid number!");
+//                continue;
+//            }
+//            break;
+//        }
         signUpParameters.add(firstName);
         signUpParameters.add(lastName);
         signUpParameters.add(year);
@@ -272,45 +281,43 @@ public class FXMLCommandParserServiceImpl {
         signUpParameters.add(bio);
         sendRequestAndListenForResponse("Sign Up Details", signUpParameters);
         if (response == null || response.isHasError())
-            return;
+            throw new ExceptionNoConnection();
         System.out.println("Sign up successful.");
-        showMainMenu();
-
-
     }
 
     /**
      * Add tweet.
      */
-    /*
-    @Override
-    public void addTweet() {
-        System.out.println("Please enter the tweet text.\nTweets should not have more than 256 characters.\nWhen finished enter -1 as last line.");
-        StringBuilder stringBuilder = new StringBuilder();
-        while (true) {
-            String s = scanner.nextLine();
-            if (s.equals("-1")) {
-                break;
-            }
-            stringBuilder.append(s);
 
-        }
+    public String addTweet(String text) {
+//        System.out.println("Please enter the tweet text.\nTweets should not have more than 256 characters.\nWhen finished enter -1 as last line.");
+//        StringBuilder stringBuilder = new StringBuilder();
+//        while (true) {
+//            String s = scanner.nextLine();
+//            if (s.equals("-1")) {
+//                break;
+//            }
+//            stringBuilder.append(s);
+//
+//        }
 
 
-        if (stringBuilder.toString().isBlank() || stringBuilder.toString().trim().length() > 256) {
-            System.out.println("Tweets should have no more than 256 characters and should not be empty.\n Please try again.");
-            return;
+        if (text.isBlank() || text.trim().length() > 256) {
+            // System.out.println("Tweets should have no more than 256 characters and should not be empty.\n Please try again.");
+
+            return "Tweets should have no more than 256 characters and should not be empty.\n Please try again.";
 
         }
 
         ArrayList<Object> parameters = new ArrayList<>();
-        parameters.add(stringBuilder.toString());
+        parameters.add(text);
         sendRequestAndListenForResponse("Add Tweet", parameters);
         if (response == null || response.isHasError()) {
-            return;
+            return "we can't sent tweet.";
         }
         System.out.println("Your tweet was successfully added to server.");
 
+        return null ;
 
     }
 
@@ -389,6 +396,12 @@ public class FXMLCommandParserServiceImpl {
                     textField.setText(""+treeMapToRetweet.get("text"));
                     textField = (TextField) node.getChildrenUnmodifiable().get(3);
                     textField.setText("        " + ((ArrayList<Object>) treeMapToRetweet.get("retweets")).size() + " Retweets, " + ((ArrayList<String>) treeMapToRetweet.get("likes")).size() + " Likes");
+
+
+
+                    HBox hBox2 = (HBox) node.getChildrenUnmodifiable().get(6);
+                    Button button = (Button) hBox2.getChildren().get(1);
+                    button.setVisible(false);
                     i+=3;
                 }
 
@@ -767,39 +780,41 @@ public class FXMLCommandParserServiceImpl {
     /**
      * Request to retweet.
      */
-    /*
-    @Override
-    public void requestToRetweet() {
-        System.out.println("Enter id Message : ");
-        String idToRetweet ;//= scanner.nextLine();
 
-        while (true){
-            idToRetweet = scanner.nextLine();
 
-            try {
-                int check = Integer.parseInt(idToRetweet);
-            }catch (Exception e)
-            {
-                System.out.println("Invalid input!\nplease try again!");
-                continue;
-            }
-            break;
-        }
+    public String requestToRetweet(String idToRetweet , String QuoteTweet ) {
+//        System.out.println("Enter id Message : ");
+//        String idToRetweet ;//= scanner.nextLine();
 
-        System.out.println("Enter text(Quote Tweet) : ");
-        String TextToRetweet = scanner.nextLine();
+//        while (true){
+//            idToRetweet = scanner.nextLine();
+//
+//            try {
+//                int check = Integer.parseInt(idToRetweet);
+//            }catch (Exception e)
+//            {
+//                System.out.println("Invalid input!\nplease try again!");
+//                continue;
+//            }
+//            break;
+//        }
+//
+//        System.out.println("Enter text(Quote Tweet) : ");
+//        String TextToRetweet = scanner.nextLine();
         ArrayList<Object> requestRetweet = new ArrayList<>();
         requestRetweet.add(idToRetweet);
-        requestRetweet.add(TextToRetweet);
+        requestRetweet.add(QuoteTweet);
         sendRequestAndListenForResponse("RetweetMessage", requestRetweet);
         if (response == null || response.isHasError()) {
             System.out.println("Retweet failed. Please try again.");
-            return;
+            return "we can't send retweet";
         }
 
         System.out.println("successfully retweeted.!");
-    }
 
+        return null;
+    }
+/*
     @Override
     public void editProfile() {
         DisplayPageInformation();

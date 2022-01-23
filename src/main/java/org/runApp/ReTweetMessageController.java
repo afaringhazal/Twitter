@@ -2,7 +2,12 @@ package org.runApp;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 
 import java.io.IOException;
 
@@ -21,10 +26,8 @@ public class ReTweetMessageController {
         fxmlCommandParserServiceImpl.requestToLike(IdTweet.getText());
         App.setScene(fxmlCommandParserServiceImpl.requestTimeline());
     }
-
     @FXML
     void RetweetTweet(ActionEvent event) {
 
     }
-
 }

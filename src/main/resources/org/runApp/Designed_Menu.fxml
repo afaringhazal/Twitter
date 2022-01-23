@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="514.0" prefWidth="813.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <MenuBar prefHeight="26.0" prefWidth="813.0" style="-fx-background-color: #Cecece;">
+            <menus>
+                <Menu mnemonicParsing="false" text="App">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Log out" />
+                        <MenuItem mnemonicParsing="false" text="Exit" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Options">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Minimize on exit" />
+                        <MenuItem mnemonicParsing="false" text="Close on exit" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Help..." />
+                        <MenuItem mnemonicParsing="false" text="About" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="View">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Fullscreen" />
+                        <MenuItem mnemonicParsing="false" text="Light mode" />
+                        <MenuItem mnemonicParsing="false" text="Dark mode" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <SplitPane dividerPositions="0.08759842519685039" layoutX="-1.0" layoutY="26.0" prefHeight="490.0" prefWidth="814.0">
+            <items>
+                <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #AFB3B3;">
+                    <children>
+                        <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" prefHeight="60.0" prefWidth="98.0" style="-fx-background-color: #AFB3B3;" text="Button">
+                            <graphic>
+                                <FontAwesomeIconView glyphName="HOME" size="20" />
+                            </graphic>
+                        </Button>
+                        <Button contentDisplay="GRAPHIC_ONLY" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="98.0" style="-fx-background-color: #AFB3B3;" text="Button">
+                            <graphic>
+                                <FontAwesomeIconView glyphName="USER" size="20" />
+                            </graphic>
+                        </Button>
+                        <Button contentDisplay="GRAPHIC_ONLY" layoutX="10.0" layoutY="48.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="98.0" style="-fx-background-color: #AFB3B3;" text="SEND">
+                            <graphic>
+                                <FontAwesomeIconView glyphName="SEND" size="20" />
+                            </graphic>
+                        </Button>
+                    </children>
+                </VBox>
+                <ScrollPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #464648;">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="498.0" prefWidth="743.0" style="-fx-background-color: #464648;" />
+                    </content>
+                </ScrollPane>
+            </items>
+        </SplitPane>
+    </children>
+</AnchorPane>

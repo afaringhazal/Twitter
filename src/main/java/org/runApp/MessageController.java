@@ -2,8 +2,13 @@ package org.runApp;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import org.ce.ap.impl.client.ConnectionServiceImpl;
 
 import java.io.FileInputStream;
@@ -31,7 +36,23 @@ public class MessageController{
     }
 
     @FXML
-    void RetweetTweet(ActionEvent event) {
+    void RetweetTweet(ActionEvent event) throws IOException {
+        Parent node = FXMLLoader.load(getClass().getResource("AddTweet.fxml"));
+        HBox hBox =(HBox) node.getChildrenUnmodifiable().get(2);
+        Button ReTweet = (Button) hBox.getChildren().get(1);
+        ReTweet.setVisible(true);
+       Label label = (Label) node.getChildrenUnmodifiable().get(4);
+       label.setText(idTweet.getText());
+                //setId(idTweet.getText());
+        App.setScene(node);
+
+
+        //TextArea textArea = (TextArea) node.getChildrenUnmodifiable().get(1);;
+//        while (ReTweet.isPressed()) {
+//            textArea = (TextArea) node.getChildrenUnmodifiable().get(1);
+//        }
+
+      // fxmlCommandParserServiceImpl.requestToRetweet(idTweet.getText(),textArea.getText());
 
     }
 

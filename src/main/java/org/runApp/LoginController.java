@@ -5,9 +5,13 @@
 package org.runApp;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.ce.ap.impl.client.ConnectionServiceImpl;
 import org.ce.ap.server.Database;
@@ -30,9 +34,6 @@ public class LoginController {
     private TextField UserNameId;
 
     @FXML
-    private Button loginButtonId;
-
-    @FXML
     void loginButton(ActionEvent event) throws IOException {
         fxmlCommandParserServiceImpl.processSignIn(UserNameId.getText(),PasswordId.getText());
       //  Stage stage = (Stage) loginButtonId.getScene().getWindow();
@@ -41,7 +42,15 @@ public class LoginController {
     }
 
     @FXML
-    void signUpButton(ActionEvent event) {
+    void signUpButton(ActionEvent event) throws IOException {
+
+        Parent node = FXMLLoader.load(getClass().getResource("SignUp.fxml"));
+        App.setScene(node);
+
+    }
+
+    @FXML
+    void ExitButton(ActionEvent event) {
 
     }
 
