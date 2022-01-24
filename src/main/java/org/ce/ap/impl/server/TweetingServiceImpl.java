@@ -173,10 +173,10 @@ public class TweetingServiceImpl implements TweetingService {
                         logger.info("retweet with id: " + t.clientUsername + "was requested to be liked by" + clientUsername + "but was already liked so got disliked.");
                         disLikeRetweet(clientUsername, t, mine);
                         database.getClientPage(database.getClientFromUsername(mine)).addOrDislikeTweet(t);
+                        return;
                     }
                 }
                 logger.info("retweet with id: " + t.clientUsername + "was requested to be liked by" + clientUsername + "and was liked.");
-
                 t.Like(mine);
                 database.getClientPage(database.getClientFromUsername(mine)).addOrDislikeTweet(t);
 

@@ -75,7 +75,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
      //   saveConnectionService(connectionServiceImpl);
-        scene = new Scene(loadFXML("login"), 640, 480);
+        scene = new Scene(loadFXML("Designed_Menu"), 640, 480);
         //FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login.fxml"));
         //fxmlLoader.setController(loginController);
 //        LoginController loginController = fxmlLoader.getController();

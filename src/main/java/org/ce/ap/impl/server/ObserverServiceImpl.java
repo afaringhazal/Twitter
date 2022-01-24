@@ -18,6 +18,7 @@ public class ObserverServiceImpl implements ObserverService {
      * The Database.
      */
     Database database;
+
     /**
      * The Logger.
      */
