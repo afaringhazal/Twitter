@@ -68,8 +68,15 @@ public class LoginController {
 
 
     public void timeLine() throws IOException {
+        App.setScene(FXMLLoader.load(getClass().getResource("Designed_Menu.fxml")));
 
-        App.setScene(fxmlCommandParserServiceImpl.requestTimeline());
+//        App.setScene(fxmlCommandParserServiceImpl.requestTimeline());
+
+
+
+
+
+
         // Scene scene = new Scene(fxmlCommandParserService.requestTimeline());
         //Stage SecondaryStage = new Stage();
 //        stage.setScene(scene);

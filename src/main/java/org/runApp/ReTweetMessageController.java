@@ -24,7 +24,9 @@ public class ReTweetMessageController {
     void LikeTweet(ActionEvent event) throws IOException {
         System.out.println(IdTweet.getText());
         fxmlCommandParserServiceImpl.requestToLike(IdTweet.getText());
-        App.setScene(fxmlCommandParserServiceImpl.requestTimeline());
+        //App.setScene(fxmlCommandParserServiceImpl.requestTimeline());
+        App.setScene(FXMLLoader.load(getClass().getResource("Designed_Menu.fxml")));
+
     }
     @FXML
     void RetweetTweet(ActionEvent event) {

@@ -14,7 +14,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="514.0" prefWidth="813.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="514.0" prefWidth="813.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.runApp.Page_MenuController">
    <children>
       <MenuBar prefHeight="26.0" prefWidth="813.0" style="-fx-background-color: #Cecece;">
         <menus>
@@ -81,32 +81,32 @@
             <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #464648;">
                <children>
                   <Circle fill="#154d7e" layoutX="75.0" layoutY="72.0" radius="46.0" stroke="WHITE" strokeType="INSIDE" />
-                  <Label contentDisplay="CENTER" layoutX="130.0" layoutY="50.0" text="Name" textAlignment="CENTER" textFill="#fafafa">
+                  <Label fx:id="Name" contentDisplay="CENTER" layoutX="130.0" layoutY="50.0" text="Name" textAlignment="CENTER" textFill="#fafafa">
                      <font>
                         <Font size="21.0" />
                      </font>
                   </Label>
-                  <Label contentDisplay="CENTER" layoutX="133.0" layoutY="99.0" prefHeight="18.0" prefWidth="62.0" text="Followers:" textAlignment="CENTER" textFill="#fafafa">
+                  <Label fx:id="Followers" contentDisplay="CENTER" layoutX="133.0" layoutY="99.0" onMouseClicked="#ShowFollowers" prefHeight="18.0" prefWidth="62.0" text="Followers:" textAlignment="CENTER" textFill="#fafafa">
                      <font>
                         <Font size="10.0" />
                      </font>
                   </Label>
-                  <Label contentDisplay="CENTER" layoutX="199.0" layoutY="99.0" prefHeight="18.0" prefWidth="68.0" text="Following:" textAlignment="CENTER" textFill="#fafafa">
+                  <Label fx:id="Followings" contentDisplay="CENTER" layoutX="199.0" layoutY="99.0" onMouseClicked="#showFollowings" prefHeight="18.0" prefWidth="68.0" text="Followings:" textAlignment="CENTER" textFill="#fafafa">
                      <font>
                         <Font size="10.0" />
                      </font>
                   </Label>
-                  <Label alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="27.0" layoutY="188.0" prefHeight="112.0" prefWidth="274.0" style="-fx-background-color: #636464;" text="Bio:" textFill="WHITE">
+                  <Label fx:id="Bio" alignment="TOP_LEFT" contentDisplay="CENTER" layoutX="27.0" layoutY="188.0" prefHeight="112.0" prefWidth="274.0" style="-fx-background-color: #636464;" text="Bio:" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label contentDisplay="CENTER" layoutX="29.0" layoutY="132.0" prefHeight="18.0" prefWidth="68.0" text="Join Date:" textAlignment="CENTER" textFill="#fafafa">
+                  <Label fx:id="joinDate" contentDisplay="CENTER" layoutX="29.0" layoutY="132.0" prefHeight="18.0" prefWidth="68.0" text="Join Date:" textAlignment="CENTER" textFill="#fafafa">
                      <font>
                         <Font size="10.0" />
                      </font>
                   </Label>
-                  <Label contentDisplay="CENTER" layoutX="130.0" layoutY="132.0" prefHeight="18.0" prefWidth="68.0" text="ID:" textAlignment="CENTER" textFill="#fafafa">
+                  <Label fx:id="ID" contentDisplay="CENTER" layoutX="130.0" layoutY="132.0" prefHeight="18.0" prefWidth="68.0" text="ID:" textAlignment="CENTER" textFill="#fafafa">
                      <font>
                         <Font size="10.0" />
                      </font>
@@ -116,7 +116,7 @@
             </AnchorPane>
             <ScrollPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #464648;">
                <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="513.0" prefWidth="403.0" style="-fx-background-color: #464648;">
+                <AnchorPane fx:id="Tweets" minHeight="0.0" minWidth="0.0" prefHeight="513.0" prefWidth="403.0" style="-fx-background-color: #464648;">
                      <children>
                         <Label layoutX="168.0" layoutY="26.0" prefHeight="31.0" prefWidth="68.0" text="Tweets" textFill="WHITE">
                            <font>

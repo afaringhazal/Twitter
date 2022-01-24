@@ -2,6 +2,7 @@ package org.runApp;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
@@ -23,7 +24,9 @@ public class AddTweetController {
 
     @FXML
     void buttonBack(ActionEvent event) throws IOException {
-        App.setScene(fxmlCommandParserServiceImpl.requestTimeline());
+        //App.setScene(fxmlCommandParserServiceImpl.requestTimeline());
+        App.setScene(FXMLLoader.load(getClass().getResource("Designed_Menu.fxml")));
+
 
     }
 
@@ -33,7 +36,8 @@ public class AddTweetController {
         ErrorTweetTextId.setText("");
         ErrorTweetTextId.setText(fxmlCommandParserServiceImpl.addTweet(TweetTextId.getText()));
         if(ErrorTweetTextId.getText().isEmpty() || ErrorTweetTextId.getText().isBlank()){
-            App.setScene(fxmlCommandParserServiceImpl.requestTimeline());
+           // App.setScene(fxmlCommandParserServiceImpl.requestTimeline());
+            App.setScene(FXMLLoader.load(getClass().getResource("Designed_Menu.fxml")));
         }
 
     }
@@ -48,7 +52,9 @@ public class AddTweetController {
 
         } else {
             fxmlCommandParserServiceImpl.requestToRetweet(IdRetweet.getText(), TweetTextId.getText());
-            App.setScene(fxmlCommandParserServiceImpl.requestTimeline());
+            App.setScene(FXMLLoader.load(getClass().getResource("Designed_Menu.fxml")));
+
+            // App.setScene(fxmlCommandParserServiceImpl.requestTimeline());
         }
     }
 

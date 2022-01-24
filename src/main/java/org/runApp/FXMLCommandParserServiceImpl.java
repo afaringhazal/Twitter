@@ -317,7 +317,7 @@ public class FXMLCommandParserServiceImpl {
         }
         System.out.println("Your tweet was successfully added to server.");
 
-        return null ;
+        return "" ;
 
     }
 
@@ -653,13 +653,17 @@ public class FXMLCommandParserServiceImpl {
         consoleViewService.printAllTweets(response);
 
     }
+*/
 
-    @Override
-    public void DisplayPageInformation() {
+    public void DisplayPageInformation()  {
         sendRequestAndListenForResponse("Display Page Information", null);
         if (response == null || response.isHasError())
             return;
-        consoleViewService.printList(response);
+
+
+
+
+        //consoleViewService.printList(response);
 
     }
 

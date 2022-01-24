@@ -31,12 +31,13 @@ public class MessageController{
     void LikeTweet(ActionEvent event) throws IOException {
         System.out.println(idTweet.getText());
         fxmlCommandParserServiceImpl.requestToLike(idTweet.getText());
-        App.setScene(fxmlCommandParserServiceImpl.requestTimeline());
+        App.setScene(FXMLLoader.load(getClass().getResource("Designed_Menu.fxml")));
 
     }
 
     @FXML
     void RetweetTweet(ActionEvent event) throws IOException {
+
         Parent node = FXMLLoader.load(getClass().getResource("AddTweet.fxml"));
         HBox hBox =(HBox) node.getChildrenUnmodifiable().get(2);
         Button ReTweet = (Button) hBox.getChildren().get(1);
