@@ -15,7 +15,7 @@
             <Image url="@logo-twitter-png-5872.png" />
          </image>
       </ImageView>
-      <Label layoutX="262.0" layoutY="164.0" prefHeight="36.0" prefWidth="80.0" text="Twitter" textAlignment="CENTER" textFill="WHITE">
+      <Label layoutX="263.0" layoutY="164.0" prefHeight="36.0" prefWidth="80.0" text="Twitter" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font size="25.0" />
          </font>
@@ -33,5 +33,7 @@
       <Button layoutX="275.0" layoutY="298.0" mnemonicParsing="false" style="-fx-background-color: #1e1e1e;" text="Log In" textFill="#faf6f6" />
       <Button layoutX="272.0" layoutY="324.0" mnemonicParsing="false" style="-fx-background-color: #1e1e1e;" text="Sign Up" textFill="#fcfafa" />
       <Button layoutX="284.0" layoutY="360.0" mnemonicParsing="false" style="-fx-background-color: #1e1e1e;" text="Exit" textFill="#fcfafa" />
+      <Label text="Label" />
+      <Label contentDisplay="CENTER" layoutX="270.0" layoutY="200.0" prefHeight="18.0" prefWidth="58.0" style="-fx-alignment: CENTER;" text="Error" textAlignment="CENTER" textFill="#d40000" />
    </children>
 </AnchorPane>
