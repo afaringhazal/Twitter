@@ -111,7 +111,7 @@ public class FXMLCommandParserServiceImpl {
      */
     public FXMLCommandParserServiceImpl() {
         fixGson();
-       connectionService = new ConnectionServiceImpl();
+        connectionService = new ConnectionServiceImpl();
 
 //        if (connectionService.socketIsConnected()) {
 //            shouldRun = true;
@@ -195,7 +195,7 @@ public class FXMLCommandParserServiceImpl {
     }
 
 
-    public void processSignIn(String username,String password){   // throws IOException, ClassNotFoundException {
+    public void processSignIn(String username,String password) throws RuntimeException{   // throws IOException, ClassNotFoundException {
 
         ArrayList<Object> parameterValue = new ArrayList<>();
         parameterValue.add(username);
@@ -203,7 +203,7 @@ public class FXMLCommandParserServiceImpl {
         sendRequestAndListenForResponse("Sign In", parameterValue);
         if (response == null || response.isHasError()) {
             System.out.println("couldn't sign in.");
-            return;
+            throw new RuntimeException();
         }
         System.out.println("Successfully signed in.");
         // showMainMenu();
@@ -218,12 +218,12 @@ public class FXMLCommandParserServiceImpl {
      */
 
     public void processSignUp(String userName, String password ,String firstName,
-            String lastName,
-            String year,
-            String month,
-            String day,
-            String id ,
-            String bio) throws ExceptionNotValidInput, ExceptionNoConnection {
+                              String lastName,
+                              String year,
+                              String month,
+                              String day,
+                              String id ,
+                              String bio) throws ExceptionNotValidInput, ExceptionNoConnection {
 //        System.out.println("Enter UserName and password: ");
 //        String userName = scanner.nextLine();
 //        String password = scanner.nextLine();
@@ -342,13 +342,13 @@ public class FXMLCommandParserServiceImpl {
             LinkedTreeMap<String, Object> treeMap = (LinkedTreeMap<String, Object>) obj;
             for (String s : treeMap.keySet()) {
                 if (s.equals("tweet")) {
-                     node = FXMLLoader.load(getClass().getResource("ReTweetMessage.fxml"));
+                    node = FXMLLoader.load(getClass().getResource("ReTweetMessage.fxml"));
                     check =1;
 
                 }
             }
             if(check==0) {
-                 node = FXMLLoader.load(getClass().getResource("Message.fxml"));
+                node = FXMLLoader.load(getClass().getResource("Message.fxml"));
             }
 
 
@@ -359,16 +359,16 @@ public class FXMLCommandParserServiceImpl {
 
 
             TextField textField = (TextField) hBox.getChildren().get(0);
-                    //(TextField) node.getChildrenUnmodifiable().get(1);
+            //(TextField) node.getChildrenUnmodifiable().get(1);
             textField.setText(""+treeMap.get("clientUsername"));
 
             textField = (TextField) hBox.getChildren().get(1);
-                    // (TextField) node.getChildrenUnmodifiable().get(2);
+            // (TextField) node.getChildrenUnmodifiable().get(2);
             textField.setText(treeMap.get("id")+"");
 
 
             textField = (TextField) hBox.getChildren().get(2);
-                    //(TextField) node.getChildrenUnmodifiable().get(3);
+            //(TextField) node.getChildrenUnmodifiable().get(3);
             textField.setText(treeMap.get("date")+"");
 
             //   textField222.setText(treeMap.get("clientUsername") + "          id : " + treeMap.get("id") + "          " + treeMap.get("date"));
@@ -382,7 +382,7 @@ public class FXMLCommandParserServiceImpl {
                     treeMapToRetweet = (LinkedTreeMap<String, Object>) treeMap.get("tweet");
 
                     textField = (TextField) hBox1.getChildren().get(0);
-                            //(TextField) node.getChildrenUnmodifiable().get(5);
+                    //(TextField) node.getChildrenUnmodifiable().get(5);
                     textField.setText(""+treeMapToRetweet.get("clientUsername"));
 
                     textField = (TextField) hBox1.getChildren().get(1);
@@ -695,7 +695,7 @@ public class FXMLCommandParserServiceImpl {
             return;
 
         }
-       // requestTimeline();
+        // requestTimeline();
         //System.out.println("You successfully liked message with id: " + idToLike + " .");
     }
 

@@ -20,12 +20,14 @@ import java.io.*;
 
 public class LoginController {
     FXMLCommandParserServiceImpl fxmlCommandParserServiceImpl = App.fxmlCommandParserService ;
-        //new FXMLCommandParserServiceImpl();
+    //new FXMLCommandParserServiceImpl();
 
 //    public LoginController(FXMLCommandParserServiceImpl fxmlCommandParserService){
 //        this.fxmlCommandParserService =fxmlCommandParserService;
 //    }
 
+    @FXML
+    private Label Error;
 
     @FXML
     private TextField PasswordId;
@@ -35,8 +37,18 @@ public class LoginController {
 
     @FXML
     void loginButton(ActionEvent event) throws IOException {
-        fxmlCommandParserServiceImpl.processSignIn(UserNameId.getText(),PasswordId.getText());
-      //  Stage stage = (Stage) loginButtonId.getScene().getWindow();
+        try {
+            fxmlCommandParserServiceImpl.processSignIn(UserNameId.getText(),PasswordId.getText());
+
+        }
+        catch (RuntimeException e){
+            UserNameId.setText("");
+            PasswordId.setText("");
+            Error.setText("Don't exit user name");
+            return;
+        }
+        // fxmlCommandParserServiceImpl.processSignIn(UserNameId.getText(),PasswordId.getText());
+        //  Stage stage = (Stage) loginButtonId.getScene().getWindow();
         timeLine();
 
     }
@@ -58,7 +70,7 @@ public class LoginController {
     public void timeLine() throws IOException {
 
         App.setScene(fxmlCommandParserServiceImpl.requestTimeline());
-       // Scene scene = new Scene(fxmlCommandParserService.requestTimeline());
+        // Scene scene = new Scene(fxmlCommandParserService.requestTimeline());
         //Stage SecondaryStage = new Stage();
 //        stage.setScene(scene);
 //        stage.show();

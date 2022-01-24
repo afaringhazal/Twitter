@@ -1,34 +1,50 @@
-Jan 24, 2022 5:49:09 PM org.ce.ap.server.Server initLogger
+Jan 24, 2022 8:07:22 PM org.ce.ap.server.Server initLogger
 INFO: properties were read and logger started.
-Jan 24, 2022 5:49:09 PM org.ce.ap.impl.server.FileManagementImpl loadDatabase
+Jan 24, 2022 8:07:22 PM org.ce.ap.impl.server.FileManagementImpl loadDatabase
 INFO: database read.
-Jan 24, 2022 5:49:14 PM org.ce.ap.server.Server acceptClients
-INFO: socket: Socket[addr=/127.0.0.1,port=59902,localport=8080]Connected.
-Jan 24, 2022 5:49:20 PM org.ce.ap.impl.server.AuthenticationServiceImpl signInRequest
+Jan 24, 2022 8:07:37 PM org.ce.ap.server.Server acceptClients
+INFO: socket: Socket[addr=/127.0.0.1,port=52811,localport=8080]Connected.
+Jan 24, 2022 8:07:53 PM org.ce.ap.impl.server.AuthenticationServiceImpl signUpRequest
+INFO: username fwas requested for sign up and was allowed to sign up.
+Jan 24, 2022 8:07:53 PM org.ce.ap.impl.server.AuthenticationServiceImpl signUp
+INFO: username fwas signed up.
+Jan 24, 2022 8:07:53 PM org.ce.ap.impl.server.TimelineServiceImpl sortMessages
+INFO: all messages were gathered and sorted. details:[]
+Jan 24, 2022 8:08:03 PM org.ce.ap.server.Server acceptClients
+INFO: socket: Socket[addr=/127.0.0.1,port=52816,localport=8080]Connected.
+Jan 24, 2022 8:08:07 PM org.ce.ap.impl.server.AuthenticationServiceImpl signInRequest
 INFO: username 1was requested for sign in and was allowed to sign in.
-Jan 24, 2022 5:49:20 PM org.ce.ap.impl.server.TimelineServiceImpl sortMessages
-INFO: all messages were gathered and sorted. details:[org.ce.ap.server.Retweet@15bb6bea, org.ce.ap.server.Retweet@75a5f4e9, org.ce.ap.server.Retweet@27d17ec4, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50, org.ce.ap.server.Retweet@116220cf, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50]
-Jan 24, 2022 5:49:31 PM org.ce.ap.impl.server.TweetingServiceImpl findMessage
+Jan 24, 2022 8:08:07 PM org.ce.ap.impl.server.TimelineServiceImpl sortMessages
+INFO: all messages were gathered and sorted. details:[org.ce.ap.server.Retweet@1ace1957, org.ce.ap.server.Retweet@3304fe, org.ce.ap.server.Retweet@6d6109d8, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50, org.ce.ap.server.Retweet@3d5e7f46, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50]
+Jan 24, 2022 8:08:09 PM org.ce.ap.impl.server.TweetingServiceImpl findMessage
 INFO: retweet with id: 47was requested to find and was found.
-Jan 24, 2022 5:49:31 PM org.ce.ap.impl.server.TweetingServiceImpl LikeRetweet
+Jan 24, 2022 8:08:09 PM org.ce.ap.impl.server.TweetingServiceImpl LikeRetweet
 INFO: retweet with id: 1was requested to be liked by1and was liked.
-Jan 24, 2022 5:49:31 PM org.ce.ap.impl.server.TimelineServiceImpl sortMessages
-INFO: all messages were gathered and sorted. details:[org.ce.ap.server.Retweet@15bb6bea, org.ce.ap.server.Retweet@75a5f4e9, org.ce.ap.server.Retweet@27d17ec4, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50, org.ce.ap.server.Retweet@116220cf, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50]
-Jan 24, 2022 5:49:31 PM org.ce.ap.impl.server.TweetingServiceImpl findMessage
+Jan 24, 2022 8:08:09 PM org.ce.ap.impl.server.TimelineServiceImpl sortMessages
+INFO: all messages were gathered and sorted. details:[org.ce.ap.server.Retweet@1ace1957, org.ce.ap.server.Retweet@3304fe, org.ce.ap.server.Retweet@6d6109d8, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50, org.ce.ap.server.Retweet@3d5e7f46, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50]
+Jan 24, 2022 8:08:10 PM org.ce.ap.impl.server.TweetingServiceImpl findMessage
 INFO: retweet with id: 47was requested to find and was found.
-Jan 24, 2022 5:49:31 PM org.ce.ap.impl.server.TweetingServiceImpl LikeRetweet
+Jan 24, 2022 8:08:10 PM org.ce.ap.impl.server.TweetingServiceImpl LikeRetweet
 INFO: retweet with id: 1was requested to be liked by1but was already liked so got disliked.
-Jan 24, 2022 5:49:31 PM org.ce.ap.impl.server.TimelineServiceImpl sortMessages
-INFO: all messages were gathered and sorted. details:[org.ce.ap.server.Retweet@15bb6bea, org.ce.ap.server.Retweet@75a5f4e9, org.ce.ap.server.Retweet@27d17ec4, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50, org.ce.ap.server.Retweet@116220cf, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50]
-Jan 24, 2022 5:49:35 PM org.ce.ap.impl.server.TweetingServiceImpl findMessage
+Jan 24, 2022 8:08:10 PM org.ce.ap.impl.server.TimelineServiceImpl sortMessages
+INFO: all messages were gathered and sorted. details:[org.ce.ap.server.Retweet@1ace1957, org.ce.ap.server.Retweet@3304fe, org.ce.ap.server.Retweet@6d6109d8, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50, org.ce.ap.server.Retweet@3d5e7f46, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50]
+Jan 24, 2022 8:08:12 PM org.ce.ap.impl.server.TweetingServiceImpl findMessage
 INFO: retweet with id: 46was requested to find and was found.
-Jan 24, 2022 5:49:35 PM org.ce.ap.impl.server.TweetingServiceImpl LikeRetweet
+Jan 24, 2022 8:08:12 PM org.ce.ap.impl.server.TweetingServiceImpl LikeRetweet
 INFO: retweet with id: 1was requested to be liked by1but was already liked so got disliked.
-Jan 24, 2022 5:49:35 PM org.ce.ap.impl.server.TimelineServiceImpl sortMessages
-INFO: all messages were gathered and sorted. details:[org.ce.ap.server.Retweet@15bb6bea, org.ce.ap.server.Retweet@75a5f4e9, org.ce.ap.server.Retweet@27d17ec4, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50, org.ce.ap.server.Retweet@116220cf, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50]
-Jan 24, 2022 5:49:36 PM org.ce.ap.impl.server.TweetingServiceImpl findMessage
+Jan 24, 2022 8:08:12 PM org.ce.ap.impl.server.TimelineServiceImpl sortMessages
+INFO: all messages were gathered and sorted. details:[org.ce.ap.server.Retweet@1ace1957, org.ce.ap.server.Retweet@3304fe, org.ce.ap.server.Retweet@6d6109d8, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50, org.ce.ap.server.Retweet@3d5e7f46, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50]
+Jan 24, 2022 8:08:12 PM org.ce.ap.impl.server.TweetingServiceImpl findMessage
 INFO: retweet with id: 46was requested to find and was found.
-Jan 24, 2022 5:49:36 PM org.ce.ap.impl.server.TweetingServiceImpl LikeRetweet
+Jan 24, 2022 8:08:12 PM org.ce.ap.impl.server.TweetingServiceImpl LikeRetweet
 INFO: retweet with id: 1was requested to be liked by1and was liked.
-Jan 24, 2022 5:49:36 PM org.ce.ap.impl.server.TimelineServiceImpl sortMessages
-INFO: all messages were gathered and sorted. details:[org.ce.ap.server.Retweet@15bb6bea, org.ce.ap.server.Retweet@75a5f4e9, org.ce.ap.server.Retweet@27d17ec4, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50, org.ce.ap.server.Retweet@116220cf, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50]
+Jan 24, 2022 8:08:12 PM org.ce.ap.impl.server.TimelineServiceImpl sortMessages
+INFO: all messages were gathered and sorted. details:[org.ce.ap.server.Retweet@1ace1957, org.ce.ap.server.Retweet@3304fe, org.ce.ap.server.Retweet@6d6109d8, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50, org.ce.ap.server.Retweet@3d5e7f46, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50]
+Jan 24, 2022 8:08:21 PM org.ce.ap.impl.server.TweetingServiceImpl findMessage
+INFO: tweet with id: 44was requested to find and was found.
+Jan 24, 2022 8:08:21 PM org.ce.ap.impl.server.TweetingServiceImpl addRetweet
+INFO: retweet 44was added. retweet source:44 .
+Jan 24, 2022 8:08:21 PM org.ce.ap.impl.server.TimelineServiceImpl sortMessages
+INFO: all messages were gathered and sorted. details:[org.ce.ap.server.Retweet@38a514f8, org.ce.ap.server.Retweet@1ace1957, org.ce.ap.server.Retweet@3304fe, org.ce.ap.server.Retweet@6d6109d8, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50, org.ce.ap.server.Retweet@3d5e7f46, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50]
+Jan 24, 2022 8:08:22 PM org.ce.ap.impl.server.FileManagementImpl saveDatabase
+INFO: database saved.

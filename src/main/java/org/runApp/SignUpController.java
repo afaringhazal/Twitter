@@ -67,7 +67,7 @@ public class SignUpController {
             return;
         } catch (ExceptionNoConnection e) {
             HasError.setText("Invalid Input!.\n Please try again.");
-           return;
+            return;
         }
 
         App.setScene(fxmlCommandParserServiceImpl.requestTimeline());

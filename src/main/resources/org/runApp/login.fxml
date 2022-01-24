@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #1e1e1e; -fx-border-color: #Ffffff; -fx-border-width: 5;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #1e1e1e; -fx-border-color: #Ffffff; -fx-border-width: 5;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.runApp.LoginController">
    <children>
       <ImageView fitHeight="112.0" fitWidth="143.0" layoutX="233.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -20,20 +20,19 @@
             <Font size="25.0" />
          </font>
       </Label>
-      <TextField layoutX="234.0" layoutY="228.0" prefHeight="26.0" prefWidth="135.0" promptText="Username">
+      <TextField fx:id="UserNameId" layoutX="234.0" layoutY="228.0" prefHeight="26.0" prefWidth="135.0" promptText="Username">
          <font>
             <Font size="10.0" />
          </font>
       </TextField>
-      <TextField layoutX="234.0" layoutY="263.0" prefHeight="26.0" prefWidth="135.0" promptText="Password">
+      <TextField fx:id="PasswordId" layoutX="234.0" layoutY="263.0" prefHeight="26.0" prefWidth="135.0" promptText="Password">
          <font>
             <Font size="10.0" />
          </font>
       </TextField>
-      <Button layoutX="275.0" layoutY="298.0" mnemonicParsing="false" style="-fx-background-color: #1e1e1e;" text="Log In" textFill="#faf6f6" />
-      <Button layoutX="272.0" layoutY="324.0" mnemonicParsing="false" style="-fx-background-color: #1e1e1e;" text="Sign Up" textFill="#fcfafa" />
-      <Button layoutX="284.0" layoutY="360.0" mnemonicParsing="false" style="-fx-background-color: #1e1e1e;" text="Exit" textFill="#fcfafa" />
-      <Label text="Label" />
-      <Label contentDisplay="CENTER" layoutX="270.0" layoutY="200.0" prefHeight="18.0" prefWidth="58.0" style="-fx-alignment: CENTER;" text="Error" textAlignment="CENTER" textFill="#d40000" />
+      <Button layoutX="275.0" layoutY="298.0" mnemonicParsing="false" onAction="#loginButton" style="-fx-background-color: #1e1e1e;" text="Log In" textFill="#faf6f6" />
+      <Button layoutX="272.0" layoutY="324.0" mnemonicParsing="false" onAction="#signUpButton" style="-fx-background-color: #1e1e1e;" text="Sign Up" textFill="#fcfafa" />
+      <Button fx:id="ExitButton" layoutX="284.0" layoutY="360.0" mnemonicParsing="false" style="-fx-background-color: #1e1e1e;" text="Exit" textFill="#fcfafa" />
+      <Label fx:id="Error" contentDisplay="CENTER" layoutX="224.0" layoutY="200.0" prefHeight="18.0" prefWidth="157.0" style="-fx-alignment: CENTER;" textAlignment="CENTER" textFill="#d40000" />
    </children>
 </AnchorPane>

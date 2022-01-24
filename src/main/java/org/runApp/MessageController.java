@@ -30,8 +30,8 @@ public class MessageController{
     @FXML
     void LikeTweet(ActionEvent event) throws IOException {
         System.out.println(idTweet.getText());
-       fxmlCommandParserServiceImpl.requestToLike(idTweet.getText());
-      App.setScene(fxmlCommandParserServiceImpl.requestTimeline());
+        fxmlCommandParserServiceImpl.requestToLike(idTweet.getText());
+        App.setScene(fxmlCommandParserServiceImpl.requestTimeline());
 
     }
 
@@ -40,10 +40,12 @@ public class MessageController{
         Parent node = FXMLLoader.load(getClass().getResource("AddTweet.fxml"));
         HBox hBox =(HBox) node.getChildrenUnmodifiable().get(2);
         Button ReTweet = (Button) hBox.getChildren().get(1);
+        Button Send = (Button) hBox.getChildren().get(0);
         ReTweet.setVisible(true);
-       Label label = (Label) node.getChildrenUnmodifiable().get(4);
-       label.setText(idTweet.getText());
-                //setId(idTweet.getText());
+        Send.setVisible(false);
+        Label label = (Label) node.getChildrenUnmodifiable().get(4);
+        label.setText(idTweet.getText());
+        //setId(idTweet.getText());
         App.setScene(node);
 
 
@@ -52,7 +54,7 @@ public class MessageController{
 //            textArea = (TextArea) node.getChildrenUnmodifiable().get(1);
 //        }
 
-      // fxmlCommandParserServiceImpl.requestToRetweet(idTweet.getText(),textArea.getText());
+        // fxmlCommandParserServiceImpl.requestToRetweet(idTweet.getText(),textArea.getText());
 
     }
 
