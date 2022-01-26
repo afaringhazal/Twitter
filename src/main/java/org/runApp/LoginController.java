@@ -20,11 +20,6 @@ import java.io.*;
 
 public class LoginController {
     FXMLCommandParserServiceImpl fxmlCommandParserServiceImpl = App.fxmlCommandParserService ;
-    //new FXMLCommandParserServiceImpl();
-
-//    public LoginController(FXMLCommandParserServiceImpl fxmlCommandParserService){
-//        this.fxmlCommandParserService =fxmlCommandParserService;
-//    }
 
     @FXML
     private Label Error;
@@ -68,52 +63,12 @@ public class LoginController {
 
 
     public void timeLine() throws IOException {
-        App.setScene(FXMLLoader.load(getClass().getResource("Designed_Menu.fxml")));
+        FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("Designed_Menu.fxml"));
+        Parent root = fxmlLoader.load();
+        fxmlCommandParserServiceImpl.menuController=fxmlLoader.getController();
 
-//        App.setScene(fxmlCommandParserServiceImpl.requestTimeline());
-
-
-
-
-
-
-        // Scene scene = new Scene(fxmlCommandParserService.requestTimeline());
-        //Stage SecondaryStage = new Stage();
-//        stage.setScene(scene);
-//        stage.show();
+        App.setScene(root);
 
     }
-
-
-//    public void setFxmlCommandParserService(FXMLCommandParserServiceImpl fxmlCommandParserService){
-//        this.fxmlCommandParserService =fxmlCommandParserService;
-//    }
-
-
-
-
-//
-//    @FXML
-//    public void initialize() throws IOException, ClassNotFoundException {
-//
-//       // File file = new File("connectionService.bin");
-//        FileInputStream fileInputStream = new FileInputStream("connectionService.bin");
-//        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-////        database = (Database) objectInputStream.readObject();
-////        logger.info("database read.");
-////        objectInputStream.close();
-////        fileInputStream.close();
-//
-//
-//
-//        ConnectionServiceImpl connectionService = (ConnectionServiceImpl) objectInputStream.readObject();
-//
-//        fxmlCommandParserService.handleConnectionServiceImpl(connectionService);
-//        objectInputStream.close();
-//        fileInputStream.close();
-//
-//
-//
-//    }
 
 }

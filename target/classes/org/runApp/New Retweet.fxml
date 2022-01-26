@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="Retweet" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="422.0" prefWidth="550.0" style="-fx-background-color: #464648; -fx-border-color: WHITE;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.runApp.NewRetweetController">
+<AnchorPane fx:id="Retweet" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="422.0" prefWidth="550.0" style="-fx-background-color: #464648; -fx-border-color: WHITE;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.runApp.NewRetweetController">
    <children>
       <Button fx:id="RetweetButton" layoutX="111.0" layoutY="376.0" mnemonicParsing="false" onAction="#RetweetRetweet" prefHeight="42.0" prefWidth="54.0" style="-fx-background-color: #464648;" textFill="WHITE">
          <graphic>
@@ -31,8 +31,8 @@
                   <Font size="9.0" />
                </font>
             </Label>
-            <Circle fx:id="TweetPicture" fill="#154d7e" layoutX="31.0" layoutY="53.0" radius="17.0" stroke="WHITE" strokeType="INSIDE" />
-            <Label fx:id="TweetClientUsername" alignment="CENTER" layoutX="48.0" layoutY="36.0" prefHeight="33.0" prefWidth="104.0" text="ClientUsername" textFill="WHITE" />
+            <Circle fx:id="TweetPicture" fill="#154d7e" layoutX="31.0" layoutY="53.0" onMouseClicked="#openTweetClientPage" radius="17.0" stroke="WHITE" strokeType="INSIDE" />
+            <Label fx:id="TweetClientUsername" alignment="CENTER" layoutX="48.0" layoutY="36.0" onMouseClicked="#openTweetClientPage" prefHeight="33.0" prefWidth="104.0" text="ClientUsername" textFill="WHITE" />
             <Label fx:id="TweetRetweets" alignment="TOP_LEFT" layoutX="154.0" layoutY="132.0" prefHeight="18.0" prefWidth="98.0" text="Retweets" textFill="#b1acac">
                <font>
                   <Font size="9.0" />
@@ -66,8 +66,8 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Circle fx:id="RetweetPicture" fill="#154d7e" layoutX="71.0" layoutY="58.0" radius="25.0" stroke="WHITE" strokeType="INSIDE" />
-      <Label fx:id="RetweetClientUsername" alignment="CENTER" layoutX="101.0" layoutY="41.0" prefHeight="33.0" prefWidth="104.0" text="ClientUsername" textFill="WHITE">
+      <Circle fx:id="RetweetPicture" fill="#154d7e" layoutX="71.0" layoutY="58.0" onMouseClicked="#openRetweetClientPage" radius="25.0" stroke="WHITE" strokeType="INSIDE" />
+      <Label fx:id="RetweetClientUsername" alignment="CENTER" layoutX="101.0" layoutY="41.0" onMouseClicked="#openRetweetClientPage" prefHeight="33.0" prefWidth="104.0" text="ClientUsername" textFill="WHITE">
          <font>
             <Font size="14.0" />
          </font>

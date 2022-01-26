@@ -721,7 +721,7 @@ public class ClientHandlerImpl implements ClientHandler {
 
 
     public String getPageStatus(Page page){
-        if (page==null){
+        if (page.equals(this.page)){
             return "OwnPage";
         }
         else if (observerService.getFollowers(this.page.getClient().getUserName()).contains(page.getClient().getUserName())){
@@ -735,28 +735,37 @@ public class ClientHandlerImpl implements ClientHandler {
 
     public void getPageInfo() throws IOException{
         ArrayList<Object> pageUsername= request.getParameterValue();
+        String username=(String)pageUsername.get(0);
+        String status;
+        Page clientPage =observerService.getPageDetails(username);
 
-        String status = getPageStatus(observerService.getPageDetails((String)pageUsername.get(0)));
-        Page page=observerService.getPageDetails((String)pageUsername.get(0));
-        if (status=="OwnPage"){page=this.page;}
+        if (username==null){status="OwnPage";}
+
+        else {
+            status = getPageStatus(clientPage);
+        }
+
+        if (status=="OwnPage"){
+            clientPage =this.page;}
         ArrayList<Object> result = new ArrayList<>();
-        result.add( page.getClient().getUserName()); //userName
-        result.add( page.getClient().getFirstName());//firstName
-        result.add( page.getClient().getLastName());//lastName
-        result.add( page.getClient().getBirthday());//birthday
-        result.add( page.getBiography()); //bio
-        result.add( page.getId());//id
-        result.add(page.getJoinDate()); //joinDate
+        result.add( clientPage.getClient().getUserName()); //userName
+        result.add( clientPage.getClient().getFirstName());//firstName
+        result.add( clientPage.getClient().getLastName());//lastName
+        result.add( clientPage.getClient().getBirthday());//birthday
+        result.add( clientPage.getBiography()); //bio
+        result.add( clientPage.getId());//id
+        result.add(clientPage.getJoinDate()); //joinDate
         result.add(status);//status
-        result.add(page.getFollowers());//followers
-        result.add(page.getFollowingsList());//followings
+        result.add(clientPage.getFollowers());//followers
+        result.add(clientPage.getFollowingsList());//followings
         //result.add(page.getImage());//image
-
         response.setResults(result);
         objectOutputStream.writeObject(gson.toJson(response));
         refreshResponse();
 
     }
+
+
     public void getPersonInfo() throws IOException {
         ArrayList<Object> personUsername= request.getParameterValue();
         Page page = observerService.getPageDetails((String)personUsername.get(0));

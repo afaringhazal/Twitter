@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
@@ -97,117 +98,17 @@ public class NewRetweetController {
 
     }
 
-    public Label getRetweetClientUsername() {
-        return RetweetClientUsername;
+    public void openTweetClientPage(MouseEvent e) throws IOException {
+
+
+        fxmlCommandParserServiceImpl.menuController.showPage(TweetClientUsername.getText());
+    }
+    public void openRetweetClientPage(MouseEvent e) throws IOException {
+
+
+        fxmlCommandParserServiceImpl.menuController.showPage(RetweetClientUsername.getText());
     }
 
-    public void setRetweetClientUsername(Label retweetClientUsername) {
-        RetweetClientUsername = retweetClientUsername;
-    }
-
-    public Label getRetweetDate() {
-        return RetweetDate;
-    }
-
-    public void setRetweetDate(Label retweetDate) {
-        RetweetDate = retweetDate;
-    }
-
-    public Label getRetweetID() {
-        return RetweetID;
-    }
-
-    public void setRetweetID(Label retweetID) {
-        RetweetID = retweetID;
-    }
-
-    public Label getRetweetLikes() {
-        return RetweetLikes;
-    }
-
-    public void setRetweetLikes(Label retweetLikes) {
-        RetweetLikes = retweetLikes;
-    }
-
-    public Circle getRetweetPicture() {
-        return RetweetPicture;
-    }
-
-    public void setRetweetPicture(Circle retweetPicture) {
-        RetweetPicture = retweetPicture;
-    }
-
-    public Label getRetweetRetweets() {
-        return RetweetRetweets;
-    }
-
-    public void setRetweetRetweets(Label retweetRetweets) {
-        RetweetRetweets = retweetRetweets;
-    }
-
-    public Label getRetweetText() {
-        return RetweetText;
-    }
-
-    public void setRetweetText(Label retweetText) {
-        RetweetText = retweetText;
-    }
-
-    public Label getTweetClientUsername() {
-        return TweetClientUsername;
-    }
-
-    public void setTweetClientUsername(Label tweetClientUsername) {
-        TweetClientUsername = tweetClientUsername;
-    }
-
-    public Label getTweetDate() {
-        return TweetDate;
-    }
-
-    public void setTweetDate(Label tweetDate) {
-        TweetDate = tweetDate;
-    }
-
-    public Label getTweetID() {
-        return TweetID;
-    }
-
-    public void setTweetID(Label tweetID) {
-        TweetID = tweetID;
-    }
-
-    public Label getTweetLikes() {
-        return TweetLikes;
-    }
-
-    public void setTweetLikes(Label tweetLikes) {
-        TweetLikes = tweetLikes;
-    }
-
-    public Circle getTweetPicture() {
-        return TweetPicture;
-    }
-
-    public void setTweetPicture(Circle tweetPicture) {
-        TweetPicture = tweetPicture;
-    }
-
-    public Label getTweetRetweets() {
-        return TweetRetweets;
-    }
-
-    public void setTweetRetweets(Label tweetRetweets) {
-        TweetRetweets = tweetRetweets;
-    }
-
-    public Label getTweetText() {
-        return TweetText;
-    }
-
-    public void setTweetText(Label tweetText) {
-        TweetText = tweetText;
-    }
     public void getData(LinkedTreeMap<String, Object> treeMap ) {
         RetweetID.setText(treeMap.get("id")+"");
         RetweetDate.setText(treeMap.get("date")+"");

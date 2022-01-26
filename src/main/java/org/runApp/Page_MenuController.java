@@ -2,6 +2,7 @@ package org.runApp;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
@@ -30,7 +31,13 @@ public class Page_MenuController {
     private Label Followers;
 
     @FXML
+    private Button Button;
+
+
+    @FXML
     private Label Followings;
+
+
     @FXML
     private Label Name;
 
@@ -75,7 +82,6 @@ public class Page_MenuController {
         ArrayList<String> followings = (ArrayList<String>) response.get(9);
         this.username.setText(username);
         this.Name.setText("name : "+firstName+" "+lastName);
-
         BirthDay.setText("birthday : "+birthDay);
         Bio.setText(bio);
         this.joinDate.setText("join date : "+joinDate);
@@ -85,15 +91,43 @@ public class Page_MenuController {
         followingsList=followings;
         Followers.setText("followers: "+String.valueOf(followers.size()));
         Followings.setText("followings: "+String.valueOf(followings.size()));
+        String buttonText="Edit Page";
+        if (status.equals("Followed")) {
+            buttonText = "Unfollow";
+        }
+        else if (status.equals("NotFollowed")) {
+            buttonText = "Follow";
+        }
 
-
+        Button.setText(buttonText);
     }
+
 
     @FXML
     void ButtonOfFollowAndUnFollow(ActionEvent event) {
+        switch (status){
+            case "OwnPage":
+                editPage();
+                break;
+            case "Followed":
+                unfollow();
+                break;
+            case "NotFollowed":
+                follow();
+                break;
+        }
+
 
     }
 
+    private void follow(){
 
+    }
+
+    private void unfollow(){
+
+    }
+
+    private void editPage(){}
 
 }

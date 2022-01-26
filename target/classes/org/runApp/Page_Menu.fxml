@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="728.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.runApp.Page_MenuController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="728.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.runApp.Page_MenuController">
    <children>
       <SplitPane dividerPositions="0.4599341383095499" layoutX="-1.0" prefHeight="475.0" prefWidth="730.0">
         <items>
@@ -42,7 +42,7 @@
                         <Font size="10.0" />
                      </font>
                   </Label>
-                  <Button layoutX="237.0" layoutY="53.0" mnemonicParsing="false" onAction="#ButtonOfFollowAndUnFollow" style="-fx-background-color: #464648;" text="+Follow" textFill="#399bd4" />
+                  <Button fx:id="Button" layoutX="237.0" layoutY="53.0" mnemonicParsing="false" onAction="#ButtonOfFollowAndUnFollow" style="-fx-background-color: #464648;" text="+Follow" textFill="#399bd4" />
                   <Label fx:id="username" layoutX="132.0" layoutY="50.0" text="Username" textFill="WHITE">
                      <font>
                         <Font size="20.0" />

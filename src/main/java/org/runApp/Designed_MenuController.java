@@ -39,10 +39,13 @@ public class Designed_MenuController {
 
     @FXML
     void ButtonShowMyPage(ActionEvent event) throws IOException {
-        String n =null;
+        showPage(null);
 
-        ShowSection.setContent(fxmlCommandParserServiceImpl.getPageInformation(n));
 
+    }
+
+    public void showPage(String username) throws IOException {
+        ShowSection.setContent(fxmlCommandParserServiceImpl.getPageInformation(username));
     }
 
     @FXML

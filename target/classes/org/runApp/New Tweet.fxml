@@ -8,12 +8,12 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="265.0" prefWidth="450.0" style="-fx-background-color: #464648; -fx-border-color: #ffffff;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.runApp.NewTweetController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="265.0" prefWidth="450.0" style="-fx-background-color: #464648; -fx-border-color: #ffffff;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.runApp.NewTweetController">
    <children>
       <Label fx:id="idTweet" layoutX="20.0" layoutY="14.0" prefHeight="18.0" prefWidth="162.0" text="Tweet ID:" textFill="#b1acac" />
       <Label fx:id="TweetLikes" layoutX="20.0" layoutY="197.0" prefHeight="18.0" prefWidth="162.0" text="Likes" textFill="#b1acac" />
-      <Circle fx:id="TweetPicture" fill="#154d7e" layoutX="42.0" layoutY="64.0" radius="21.0" stroke="WHITE" strokeType="INSIDE" />
-      <Label fx:id="TweetClientUsername" alignment="CENTER" layoutX="67.0" layoutY="47.0" prefHeight="33.0" prefWidth="104.0" text="ClientUsername" textFill="WHITE" />
+      <Circle fx:id="TweetPicture" fill="#154d7e" layoutX="42.0" layoutY="64.0" onMouseClicked="#openPage" radius="21.0" stroke="WHITE" strokeType="INSIDE" />
+      <Label fx:id="TweetClientUsername" alignment="CENTER" layoutX="67.0" layoutY="47.0" onMouseClicked="#openPage" prefHeight="33.0" prefWidth="104.0" text="ClientUsername" textFill="WHITE" />
       <Button fx:id="Like" layoutX="21.0" layoutY="216.0" mnemonicParsing="false" onAction="#LikeTweet" prefHeight="42.0" prefWidth="54.0" style="-fx-background-color: #464648;" textFill="WHITE">
          <graphic>
             <ImageView fx:id="LikeButton" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true">

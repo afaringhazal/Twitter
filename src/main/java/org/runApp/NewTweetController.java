@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 
@@ -73,80 +74,15 @@ public class NewTweetController {
         App.setScene(node);
 
 
-        //TextArea textArea = (TextArea) node.getChildrenUnmodifiable().get(1);;
-//        while (ReTweet.isPressed()) {
-//            textArea = (TextArea) node.getChildrenUnmodifiable().get(1);
-//        }
-
-        // fxmlCommandParserServiceImpl.requestToRetweet(idTweet.getText(),textArea.getText());
-
     }
 
-    public ImageView getLikeButton() {
-        return LikeButton;
+    public void openPage(MouseEvent e) throws IOException {
+
+
+        fxmlCommandParserServiceImpl.menuController.showPage(TweetClientUsername.getText());
     }
 
-    public void setLikeButton(ImageView likeButton) {
-        LikeButton = likeButton;
-    }
-
-    public Label getTweetClientUsername() {
-        return TweetClientUsername;
-    }
-
-    public void setTweetClientUsername(Label tweetClientUsername) {
-        TweetClientUsername = tweetClientUsername;
-    }
-
-    public Label getTweetDate() {
-        return TweetDate;
-    }
-
-    public void setTweetDate(Label tweetDate) {
-        TweetDate = tweetDate;
-    }
-
-    public Label getTweetLikes() {
-        return TweetLikes;
-    }
-
-    public void setTweetLikes(Label tweetLikes) {
-        TweetLikes = tweetLikes;
-    }
-
-    public Circle getTweetPicture() {
-        return TweetPicture;
-    }
-
-    public void setTweetPicture(Circle tweetPicture) {
-        TweetPicture = tweetPicture;
-    }
-
-    public Label getTweetRetweets() {
-        return TweetRetweets;
-    }
-
-    public void setTweetRetweets(Label tweetRetweets) {
-        TweetRetweets = tweetRetweets;
-    }
-
-    public Label getTweetText() {
-        return TweetText;
-    }
-
-    public void setTweetText(Label tweetText) {
-        TweetText = tweetText;
-    }
-
-    public Label getIdTweet() {
-        return idTweet;
-    }
-
-    public void setIdTweet(Label idTweet) {
-        this.idTweet = idTweet;
-    }
-
-    void getData( LinkedTreeMap<String, Object> treeMap ) {
+    void getData( LinkedTreeMap<String, Object> treeMap) {
         TweetClientUsername.setText(treeMap.get("clientUsername") + "");
         TweetDate.setText(treeMap.get("date") + "");
         idTweet.setText(treeMap.get("id") + "");
