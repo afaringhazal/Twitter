@@ -4,12 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.internal.LinkedTreeMap;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Parent;
-import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.ce.ap.ExceptionNoConnection;
 import org.ce.ap.ExceptionNotValidInput;
@@ -28,57 +23,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FXMLCommandParserServiceImpl {
-//}
-//package Twitter;
-//
-//        import com.google.gson.Gson;
-//        import com.google.gson.GsonBuilder;
-//        import com.google.gson.internal.LinkedTreeMap;
-//        import javafx.scene.Group;
-//        import javafx.scene.Parent;
-//        import javafx.scene.Scene;
-//        import javafx.scene.control.Button;
-//        import javafx.scene.control.TextField;
-//        import javafx.scene.layout.BorderPane;
-//        import javafx.scene.layout.HBox;
-//        import javafx.scene.layout.VBox;
-//        import org.ce.ap.Request;
-//        import org.ce.ap.Response;
-//        import org.ce.ap.client.CommandParserService;
-//        import org.ce.ap.client.ConnectionService;
-//        import org.ce.ap.client.ConsoleViewService;
-//        import org.ce.ap.impl.client.ConnectionServiceImpl;
-//        import org.ce.ap.impl.client.ConsoleViewServiceImpl;
-//        import org.ce.ap.server.Server;
-//
-//        import java.io.IOException;
-//        import java.time.LocalDate;
-//        import java.time.LocalDateTime;
-//        import java.util.ArrayList;
-//        import java.util.Scanner;
-//
-//
-////package org.ce.ap.impl.client;
-//        import com.google.gson.Gson;
-//        import com.google.gson.GsonBuilder;
-//        import org.ce.ap.Request;
-//        import org.ce.ap.Response;
-//        import org.ce.ap.client.CommandParserService;
-//        import org.ce.ap.client.ConnectionService;
-//        import org.ce.ap.client.ConsoleViewService;
-//        import org.ce.ap.server.Server;
-//        import java.io.IOException;
-//        import java.time.LocalDate;
-//        import java.time.LocalDateTime;
-//        import java.util.ArrayList;
-//        import java.util.Scanner;
-///**
-// * class : The type Command parser service.
-// * @author MohammadHdi sheikhEslami
-// * @author Rezvan Afari
-// * @version 1.0.0
-// */
-//public class FXMLCommandParserServiceImpl {
 
     /**
      * The Gson.
@@ -102,11 +46,12 @@ public class FXMLCommandParserServiceImpl {
     Scanner scanner = new Scanner(System.in);
     private ConnectionService connectionService;
     private ConsoleViewService consoleViewService = new ConsoleViewServiceImpl();
-    public Designed_MenuController menuController=null;
+    public Designed_MenuController menuController = null;
 
     public static void main(String[] args) {
         new FXMLCommandParserServiceImpl();
     }
+
     /**
      * Instantiates a new Command parser service.
      */
@@ -115,13 +60,35 @@ public class FXMLCommandParserServiceImpl {
         connectionService = new ConnectionServiceImpl();
     }
 
+    public void followFromPage(String username) throws IOException {
+        ArrayList<Object> result = new ArrayList<>();
+        result.add(username);
+        sendRequestAndListenForResponse("FollowFromPage", result);
+        if (response.isHasError()) {
+            System.out.println("Error");
+        }
+        menuController.showPage(username);
+
+    }
+
+    public void unfollowFromPage(String username) throws IOException {
+        ArrayList<Object> result = new ArrayList<>();
+        result.add(username);
+        sendRequestAndListenForResponse("UnfollowFromPage", result);
+        if (response.isHasError()) {
+            System.out.println("Error");
+        }
+        menuController.showPage(username);
+
+    }
+
 
     public void refreshRequest() {
         request = new Request("", null);
     }
 
 
-    public void processSignIn(String username,String password) throws RuntimeException{   // throws IOException, ClassNotFoundException {
+    public void processSignIn(String username, String password) throws RuntimeException {   // throws IOException, ClassNotFoundException {
 
         ArrayList<Object> parameterValue = new ArrayList<>();
         parameterValue.add(username);
@@ -143,16 +110,14 @@ public class FXMLCommandParserServiceImpl {
      * @throws ClassNotFoundException the class not found exception
      */
 
-    public void processSignUp(String userName, String password ,String firstName,
+    public void processSignUp(String userName, String password, String firstName,
                               String lastName,
                               String year,
                               String month,
                               String day,
-                              String id ,
+                              String id,
                               String bio) throws ExceptionNotValidInput, ExceptionNoConnection {
-//        System.out.println("Enter UserName and password: ");
-//        String userName = scanner.nextLine();
-//        String password = scanner.nextLine();
+
         ArrayList<Object> parameters = new ArrayList<>();
         parameters.add(userName);
         parameters.add(password);
@@ -166,38 +131,6 @@ public class FXMLCommandParserServiceImpl {
 
         System.out.println("Username is allowed. Enter details in separate lines as follows: ");
         ArrayList<Object> signUpParameters = new ArrayList<>();
-//
-//        String firstName;
-//        String lastName;
-//        String year;
-//        String month ;
-//        String day;
-//        String id ;
-//        String bio;
-//        while (true) {
-//            System.out.println("FirstName , Last name, Birthday(year,month,day each in a separate line),Page Id,Bio.");
-//            firstName = scanner.nextLine();
-//            lastName = scanner.nextLine();
-//            year = scanner.nextLine();
-//            month = scanner.nextLine();
-//            day = scanner.nextLine();
-//            id = scanner.nextLine();
-//            bio = scanner.nextLine();
-//
-//
-//            try {
-//                int d = Integer.parseInt(day);
-//                int m = Integer.parseInt(month);
-//                int y = Integer.parseInt(year);
-//
-//                if (d > 31 || m > 12 || d < 0 || m < 0 || y < 0)
-//                    throw new RuntimeException();
-//            } catch (Exception e) {
-//                System.out.println("Invalid number!");
-//                continue;
-//            }
-//            break;
-//        }
         signUpParameters.add(firstName);
         signUpParameters.add(lastName);
         signUpParameters.add(year);
@@ -216,20 +149,8 @@ public class FXMLCommandParserServiceImpl {
      */
 
     public String addTweet(String text) {
-//        System.out.println("Please enter the tweet text.\nTweets should not have more than 256 characters.\nWhen finished enter -1 as last line.");
-//        StringBuilder stringBuilder = new StringBuilder();
-//        while (true) {
-//            String s = scanner.nextLine();
-//            if (s.equals("-1")) {
-//                break;
-//            }
-//            stringBuilder.append(s);
-//
-//        }
-
 
         if (text.isBlank() || text.trim().length() > 256) {
-            // System.out.println("Tweets should have no more than 256 characters and should not be empty.\n Please try again.");
 
             return "Tweets should have no more than 256 characters and should not be empty.\n Please try again.";
 
@@ -243,7 +164,7 @@ public class FXMLCommandParserServiceImpl {
         }
         System.out.println("Your tweet was successfully added to server.");
 
-        return "" ;
+        return "";
 
     }
 
@@ -251,52 +172,50 @@ public class FXMLCommandParserServiceImpl {
      * Request timeline.
      */
 
-    // @Override
-
 
     public VBox requestTimeline() throws IOException {
 
-            sendRequestAndListenForResponse("Get Timeline", null);
-            if (response == null || response.isHasError())
-                return null;
-            VBox vBoxShowAllTweet = new VBox();
-            for (Object obj : response.getResults()) {
+        sendRequestAndListenForResponse("Get Timeline", null);
+        if (response == null || response.isHasError())
+            return null;
+        VBox vBoxShowAllTweet = new VBox();
+        for (Object obj : response.getResults()) {
 
-                int check = 0;
-                Parent node = null ;
-                LinkedTreeMap<String, Object> treeMap = (LinkedTreeMap<String, Object>) obj;
-                for (String s : treeMap.keySet()) {
-                    if (s.equals("tweet")) {
-                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("New Retweet.fxml"));
-                        node = fxmlLoader.load();
-                        NewRetweetController newRetweetController = fxmlLoader.getController();
-                        newRetweetController.getData(treeMap);
-
-                        check =1;
-
-                    }
-                }
-                if(check==0) {
-
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("New Tweet.fxml"));
+            int check = 0;
+            Parent node = null;
+            LinkedTreeMap<String, Object> treeMap = (LinkedTreeMap<String, Object>) obj;
+            for (String s : treeMap.keySet()) {
+                if (s.equals("tweet")) {
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("New Retweet.fxml"));
                     node = fxmlLoader.load();
-                    NewTweetController newTweetController = fxmlLoader.getController();
-                    newTweetController.getData(treeMap);
+                    NewRetweetController newRetweetController = fxmlLoader.getController();
+                    newRetweetController.getData(treeMap);
+
+                    check = 1;
 
                 }
-                vBoxShowAllTweet.getChildren().add(node);
             }
+            if (check == 0) {
 
-            return vBoxShowAllTweet;
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("New Tweet.fxml"));
+                node = fxmlLoader.load();
+                NewTweetController newTweetController = fxmlLoader.getController();
+                newTweetController.getData(treeMap);
 
+            }
+            vBoxShowAllTweet.getChildren().add(node);
         }
+
+        return vBoxShowAllTweet;
+
+    }
 
 
     public Parent getPageInformation(String ClientUsername) throws IOException {
         ArrayList<Object> parameters = new ArrayList<>();
         parameters.add(ClientUsername);
         sendRequestAndListenForResponse("Get Page Info", parameters);
-        if (response == null || response.isHasError()) {
+        if (response == null||  response.isHasError()) {
             return null;
 
         }
@@ -306,6 +225,16 @@ public class FXMLCommandParserServiceImpl {
         Parent root = loader.load();
         Page_MenuController pageMenuController = loader.getController();
         pageMenuController.getData(response.getResults());
+
+
+
+
+        sendRequestAndListenForResponse("Get Tweet And Retweet for PageMenu", parameters);
+        if (response == null||  response.isHasError()) {
+            return null;
+
+        }
+        pageMenuController.getDataPart2(response.getResults());
 
 
         return root;
@@ -335,15 +264,10 @@ public class FXMLCommandParserServiceImpl {
     }
 
 
-    public void DisplayPageInformation()  {
+    public void DisplayPageInformation() {
         sendRequestAndListenForResponse("Display Page Information", null);
         if (response == null || response.isHasError())
             return;
-
-
-
-
-        //consoleViewService.printList(response);
 
     }
 
@@ -352,9 +276,9 @@ public class FXMLCommandParserServiceImpl {
      */
 
 
-    public void requestToLike(String idToLike ) throws IOException {
+    public void requestToLike(String idToLike) throws IOException {
 
-        System.out.println("The id to like is "+idToLike);
+        System.out.println("The id to like is " + idToLike);
 
         ArrayList<Object> requestLike = new ArrayList<>();
         requestLike.add(idToLike);
@@ -365,8 +289,7 @@ public class FXMLCommandParserServiceImpl {
             return;
 
         }
-        // requestTimeline();
-        //System.out.println("You successfully liked message with id: " + idToLike + " .");
+
     }
 
     /**
@@ -407,7 +330,7 @@ public class FXMLCommandParserServiceImpl {
 
     }
 
-    // @Override
+
     public void fixGson() {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(LocalDate.class, new Server.LocalDateSerializer());
@@ -421,56 +344,9 @@ public class FXMLCommandParserServiceImpl {
         gson = gsonBuilder.setPrettyPrinting().create();
 
     }
-/*
 
-    public void showTimelineMenu() {
-        while (true) {
-            System.out.println("1-Like\n2-Retweet-\n3-back");
-            int choice = 0;
-            try {
-                choice = Integer.parseInt(scanner.nextLine());
+    public String requestToRetweet(String idToRetweet, String QuoteTweet) {
 
-            }catch (Exception e){
-                System.out.println("Invalid number\nplease try again.");
-            }
-            if (choice == 1) {
-                requestToLike();
-
-            } else if (choice == 2) {
-                requestToRetweet();
-
-            } else if (choice == 3) {
-                return;
-            } else {
-                System.out.println("invalid.");
-            }
-        }
-    }
-
-    /**
-     * Request to retweet.
-     */
-
-
-    public String requestToRetweet(String idToRetweet , String QuoteTweet ) {
-//        System.out.println("Enter id Message : ");
-//        String idToRetweet ;//= scanner.nextLine();
-
-//        while (true){
-//            idToRetweet = scanner.nextLine();
-//
-//            try {
-//                int check = Integer.parseInt(idToRetweet);
-//            }catch (Exception e)
-//            {
-//                System.out.println("Invalid input!\nplease try again!");
-//                continue;
-//            }
-//            break;
-//        }
-//
-//        System.out.println("Enter text(Quote Tweet) : ");
-//        String TextToRetweet = scanner.nextLine();
         ArrayList<Object> requestRetweet = new ArrayList<>();
         requestRetweet.add(idToRetweet);
         requestRetweet.add(QuoteTweet);
@@ -484,65 +360,13 @@ public class FXMLCommandParserServiceImpl {
 
         return null;
     }
-/*
-    @Override
-    public void editProfile() {
-        DisplayPageInformation();
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            System.out.println("1-Re_enter page details\n2-Back");
-            int n = Integer.parseInt(scanner.nextLine());
-
-            if (n == 1) {
-                System.out.println("Enter Firstname , Lastname , year , month , day , id , bio : ");
-                String firstName = scanner.nextLine();
-                String lastName = scanner.nextLine();
-                String year = scanner.nextLine();
-                String month = scanner.nextLine();
-                String day = scanner.nextLine();
-                String id = scanner.nextLine();
-                String bio = scanner.nextLine();
-                ArrayList<Object> signUpParameters = new ArrayList<>();
-                signUpParameters.add(firstName);
-                signUpParameters.add(lastName);
-                signUpParameters.add(year);
-                signUpParameters.add(month);
-                signUpParameters.add(day);
-                signUpParameters.add(id);
-                signUpParameters.add(bio);
-                try {
-                    int d = Integer.parseInt(day);
-                    int m = Integer.parseInt(month);
-                    int y = Integer.parseInt(year);
-
-                    if (d > 31 || m > 12 || d < 0 || m < 0 || y < 0)
-                        throw new RuntimeException();
-                } catch (Exception e) {
-                    System.out.println("Invalid number!");
-                    return;
-                }
-                sendRequestAndListenForResponse("Edit Profile", signUpParameters);
-                if (response == null || response.isHasError())
-                    return;
-                System.out.println("Profile edit successful.");
 
 
-            } else if (n == 2) {
-                break;
-
-            } else {
-
-                System.out.println("Invalid number!\nplease again.");
-            }
-        }
-
-    }
-    */
-
-    public Parent showFollowers() throws IOException {
-
+    public Parent showFollowersOf(String username) throws IOException {
+        ArrayList<Object> usernameP = new ArrayList<>();
+        usernameP.add(username);
         VBox vBoxShowFollowers = new VBox();
-        sendRequestAndListenForResponse("showFollowersAndFollowings", null);
+        sendRequestAndListenForResponse("showFollowersAndFollowingsOf", usernameP);
         if (response == null || response.isHasError())
             return null;
 
@@ -554,7 +378,7 @@ public class FXMLCommandParserServiceImpl {
             parameters.add(userNameFollower);
             sendRequestAndListenForResponse("Get Page Info", parameters);
             if (response == null || response.isHasError()) {
-                //return null;
+
                 return null;
 
             }
@@ -567,12 +391,12 @@ public class FXMLCommandParserServiceImpl {
             vBoxShowFollowers.getChildren().add(root);
         }
 
-        return vBoxShowFollowers ;
+        return vBoxShowFollowers;
 
     }
 
 
-    public Parent showFollowings() throws IOException {
+    public Parent showFollowingsOf(String username) throws IOException {
 
         VBox vBoxShowFollowings = new VBox();
 
@@ -600,7 +424,30 @@ public class FXMLCommandParserServiceImpl {
             vBoxShowFollowings.getChildren().add(root);
         }
 
-        return vBoxShowFollowings ;
+        return vBoxShowFollowings;
 
+    }
+
+    public void editPage(String firstName,
+                         String lastName,
+                         String year,
+                         String month,
+                         String day,
+                         String id,
+                         String bio) throws ExceptionNotValidInput, ExceptionNoConnection {
+
+
+        ArrayList<Object> pageParameters = new ArrayList<>();
+        pageParameters.add(firstName);
+        pageParameters.add(lastName);
+        pageParameters.add(year);
+        pageParameters.add(month);
+        pageParameters.add(day);
+        pageParameters.add(id);
+        pageParameters.add(bio);
+        sendRequestAndListenForResponse("Edit Profile", pageParameters);
+        if (response == null || response.isHasError())
+            throw new ExceptionNoConnection();
+        System.out.println("edit successful.");
     }
 }

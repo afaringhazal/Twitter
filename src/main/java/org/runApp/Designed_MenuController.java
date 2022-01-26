@@ -47,11 +47,11 @@ public class Designed_MenuController {
     public void showPage(String username) throws IOException {
         ShowSection.setContent(fxmlCommandParserServiceImpl.getPageInformation(username));
     }
-    public void showFollowers() throws IOException {
-        ShowSection.setContent(fxmlCommandParserServiceImpl.showFollowers());
+    public void showFollowers(String username) throws IOException {
+        ShowSection.setContent(fxmlCommandParserServiceImpl.showFollowersOf(username));
     }
-    public void showFollowings() throws IOException {
-        ShowSection.setContent(fxmlCommandParserServiceImpl.showFollowings());
+    public void showFollowings(String username) throws IOException {
+        ShowSection.setContent(fxmlCommandParserServiceImpl.showFollowingsOf(username));
     }
 
     @FXML

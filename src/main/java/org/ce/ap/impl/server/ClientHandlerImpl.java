@@ -114,8 +114,23 @@ public class ClientHandlerImpl implements ClientHandler {
 
                 } else if (request.getTitle().equals("Show Followers")) {
                     ShowAllFollowers();
+//.......................................................................................
+                }
+                else if(request.getTitle().equals("Get Tweet And Retweet for PageMenu")){
+                    GetTweetAndRetweetForPageMenu();
+                }
+                else if(request.getTitle().equals("FollowFromPage")){
+                    requestFollowFromPage();
+                }
+                else if(request.getTitle().equals("UnfollowFromPage")){
+                    requestUnfollowFromPage();
+                }
+                else if(request.getTitle().equals("showFollowersAndFollowingsOf")){
+                    showFollowersAndFollowingsOf();
+                }
 
-                } else if (request.getTitle().equals("Delete Follower")) {
+                //...........................................................................
+                else if (request.getTitle().equals("Delete Follower")) {
                     requestDeleteFollower();
                 } else if (request.getTitle().equals("unfollow")) {
                     requestUnfollow();
@@ -725,7 +740,7 @@ public class ClientHandlerImpl implements ClientHandler {
         if (page.equals(this.page)){
             return "OwnPage";
         }
-        else if (observerService.getFollowers(this.page.getClient().getUserName()).contains(page.getClient().getUserName())){
+        else if (observerService.getFollowings(this.page.getClient().getUserName()).contains(page.getClient().getUserName())){
             return "Followed";
         }
         else {
@@ -780,6 +795,58 @@ public class ClientHandlerImpl implements ClientHandler {
         refreshResponse();
     }
 
+
+    public void requestFollowFromPage() throws IOException {
+        String followedUsername = (String) request.getParameterValue().get(0);
+        response.setHasError(observerService.follow( followedUsername, page.getClient().getUserName()));
+        objectOutputStream.writeObject(gson.toJson(response));
+
+    }
+    public void requestUnfollowFromPage() throws IOException {
+
+        String unfollowedUsername = (String) request.getParameterValue().get(0);
+        response.setHasError(observerService.unfollow( unfollowedUsername, page.getClient().getUserName()));
+        objectOutputStream.writeObject(gson.toJson(response));
+
+    }
+    public void showFollowersAndFollowingsOf() throws IOException {
+
+
+        ArrayList<Object> UserNameFollowers = new ArrayList<>();
+        ArrayList<Object> UserNameFollowings = new ArrayList<>();
+        System.out.println("Show in observerService (section follower)  : ");
+
+        System.out.println(observerService.getFollowers((String)(request.getParameterValue().get(0))));
+        try {
+            UserNameFollowers.addAll(observerService.getFollowers((String)(request.getParameterValue().get(0))));
+            UserNameFollowings.addAll(observerService.getFollowings((String)(request.getParameterValue().get(0))));
+
+        } catch (Exception e) {
+            response.setHasError(true);
+            response.setErrorCode(12);
+        }
+
+        ArrayList<Object> result = new ArrayList<>();
+        result.add(UserNameFollowers);
+        result.add(UserNameFollowings);
+        response.setResults(result);
+        objectOutputStream.writeObject(gson.toJson(response));
+    }
+    public void GetTweetAndRetweetForPageMenu() throws IOException {
+        ArrayList<Object> pageUsername= request.getParameterValue();
+        String username=(String)pageUsername.get(0);
+        if(username== null){
+            username = page.getClient().getUserName();
+        }
+
+        ArrayList<Object> result = new ArrayList<>();
+        result.addAll(timelineService.sortMessages(observerService.sendMyTweet(username)));
+        //result.addAll(observerService.sendMyTweet(page.getClient().getUserName()));
+        response.setResults(result);
+        objectOutputStream.writeObject(gson.toJson(response));
+        refreshResponse();
+
+    }
 }
 
 

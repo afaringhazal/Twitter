@@ -86,10 +86,6 @@ public class NewTweetController {
     @FXML
     public void openPage(MouseEvent e) throws IOException {
 
-//        fxmlCommandParserServiceImpl.getPageInformation(TweetClientUsername.getText());
-//        Parent node = FXMLLoader.load(getClass().getResource("Designed_Menu.fxml"));
-//
-//        App.setScene(node);
 
         fxmlCommandParserServiceImpl.menuController.showPage(TweetClientUsername.getText());
     }

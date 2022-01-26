@@ -1,7 +1,10 @@
 package org.runApp;
 
+import com.google.gson.internal.LinkedTreeMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
@@ -11,6 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import org.ce.ap.ExceptionNotValidInput;
+import org.ce.ap.Response;
 import org.runApp.App;
 import org.runApp.FXMLCommandParserServiceImpl;
 
@@ -71,14 +75,14 @@ public class Page_MenuController {
 
         //fxmlCommandParserServiceImpl.showFollowers()
 
-        fxmlCommandParserServiceImpl.menuController.showFollowers();
+        fxmlCommandParserServiceImpl.menuController.showFollowers(username.getText());
 
     }
 
     @FXML
     void showFollowings(MouseEvent event) throws IOException {
 
-        fxmlCommandParserServiceImpl.menuController.showFollowings();
+        fxmlCommandParserServiceImpl.menuController.showFollowings(username.getText());
 
     }
     void getData(ArrayList<Object> response) throws IOException {
@@ -117,7 +121,7 @@ public class Page_MenuController {
 
 
     @FXML
-    void ButtonOfFollowAndUnFollow(ActionEvent event) {
+    void ButtonOfFollowAndUnFollow(ActionEvent event) throws IOException {
         switch (status){
             case "OwnPage":
                 editPage();
@@ -133,33 +137,60 @@ public class Page_MenuController {
 
     }
 
-    private void follow(){
-
+    private void follow() throws IOException {
+        fxmlCommandParserServiceImpl.followFromPage(username.getText());
     }
 
-    private void unfollow(){
-
+    private void unfollow() throws IOException {
+        fxmlCommandParserServiceImpl.unfollowFromPage(username.getText());
     }
 
-    private void editPage(){}
+    private void editPage() throws IOException {
+        Parent node = FXMLLoader.load(getClass().getResource("EditPage.fxml"));
+        App.setScene(node);
+
+    }
 
     @FXML
     void ButtonOfChangePicture(MouseEvent event) throws ExceptionNotValidInput {
         String s ="C:/Users/ASUS/Desktop/v.png";
         System.out.println(s);
 
+    }
 
-       // Image image = new Image("C:/Users/ASUS/Desktop/v.png");
-      //  System.out.println("-----");
+    public void getDataPart2(ArrayList<Object> results) throws IOException {
 
+        VBox vBoxShowAllTweet = new VBox();
+        for (Object obj : results) {
 
-        //fxmlCommandParserServiceImpl.requestSetImageInPage(s);
-      // Image image1 = fxmlCommandParserServiceImpl.requestGetImageFromPage();
+            int check = 0;
+            Parent node = null ;
+            LinkedTreeMap<String, Object> treeMap = (LinkedTreeMap<String, Object>) obj;
+            for (String s : treeMap.keySet()) {
+                if (s.equals("tweet")) {
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("New Retweet.fxml"));
+                    node = fxmlLoader.load();
+                    NewRetweetController newRetweetController = fxmlLoader.getController();
+                    newRetweetController.getData(treeMap);
 
+                    check =1;
 
-        //Picture.setFill(new ImagePattern(image1));
+                }
+            }
+            if(check==0) {
+
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("New Tweet.fxml"));
+                node = fxmlLoader.load();
+                NewTweetController newTweetController = fxmlLoader.getController();
+                newTweetController.getData(treeMap);
+
+            }
+            vBoxShowAllTweet.getChildren().add(node);
+        }
+
+        Tweets.getChildren().add(vBoxShowAllTweet);
+
 
 
     }
-
 }

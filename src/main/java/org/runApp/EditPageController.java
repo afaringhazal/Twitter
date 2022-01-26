@@ -13,42 +13,37 @@ import org.ce.ap.ExceptionNotValidInput;
 import java.io.IOException;
 import java.time.LocalDate;
 
-public class SignUpController {
+public class EditPageController {
     FXMLCommandParserServiceImpl fxmlCommandParserServiceImpl = App.fxmlCommandParserService;
-
-    @FXML
-    private TextField BioOfPage;
-
-    @FXML
-    private DatePicker Birthday;
-
 
     @FXML
     private TextField FirstName;
 
-    @FXML
-    private TextField IdOfPage;
 
     @FXML
     private TextField LastName;
 
     @FXML
-    private TextField Password;
+    private TextField IdOfPage;
 
     @FXML
-    private TextField UserNameId;
+    private DatePicker Birthday;
 
     @FXML
     private Label HasError;
 
+    @FXML
+    private TextField BioOfPage;
+
+
 
     @FXML
     void ButtonOfBack(ActionEvent event) throws IOException {
-        App.setScene(FXMLLoader.load(getClass().getResource("login.fxml")));
+        fxmlCommandParserServiceImpl.getPageInformation(null);
     }
 
     @FXML
-    void ButtonOfSignUp(ActionEvent event) throws IOException {
+    void ButtonOfConform(ActionEvent event) throws IOException {
 
         LocalDate date = Birthday.getValue();
 
@@ -59,7 +54,7 @@ public class SignUpController {
         int check = 0;
 
         try {
-            fxmlCommandParserServiceImpl.processSignUp(UserNameId.getText(), Password.getText(), FirstName.getText(),
+            fxmlCommandParserServiceImpl.editPage( FirstName.getText(),
                     LastName.getText(), String.valueOf(year), String.valueOf(month), String.valueOf(day), IdOfPage.getText(), BioOfPage.getText());
 
 
@@ -75,7 +70,6 @@ public class SignUpController {
         Parent root = fxmlLoader.load();
         fxmlLoader.setController(fxmlCommandParserServiceImpl.menuController);
         App.setScene(root);
-
     }
 
 }

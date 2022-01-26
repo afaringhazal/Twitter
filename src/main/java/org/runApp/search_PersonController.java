@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class search_PersonController {
-
+FXMLCommandParserServiceImpl fxmlCommandParserServiceImpl=App.fxmlCommandParserService;
     @FXML
     private Label ClientUserName;
 
@@ -20,8 +20,8 @@ public class search_PersonController {
     private Label idClient;
 
     @FXML
-    void ClickedOnPicture(MouseEvent event) {
-
+    public void showPageMenu(MouseEvent e) throws IOException {
+        fxmlCommandParserServiceImpl.menuController.showPage(ClientUserName.getText());
     }
 
     void getData(ArrayList<Object> response) throws IOException {
