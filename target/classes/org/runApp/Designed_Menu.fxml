@@ -8,6 +8,7 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -15,29 +16,56 @@
     <children>
         <MenuBar prefHeight="26.0" prefWidth="813.0" style="-fx-background-color: #Cecece;">
             <menus>
-                <Menu mnemonicParsing="false" text="App">
+                <Menu text="_App">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#ButtonOfLogOut" text="Log out" />
-                        <MenuItem mnemonicParsing="false" onAction="#ButtonHideOnSystemTray" text="Exit" />
+                        <MenuItem mnemonicParsing="false" onAction="#ButtonOfLogOut" text="_Log out">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="L" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#ButtonHideOnSystemTray" text="_Exit">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
                     </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Options">
+                <Menu text="_Options">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Minimize on exit" />
-                        <MenuItem mnemonicParsing="false" text="Close on exit" />
+                        <MenuItem mnemonicParsing="false" text="_Minimize on exit">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="A" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+                        <MenuItem mnemonicParsing="false" text="_Close on exit">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
                     </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Help">
+                <Menu text="_Help">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#ButtonHelp" text="Help..." />
-                        <MenuItem mnemonicParsing="false" onAction="#ButtonAbout" text="About" />
+                        <MenuItem mnemonicParsing="false" onAction="#ButtonHelp" text="_Help...">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="L" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#ButtonAbout" text="_About">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="U" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
                     </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="View">
+                <Menu text="_View">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#fullScreen" text="Fullscreen" />
-                        <MenuItem fx:id="idLightMode" mnemonicParsing="false" onAction="#LightMode" text="Light mode" />
-                        <MenuItem fx:id="idDarkMode" mnemonicParsing="false" onAction="#DarkMode" text="Dark mode" />
+                        <MenuItem mnemonicParsing="false" onAction="#fullScreen" text="_Fullscreen">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="F" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+                        <MenuItem fx:id="idLightMode" mnemonicParsing="false" onAction="#LightMode" text="_Light mode">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="W" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+                        <MenuItem fx:id="idDarkMode" mnemonicParsing="false" onAction="#DarkMode" text="_Dark mode">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="D" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
                     </items>
                 </Menu>
             </menus>
