@@ -55,13 +55,12 @@ public class FXMLCommandParserServiceImpl {
     /**
      * Instantiates a new Command parser service.
      */
-    public FXMLCommandParserServiceImpl() {
+    public FXMLCommandParserServiceImpl()  {
         fixGson();
         connectionService = new ConnectionServiceImpl();
 
+
     }
-
-
 
 
     public void followFromPage(String username) throws IOException {
@@ -501,4 +500,21 @@ public class FXMLCommandParserServiceImpl {
 
     }
 
+    public void checkFastLogin(){
+
+        if (connectionService.getProps().getProperty("shouldRemember").equals("true")) {
+            connectionService.connectToServer();
+            processSignIn(connectionService.getProps().getProperty("Client.username"), connectionService.getProps().getProperty("Client.password"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Designed_Menu.fxml"));
+            Parent root = null;
+            try {
+                root = fxmlLoader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            menuController = fxmlLoader.getController();
+            App.setScene(root);
+
+        }
+    }
 }

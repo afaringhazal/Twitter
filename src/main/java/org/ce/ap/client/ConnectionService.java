@@ -1,7 +1,9 @@
 package org.ce.ap.client;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Properties;
 
 /**
  * The interface Connection service.
@@ -53,4 +55,7 @@ public interface ConnectionService {
      */
      boolean socketIsConnected();
 
+
+    void setUserProps(boolean shouldRemember,String username,String password) throws IOException;
+    Properties getProps();
 }

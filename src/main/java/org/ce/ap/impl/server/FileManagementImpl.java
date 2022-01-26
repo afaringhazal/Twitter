@@ -62,6 +62,7 @@ public class FileManagementImpl implements FileManagement {
             props.setProperty("numberOfMessages", tweetingService.counter + "");
             String propsName = "src/main/resources/server-application.properties";
             props.store(new FileOutputStream(propsName), null);
+
             objectOutputStream.flush();
             objectOutputStream.close();
 

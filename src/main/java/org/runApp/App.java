@@ -14,7 +14,9 @@ public class App extends Application {
 
 
     private static Scene scene;
-    public  static FXMLCommandParserServiceImpl fxmlCommandParserService = new FXMLCommandParserServiceImpl();
+    public  static FXMLCommandParserServiceImpl fxmlCommandParserService=new FXMLCommandParserServiceImpl();
+
+
 
     private static Stage stage1;
 
@@ -26,8 +28,10 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
 
         stage1 = stage;
+
         scene = new Scene(loadFXML("login"), 640, 480);
         stage.setScene(scene);
+        fxmlCommandParserService.checkFastLogin();
         stage.show();
     }
 
@@ -42,15 +46,11 @@ public class App extends Application {
         return fxmlLoader.load();
     }
 
-    static void setScene(Parent root) {
+     static void setScene(Parent root) {
         scene.setRoot(root);
     }
 
-    public static void setNewFxmlCommandParserService(){
 
-    fxmlCommandParserService = new FXMLCommandParserServiceImpl();
-
-    }
 
     public static void main(String[] args) {
         launch();

@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -29,12 +30,15 @@ public class LoginController {
 
     @FXML
     private TextField UserNameId;
+    @FXML
+    private CheckBox rememberMeBox;
 
+    boolean rememberMe=false;
     @FXML
     void loginButton(ActionEvent event) throws IOException {
         try {
             fxmlCommandParserServiceImpl.connectionService.connectToServer();
-
+            fxmlCommandParserServiceImpl.connectionService.setUserProps(rememberMe,UserNameId.getText(),PasswordId.getText());
             fxmlCommandParserServiceImpl.processSignIn(UserNameId.getText(),PasswordId.getText());
 
         }
@@ -58,9 +62,16 @@ public class LoginController {
 
     }
 
+
     @FXML
     void ExitButton(ActionEvent event) {
 
+        System.exit(0);
+    }
+
+    @FXML
+    void checkRemember(ActionEvent event) {
+    rememberMe=!rememberMe;
 
     }
 
@@ -73,5 +84,7 @@ public class LoginController {
         App.setScene(root);
 
     }
+
+
 
 }

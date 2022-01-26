@@ -1,6 +1,9 @@
 package org.ce.ap.impl.client;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import org.ce.ap.client.ConnectionService;
+import org.runApp.App;
 
 import java.io.*;
 import java.net.Socket;
@@ -23,7 +26,7 @@ public class ConnectionServiceImpl implements ConnectionService {
     /**
      * The Props.
      */
-    Properties props = new Properties();
+     Properties props = new Properties();
 
     /**
      * Instantiates a new Connection service.
@@ -83,12 +86,27 @@ public class ConnectionServiceImpl implements ConnectionService {
             FileReader reader;
             reader = new FileReader("src/main/resources/client-application.properties");
             props.load(reader);
+
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
 
+@Override
+    public void setUserProps(boolean shouldRemember,String username,String password) throws IOException {
+    if (shouldRemember) {
+        props.setProperty("shouldRemember", "true");
+        props.setProperty("Client.username", username);
+        props.setProperty("Client.password", password);
+        props.store(new FileOutputStream("src/main/resources/client-application.properties"), null);
+        return;
+    }
+    props.setProperty("shouldRemember", "false");
+    props.store(new FileOutputStream("src/main/resources/client-application.properties"), null);
+}
     @Override
     public void connectToServer() {
         try {
@@ -115,4 +133,7 @@ public class ConnectionServiceImpl implements ConnectionService {
         return socket.isConnected();
     }
 
+    public Properties getProps(){
+        return props;
+    }
 }
