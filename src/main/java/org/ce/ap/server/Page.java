@@ -1,4 +1,6 @@
 package org.ce.ap.server;
+import javafx.scene.image.Image;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,8 +15,10 @@ import java.util.Iterator;
  */
 public class Page implements Serializable {
 
-    private String Image = null ;
+   private javafx.scene.image.Image image = null;
 
+
+   // private String Image = null ;
 
     private Client client;
     private String id;
@@ -58,12 +62,12 @@ public class Page implements Serializable {
 
     }
 
-    public void setImage(String Image){
-        this.Image = Image ;
+    public void setImage(Image image){
+        this.image = image ;
     }
 
-    public String getImage() {
-        return Image;
+    public Image getImage() {
+        return image;
     }
 
     /**

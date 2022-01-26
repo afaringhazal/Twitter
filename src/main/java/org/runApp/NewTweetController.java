@@ -55,7 +55,14 @@ public class NewTweetController {
     void LikeTweet(ActionEvent event) throws IOException {
         System.out.println(idTweet.getText());
         fxmlCommandParserServiceImpl.requestToLike(idTweet.getText());
-        App.setScene(FXMLLoader.load(getClass().getResource("Designed_Menu.fxml")));
+
+
+        FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("Designed_Menu.fxml"));
+        Parent root = fxmlLoader.load();
+        fxmlCommandParserServiceImpl.menuController=fxmlLoader.getController();
+
+        App.setScene(root);
+       // App.setScene(FXMLLoader.load(getClass().getResource("Designed_Menu.fxml")));
 
     }
 
@@ -76,8 +83,13 @@ public class NewTweetController {
 
     }
 
+    @FXML
     public void openPage(MouseEvent e) throws IOException {
 
+//        fxmlCommandParserServiceImpl.getPageInformation(TweetClientUsername.getText());
+//        Parent node = FXMLLoader.load(getClass().getResource("Designed_Menu.fxml"));
+//
+//        App.setScene(node);
 
         fxmlCommandParserServiceImpl.menuController.showPage(TweetClientUsername.getText());
     }

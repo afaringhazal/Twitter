@@ -1,6 +1,7 @@
 package org.ce.ap.impl.server;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import javafx.scene.image.Image;
 import org.ce.ap.ParameterValue;
 import org.ce.ap.Request;
 import org.ce.ap.Response;
@@ -703,8 +704,8 @@ public class ClientHandlerImpl implements ClientHandler {
     }
 
     public void SetImageToPage() throws IOException {
-        String Image = (String) request.getParameterValue().get(0);
-        page.setImage(Image);
+        Image image = (Image) request.getParameterValue().get(0);
+        page.setImage(image);
         objectOutputStream.writeObject(gson.toJson(response));
         refreshResponse();
     }

@@ -15,7 +15,7 @@
         <items>
             <AnchorPane prefHeight="494.0" prefWidth="302.0" style="-fx-background-color: #464648;">
                <children>
-                  <Circle fill="#154d7e" layoutX="75.0" layoutY="72.0" radius="46.0" stroke="WHITE" strokeType="INSIDE" />
+                  <Circle fx:id="Picture" fill="#154d7e" layoutX="75.0" layoutY="72.0" onMouseClicked="#ButtonOfChangePicture" radius="46.0" stroke="WHITE" strokeType="INSIDE" />
                   <Label fx:id="Name" contentDisplay="CENTER" layoutX="29.0" layoutY="184.0" prefHeight="18.0" prefWidth="283.0" text="Name:" textAlignment="CENTER" textFill="#aca9a9" />
                   <Label fx:id="Followers" contentDisplay="CENTER" layoutX="133.0" layoutY="99.0" onMouseClicked="#ShowFollowers" prefHeight="18.0" prefWidth="62.0" text="Followers:" textAlignment="CENTER" textFill="#fafafa">
                      <font>

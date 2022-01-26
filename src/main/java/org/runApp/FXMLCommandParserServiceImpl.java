@@ -538,4 +538,69 @@ public class FXMLCommandParserServiceImpl {
 
     }
     */
+
+    public Parent showFollowers() throws IOException {
+
+        VBox vBoxShowFollowers = new VBox();
+        sendRequestAndListenForResponse("showFollowersAndFollowings", null);
+        if (response == null || response.isHasError())
+            return null;
+
+        ArrayList<Object> result = response.getResults();
+        ArrayList<Object> followers = (ArrayList<Object>) result.get(0);
+
+        for (Object userNameFollower : followers) {
+            ArrayList<Object> parameters = new ArrayList<>();
+            parameters.add(userNameFollower);
+            sendRequestAndListenForResponse("Get Page Info", parameters);
+            if (response == null || response.isHasError()) {
+                //return null;
+                return null;
+
+            }
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("search_Person.fxml"));
+            Parent root = loader.load();
+            search_PersonController search_personController = loader.getController();
+            search_personController.getData(response.getResults());
+
+
+            vBoxShowFollowers.getChildren().add(root);
+        }
+
+        return vBoxShowFollowers ;
+
+    }
+
+
+    public Parent showFollowings() throws IOException {
+
+        VBox vBoxShowFollowings = new VBox();
+
+        sendRequestAndListenForResponse("showFollowersAndFollowings", null);
+        if (response == null || response.isHasError())
+            return null;
+
+        ArrayList<Object> result = response.getResults();
+        ArrayList<Object> followings = (ArrayList<Object>) result.get(1);
+
+        for (Object userNameFollower : followings) {
+            ArrayList<Object> parameters = new ArrayList<>();
+            parameters.add(userNameFollower);
+            sendRequestAndListenForResponse("Get Page Info", parameters);
+            if (response == null || response.isHasError()) {
+                return null;
+
+            }
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("search_Person.fxml"));
+            Parent root = loader.load();
+            search_PersonController search_personController = loader.getController();
+            search_personController.getData(response.getResults());
+
+
+            vBoxShowFollowings.getChildren().add(root);
+        }
+
+        return vBoxShowFollowings ;
+
+    }
 }

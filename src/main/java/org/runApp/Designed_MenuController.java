@@ -47,6 +47,12 @@ public class Designed_MenuController {
     public void showPage(String username) throws IOException {
         ShowSection.setContent(fxmlCommandParserServiceImpl.getPageInformation(username));
     }
+    public void showFollowers() throws IOException {
+        ShowSection.setContent(fxmlCommandParserServiceImpl.showFollowers());
+    }
+    public void showFollowings() throws IOException {
+        ShowSection.setContent(fxmlCommandParserServiceImpl.showFollowings());
+    }
 
     @FXML
     void ButtonTimeLine(ActionEvent event) throws IOException {

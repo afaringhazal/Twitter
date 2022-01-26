@@ -79,7 +79,12 @@ public class NewRetweetController {
         System.out.println(RetweetID.getText());
         fxmlCommandParserServiceImpl.requestToLike(RetweetID.getText());
         //App.setScene(fxmlCommandParserServiceImpl.requestTimeline());
-        App.setScene(FXMLLoader.load(getClass().getResource("Designed_Menu.fxml")));
+        //App.setScene(FXMLLoader.load(getClass().getResource("Designed_Menu.fxml")));
+        FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("Designed_Menu.fxml"));
+        Parent root = fxmlLoader.load();
+        fxmlCommandParserServiceImpl.menuController=fxmlLoader.getController();
+
+        App.setScene(root);
     }
 
     @FXML

@@ -4,8 +4,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
+import org.ce.ap.ExceptionNotValidInput;
 import org.runApp.App;
 import org.runApp.FXMLCommandParserServiceImpl;
 
@@ -58,14 +63,22 @@ public class Page_MenuController {
     @FXML
     private VBox Tweets;
 
+    @FXML
+    private Circle Picture;
 
     @FXML
-    void ShowFollowers(MouseEvent event) {
+    void ShowFollowers(MouseEvent event) throws IOException {
+
+        //fxmlCommandParserServiceImpl.showFollowers()
+
+        fxmlCommandParserServiceImpl.menuController.showFollowers();
 
     }
 
     @FXML
-    void showFollowings(MouseEvent event) {
+    void showFollowings(MouseEvent event) throws IOException {
+
+        fxmlCommandParserServiceImpl.menuController.showFollowings();
 
     }
     void getData(ArrayList<Object> response) throws IOException {
@@ -129,5 +142,24 @@ public class Page_MenuController {
     }
 
     private void editPage(){}
+
+    @FXML
+    void ButtonOfChangePicture(MouseEvent event) throws ExceptionNotValidInput {
+        String s ="C:/Users/ASUS/Desktop/v.png";
+        System.out.println(s);
+
+
+       // Image image = new Image("C:/Users/ASUS/Desktop/v.png");
+      //  System.out.println("-----");
+
+
+        //fxmlCommandParserServiceImpl.requestSetImageInPage(s);
+      // Image image1 = fxmlCommandParserServiceImpl.requestGetImageFromPage();
+
+
+        //Picture.setFill(new ImagePattern(image1));
+
+
+    }
 
 }
