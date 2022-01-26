@@ -1,44 +1,16 @@
-Jan 27, 2022 2:28:20 AM org.ce.ap.server.Server initLogger
+Jan 27, 2022 2:46:27 AM org.ce.ap.server.Server initLogger
 INFO: properties were read and logger started.
-Jan 27, 2022 2:28:21 AM org.ce.ap.impl.server.FileManagementImpl loadDatabase
+Jan 27, 2022 2:46:27 AM org.ce.ap.impl.server.FileManagementImpl loadDatabase
 INFO: database read.
-Jan 27, 2022 2:28:26 AM org.ce.ap.server.Server acceptClients
-INFO: socket: Socket[addr=/127.0.0.1,port=65232,localport=8080]Connected.
-Jan 27, 2022 2:28:26 AM org.ce.ap.impl.server.AuthenticationServiceImpl signInRequest
-INFO: username 1was requested for sign in and was allowed to sign in.
-Jan 27, 2022 2:28:27 AM org.ce.ap.impl.server.TimelineServiceImpl sortMessages
-INFO: all messages were gathered and sorted. details:[org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@55, org.ce.ap.server.Tweet@55, org.ce.ap.server.Retweet@3b7b3dbc, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@50]
-Jan 27, 2022 2:28:41 AM org.ce.ap.server.Server acceptClients
-INFO: socket: Socket[addr=/127.0.0.1,port=65236,localport=8080]Connected.
-Jan 27, 2022 2:28:41 AM org.ce.ap.impl.server.AuthenticationServiceImpl signInRequest
-INFO: username was requested for sign in but the input was wrong.
-Jan 27, 2022 2:28:45 AM org.ce.ap.server.Server acceptClients
-INFO: socket: Socket[addr=/127.0.0.1,port=65237,localport=8080]Connected.
-Jan 27, 2022 2:28:45 AM org.ce.ap.impl.server.AuthenticationServiceImpl signInRequest
-INFO: username 1was requested for sign in and was allowed to sign in.
-Jan 27, 2022 2:28:45 AM org.ce.ap.impl.server.TimelineServiceImpl sortMessages
-INFO: all messages were gathered and sorted. details:[org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@55, org.ce.ap.server.Tweet@55, org.ce.ap.server.Retweet@3b7b3dbc, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@50]
-Jan 27, 2022 2:28:51 AM org.ce.ap.server.Server acceptClients
-INFO: socket: Socket[addr=/127.0.0.1,port=65241,localport=8080]Connected.
-Jan 27, 2022 2:28:51 AM org.ce.ap.impl.server.AuthenticationServiceImpl signInRequest
-INFO: username 1was requested for sign in and was allowed to sign in.
-Jan 27, 2022 2:28:51 AM org.ce.ap.impl.server.TimelineServiceImpl sortMessages
-INFO: all messages were gathered and sorted. details:[org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@55, org.ce.ap.server.Tweet@55, org.ce.ap.server.Retweet@3b7b3dbc, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@50]
-Jan 27, 2022 2:28:58 AM org.ce.ap.server.Server acceptClients
-INFO: socket: Socket[addr=/127.0.0.1,port=65242,localport=8080]Connected.
-Jan 27, 2022 2:28:58 AM org.ce.ap.impl.server.AuthenticationServiceImpl signInRequest
-INFO: username 1was requested for sign in and was allowed to sign in.
-Jan 27, 2022 2:28:59 AM org.ce.ap.impl.server.TimelineServiceImpl sortMessages
-INFO: all messages were gathered and sorted. details:[org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@55, org.ce.ap.server.Tweet@55, org.ce.ap.server.Retweet@3b7b3dbc, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@50]
-Jan 27, 2022 2:29:21 AM org.ce.ap.impl.server.FileManagementImpl saveDatabase
+Jan 27, 2022 2:47:27 AM org.ce.ap.impl.server.FileManagementImpl saveDatabase
 INFO: database saved.
-Jan 27, 2022 2:30:21 AM org.ce.ap.impl.server.FileManagementImpl saveDatabase
+Jan 27, 2022 2:48:27 AM org.ce.ap.impl.server.FileManagementImpl saveDatabase
 INFO: database saved.
-Jan 27, 2022 2:31:21 AM org.ce.ap.impl.server.FileManagementImpl saveDatabase
+Jan 27, 2022 2:49:27 AM org.ce.ap.impl.server.FileManagementImpl saveDatabase
 INFO: database saved.
-Jan 27, 2022 2:32:21 AM org.ce.ap.impl.server.FileManagementImpl saveDatabase
+Jan 27, 2022 2:50:27 AM org.ce.ap.impl.server.FileManagementImpl saveDatabase
 INFO: database saved.
-Jan 27, 2022 2:33:21 AM org.ce.ap.impl.server.FileManagementImpl saveDatabase
+Jan 27, 2022 2:51:27 AM org.ce.ap.impl.server.FileManagementImpl saveDatabase
 INFO: database saved.
-Jan 27, 2022 2:34:21 AM org.ce.ap.impl.server.FileManagementImpl saveDatabase
+Jan 27, 2022 2:52:27 AM org.ce.ap.impl.server.FileManagementImpl saveDatabase
 INFO: database saved.
