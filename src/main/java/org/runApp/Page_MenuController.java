@@ -87,6 +87,7 @@ public class Page_MenuController {
     }
     void getData(ArrayList<Object> response) throws IOException {
 
+
         String  username= (String) response.get(0);
         String  firstName= (String) response.get(1);
         String  lastName= (String) response.get(2);
@@ -153,8 +154,6 @@ public class Page_MenuController {
 
     @FXML
     void ButtonOfChangePicture(MouseEvent event) throws ExceptionNotValidInput {
-        String s ="C:/Users/ASUS/Desktop/v.png";
-        System.out.println(s);
 
     }
 
@@ -170,6 +169,8 @@ public class Page_MenuController {
                 if (s.equals("tweet")) {
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("New Retweet.fxml"));
                     node = fxmlLoader.load();
+                    Button b =(Button) node.getChildrenUnmodifiable().get(10);
+                    b.setVisible(true);
                     NewRetweetController newRetweetController = fxmlLoader.getController();
                     newRetweetController.getData(treeMap);
 
@@ -181,6 +182,8 @@ public class Page_MenuController {
 
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("New Tweet.fxml"));
                 node = fxmlLoader.load();
+                Button b =(Button) node.getChildrenUnmodifiable().get(9);
+                b.setVisible(true);
                 NewTweetController newTweetController = fxmlLoader.getController();
                 newTweetController.getData(treeMap);
 

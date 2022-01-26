@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="Retweet" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="422.0" prefWidth="550.0" style="-fx-background-color: #464648; -fx-border-color: WHITE;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.runApp.NewRetweetController">
+<AnchorPane fx:id="Retweet" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="422.0" prefWidth="550.0" style="-fx-background-color: #464648; -fx-border-color: WHITE;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.runApp.NewRetweetController">
    <children>
       <Button fx:id="RetweetButton" layoutX="111.0" layoutY="376.0" mnemonicParsing="false" onAction="#RetweetRetweet" prefHeight="42.0" prefWidth="54.0" style="-fx-background-color: #464648;" textFill="WHITE">
          <graphic>
@@ -74,5 +74,6 @@
       </Label>
       <Label fx:id="RetweetID" layoutX="54.0" layoutY="13.0" prefHeight="18.0" prefWidth="113.0" text="Retweet ID:" textFill="#b1acac" />
       <Label fx:id="RetweetDate" layoutX="226.0" layoutY="13.0" prefHeight="18.0" prefWidth="156.0" text="Date:" textFill="#b1acac" />
+      <Button layoutX="179.0" layoutY="384.0" mnemonicParsing="false" onAction="#deleteRetweet" text="delete" visible="false" />
    </children>
 </AnchorPane>

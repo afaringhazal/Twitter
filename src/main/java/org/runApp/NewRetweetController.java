@@ -133,4 +133,11 @@ public class NewRetweetController {
 
 
     }
+
+    @FXML
+    void deleteRetweet(ActionEvent event) throws IOException {
+        fxmlCommandParserServiceImpl.deleteTweet(RetweetID.getText());
+        fxmlCommandParserServiceImpl.menuController.showPage(TweetClientUsername.getText());
+
+    }
 }

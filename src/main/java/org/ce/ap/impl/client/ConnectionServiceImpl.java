@@ -30,7 +30,7 @@ public class ConnectionServiceImpl implements ConnectionService {
      */
     public ConnectionServiceImpl() {
         readProps();
-        connectToServer();
+       // connectToServer();
     }
 
     /**

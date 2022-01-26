@@ -656,7 +656,7 @@ public class ClientHandlerImpl implements ClientHandler {
     @Override
     public void deleteTweet() throws IOException {
         String userName = (String) request.getParameterValue().get(0);
-        if (!tweetingService.deleteTweet(Integer.parseInt(userName),page.getClient().getUserName())) {
+        if (!tweetingService.deleteTweet((int) Double.parseDouble(userName),page.getClient().getUserName())) {
             response.setHasError(true);
             response.setErrorCode(33);
         }

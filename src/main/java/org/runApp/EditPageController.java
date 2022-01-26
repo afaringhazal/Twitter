@@ -68,7 +68,7 @@ public class EditPageController {
 
         FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("Designed_Menu.fxml"));
         Parent root = fxmlLoader.load();
-        fxmlLoader.setController(fxmlCommandParserServiceImpl.menuController);
+        fxmlCommandParserServiceImpl.menuController=fxmlLoader.getController();
         App.setScene(root);
     }
 
