@@ -62,8 +62,6 @@ public class NewTweetController {
         fxmlCommandParserServiceImpl.menuController=fxmlLoader.getController();
 
         App.setScene(root);
-       // App.setScene(FXMLLoader.load(getClass().getResource("Designed_Menu.fxml")));
-
     }
 
     @FXML

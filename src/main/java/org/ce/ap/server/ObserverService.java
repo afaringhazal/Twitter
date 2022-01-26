@@ -64,6 +64,7 @@ public interface ObserverService {
 
      Page getPageDetails(String username);
 
+     ArrayList<String> searchForUser(String text);
 
     }
 

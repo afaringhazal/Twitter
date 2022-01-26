@@ -60,15 +60,15 @@ public class Designed_MenuController {
 
         ShowSection.setContent(fxmlCommandParserServiceImpl.requestTimeline());
 
-       //ShowSection.getChildrenUnmodifiable().get(0);
-       // ShowSection.getChildrenUnmodifiable().add(fxmlCommandParserServiceImpl.requestTimeline());
 
     }
 
 
     @FXML
-    void ButtonSearch(ActionEvent event) {
+    void ButtonSearch(ActionEvent event) throws IOException {
+    FXMLLoader loader= new FXMLLoader(App.class.getResource("searchBar.fxml"));
 
+    ShowSection.setContent(loader.load());
     }
 
 

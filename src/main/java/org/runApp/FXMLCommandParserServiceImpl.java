@@ -450,4 +450,38 @@ public class FXMLCommandParserServiceImpl {
             throw new ExceptionNoConnection();
         System.out.println("edit successful.");
     }
+
+
+    public Parent searchByString(String text) throws IOException {
+        ArrayList<Object>  parameters= new ArrayList<>();
+        parameters.add(text);
+        VBox searchResultsVbox = new VBox();
+        sendRequestAndListenForResponse("searchByString", parameters);
+        if (response == null || response.isHasError()) {
+
+            return null;
+
+        }
+        for (Object username : response.getResults()) {
+            parameters = new ArrayList<>();
+            parameters.add(username);
+            sendRequestAndListenForResponse("Get Page Info", parameters);
+            if (response == null || response.isHasError()) {
+
+                return null;
+
+            }
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("search_Person.fxml"));
+            Parent root = loader.load();
+            search_PersonController search_personController = loader.getController();
+            search_personController.getData(response.getResults());
+
+
+            searchResultsVbox.getChildren().add(root);
+        }
+
+        return searchResultsVbox;
+
+    }
+
 }

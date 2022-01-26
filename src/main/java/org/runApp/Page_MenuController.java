@@ -7,19 +7,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import org.ce.ap.ExceptionNotValidInput;
-import org.ce.ap.Response;
-import org.runApp.App;
-import org.runApp.FXMLCommandParserServiceImpl;
-
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Page_MenuController {

@@ -129,6 +129,10 @@ public class ClientHandlerImpl implements ClientHandler {
                     showFollowersAndFollowingsOf();
                 }
 
+                else if(request.getTitle().equals("searchByString")){
+                    searchByString();
+                }
+
                 //...........................................................................
                 else if (request.getTitle().equals("Delete Follower")) {
                     requestDeleteFollower();
@@ -845,6 +849,17 @@ public class ClientHandlerImpl implements ClientHandler {
         response.setResults(result);
         objectOutputStream.writeObject(gson.toJson(response));
         refreshResponse();
+
+    }
+
+    public void searchByString() throws IOException {
+        ArrayList<Object> txt= request.getParameterValue();
+        String text=(String)txt.get(0);
+        ArrayList<Object> results=new ArrayList<>(observerService.searchForUser(text));
+        response.setResults(results);
+        objectOutputStream.writeObject(gson.toJson(response));
+        refreshResponse();
+
 
     }
 }

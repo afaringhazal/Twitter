@@ -158,4 +158,16 @@ public class ObserverServiceImpl implements ObserverService {
         return database.getClientPageFromUsername(username);
 
     }
+
+    @Override
+    public ArrayList<String> searchForUser(String text){
+        ArrayList<String> foundUsernames=new ArrayList<>();
+        for (String username: database.getUserNames()){
+            if (username.contains(text)){
+                foundUsernames.add(username);
+            }
+
+        }
+        return foundUsernames;
+    }
 }
