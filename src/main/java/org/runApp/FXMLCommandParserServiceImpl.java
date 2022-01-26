@@ -401,10 +401,11 @@ public class FXMLCommandParserServiceImpl {
 
 
     public Parent showFollowingsOf(String username) throws IOException {
-
+        ArrayList<Object> usernameP = new ArrayList<>();
+        usernameP.add(username);
         VBox vBoxShowFollowings = new VBox();
 
-        sendRequestAndListenForResponse("showFollowersAndFollowings", null);
+        sendRequestAndListenForResponse("showFollowersAndFollowingsOf", usernameP);
         if (response == null || response.isHasError())
             return null;
 

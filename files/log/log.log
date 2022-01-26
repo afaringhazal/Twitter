@@ -1,148 +1,56 @@
-Jan 27, 2022 12:21:03 AM org.ce.ap.server.Server initLogger
+Jan 27, 2022 1:30:11 AM org.ce.ap.server.Server initLogger
 INFO: properties were read and logger started.
-Jan 27, 2022 12:21:03 AM org.ce.ap.impl.server.FileManagementImpl loadDatabase
+Jan 27, 2022 1:30:11 AM org.ce.ap.impl.server.FileManagementImpl loadDatabase
 INFO: database read.
-Jan 27, 2022 12:21:05 AM org.ce.ap.server.Server acceptClients
-INFO: socket: Socket[addr=/127.0.0.1,port=57852,localport=8080]Connected.
-Jan 27, 2022 12:21:12 AM org.ce.ap.impl.server.AuthenticationServiceImpl signInRequest
+Jan 27, 2022 1:30:29 AM org.ce.ap.server.Server acceptClients
+INFO: socket: Socket[addr=/127.0.0.1,port=65317,localport=8080]Connected.
+Jan 27, 2022 1:30:29 AM org.ce.ap.impl.server.AuthenticationServiceImpl signInRequest
 INFO: username 1was requested for sign in and was allowed to sign in.
-Jan 27, 2022 12:21:13 AM org.ce.ap.impl.server.TimelineServiceImpl sortMessages
-INFO: all messages were gathered and sorted. details:[org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50, org.ce.ap.server.Retweet@62d5e2b2, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@50]
-Jan 27, 2022 12:21:24 AM org.ce.ap.impl.server.TimelineServiceImpl sortMessages
-INFO: all messages were gathered and sorted. details:[org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50, org.ce.ap.server.Retweet@62d5e2b2, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@50]
-Jan 27, 2022 12:22:03 AM org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Jan 27, 2022 12:22:06 AM org.ce.ap.server.Server acceptClients
-INFO: socket: Socket[addr=/127.0.0.1,port=57863,localport=8080]Connected.
-Jan 27, 2022 12:22:09 AM org.ce.ap.impl.server.AuthenticationServiceImpl signInRequest
-INFO: username 1was requested for sign in and was allowed to sign in.
-Jan 27, 2022 12:22:10 AM org.ce.ap.impl.server.TimelineServiceImpl sortMessages
-INFO: all messages were gathered and sorted. details:[org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50, org.ce.ap.server.Retweet@62d5e2b2, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@50]
-Jan 27, 2022 12:22:26 AM org.ce.ap.server.Server acceptClients
-INFO: socket: Socket[addr=/127.0.0.1,port=57867,localport=8080]Connected.
-Jan 27, 2022 12:22:29 AM org.ce.ap.impl.server.AuthenticationServiceImpl signInRequest
-INFO: username 1was requested for sign in and was allowed to sign in.
-Jan 27, 2022 12:22:29 AM org.ce.ap.impl.server.TimelineServiceImpl sortMessages
-INFO: all messages were gathered and sorted. details:[org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50, org.ce.ap.server.Retweet@62d5e2b2, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@50]
-Jan 27, 2022 12:22:37 AM org.ce.ap.impl.server.ObserverServiceImpl getFollowings
-INFO: all followings of username: 1 were gathered and returned. details:
-[2]
-Jan 27, 2022 12:22:44 AM org.ce.ap.impl.server.ObserverServiceImpl getFollowings
-INFO: all followings of username: 1 were gathered and returned. details:
-[2]
-Jan 27, 2022 12:22:44 AM org.ce.ap.impl.server.ObserverServiceImpl getFollowings
-INFO: all followings of username: 1 were gathered and returned. details:
-[2]
-Jan 27, 2022 12:22:44 AM org.ce.ap.impl.server.ObserverServiceImpl getFollowings
-INFO: all followings of username: 1 were gathered and returned. details:
-[2]
-Jan 27, 2022 12:23:03 AM org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Jan 27, 2022 12:23:47 AM org.ce.ap.server.Server acceptClients
-INFO: socket: Socket[addr=/127.0.0.1,port=57895,localport=8080]Connected.
-Jan 27, 2022 12:23:51 AM org.ce.ap.impl.server.AuthenticationServiceImpl signInRequest
-INFO: username 1was requested for sign in and was allowed to sign in.
-Jan 27, 2022 12:23:51 AM org.ce.ap.impl.server.TimelineServiceImpl sortMessages
-INFO: all messages were gathered and sorted. details:[org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50, org.ce.ap.server.Retweet@62d5e2b2, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@50]
-Jan 27, 2022 12:23:55 AM org.ce.ap.impl.server.ObserverServiceImpl getFollowings
-INFO: all followings of username: 1 were gathered and returned. details:
-[2]
-Jan 27, 2022 12:23:55 AM org.ce.ap.impl.server.ObserverServiceImpl getFollowings
-INFO: all followings of username: 1 were gathered and returned. details:
-[2]
-Jan 27, 2022 12:23:55 AM org.ce.ap.impl.server.ObserverServiceImpl getFollowings
-INFO: all followings of username: 1 were gathered and returned. details:
-[2]
-Jan 27, 2022 12:24:00 AM org.ce.ap.impl.server.ObserverServiceImpl getFollowings
-INFO: all followings of username: 1 were gathered and returned. details:
-[2]
-Jan 27, 2022 12:24:03 AM org.ce.ap.impl.server.ObserverServiceImpl getFollowings
-INFO: all followings of username: 1 were gathered and returned. details:
-[2]
-Jan 27, 2022 12:24:03 AM org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Jan 27, 2022 12:24:06 AM org.ce.ap.impl.server.ObserverServiceImpl getFollowings
-INFO: all followings of username: 1 were gathered and returned. details:
-[2]
-Jan 27, 2022 12:24:11 AM org.ce.ap.impl.server.ObserverServiceImpl getFollowings
-INFO: all followings of username: 1 were gathered and returned. details:
-[2]
-Jan 27, 2022 12:24:11 AM org.ce.ap.impl.server.ObserverServiceImpl getFollowings
-INFO: all followings of username: 1 were gathered and returned. details:
-[2]
-Jan 27, 2022 12:24:11 AM org.ce.ap.impl.server.ObserverServiceImpl getFollowings
-INFO: all followings of username: 1 were gathered and returned. details:
-[2]
-Jan 27, 2022 12:24:17 AM org.ce.ap.impl.server.ObserverServiceImpl sendMyTweet
+Jan 27, 2022 1:30:30 AM org.ce.ap.impl.server.TimelineServiceImpl sortMessages
+INFO: all messages were gathered and sorted. details:[org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@55, org.ce.ap.server.Tweet@55, org.ce.ap.server.Retweet@752ab20, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@50]
+Jan 27, 2022 1:30:43 AM org.ce.ap.impl.server.TweetingServiceImpl findMessage
+INFO: retweet with id: 76was requested to find and was found.
+Jan 27, 2022 1:30:43 AM org.ce.ap.impl.server.TweetingServiceImpl LikeRetweet
+INFO: retweet with id: 1was requested to be liked by1and was liked.
+Jan 27, 2022 1:30:43 AM org.ce.ap.impl.server.TimelineServiceImpl sortMessages
+INFO: all messages were gathered and sorted. details:[org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@55, org.ce.ap.server.Tweet@55, org.ce.ap.server.Retweet@752ab20, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@50]
+Jan 27, 2022 1:30:45 AM org.ce.ap.impl.server.ObserverServiceImpl sendMyTweet
 INFO: all tweets of username: 1 were gathered and returned. details:
 [org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50]
-Jan 27, 2022 12:24:17 AM org.ce.ap.impl.server.TimelineServiceImpl sortMessages
-INFO: all messages were gathered and sorted. details:[org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50, org.ce.ap.server.Retweet@62d5e2b2, org.ce.ap.server.Tweet@50]
-Jan 27, 2022 12:25:03 AM org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Jan 27, 2022 12:26:03 AM org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
-Jan 27, 2022 12:26:38 AM org.ce.ap.impl.server.ObserverServiceImpl getFollowings
-INFO: all followings of username: 1 were gathered and returned. details:
+Jan 27, 2022 1:30:45 AM org.ce.ap.impl.server.TimelineServiceImpl sortMessages
+INFO: all messages were gathered and sorted. details:[org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50, org.ce.ap.server.Retweet@752ab20, org.ce.ap.server.Tweet@50]
+Jan 27, 2022 1:30:49 AM org.ce.ap.impl.server.ObserverServiceImpl getFollowers
+INFO: all followers of username: 1 were gathered and returned. details:
 [2]
-Jan 27, 2022 12:26:38 AM org.ce.ap.impl.server.ObserverServiceImpl getFollowings
-INFO: all followings of username: 1 were gathered and returned. details:
+Jan 27, 2022 1:30:49 AM org.ce.ap.impl.server.ObserverServiceImpl getFollowers
+INFO: all followers of username: 1 were gathered and returned. details:
 [2]
-Jan 27, 2022 12:26:38 AM org.ce.ap.impl.server.ObserverServiceImpl getFollowings
+Jan 27, 2022 1:30:49 AM org.ce.ap.impl.server.ObserverServiceImpl getFollowings
 INFO: all followings of username: 1 were gathered and returned. details:
-[2]
-Jan 27, 2022 12:26:40 AM org.ce.ap.impl.server.ObserverServiceImpl sendMyTweet
-INFO: all tweets of username: 1 were gathered and returned. details:
-[org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50]
-Jan 27, 2022 12:26:40 AM org.ce.ap.impl.server.TimelineServiceImpl sortMessages
-INFO: all messages were gathered and sorted. details:[org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50, org.ce.ap.server.Retweet@62d5e2b2, org.ce.ap.server.Tweet@50]
-Jan 27, 2022 12:26:46 AM org.ce.ap.impl.server.ObserverServiceImpl getFollowings
+[2, 6, 5]
+Jan 27, 2022 1:30:49 AM org.ce.ap.impl.server.ObserverServiceImpl getFollowings
 INFO: all followings of username: 1 were gathered and returned. details:
-[2]
-Jan 27, 2022 12:26:50 AM org.ce.ap.impl.server.ObserverServiceImpl getFollowings
+[2, 6, 5]
+Jan 27, 2022 1:30:49 AM org.ce.ap.impl.server.ObserverServiceImpl getFollowings
 INFO: all followings of username: 1 were gathered and returned. details:
-[2]
-Jan 27, 2022 12:26:50 AM org.ce.ap.impl.server.ObserverServiceImpl getFollowings
+[2, 6, 5]
+Jan 27, 2022 1:30:49 AM org.ce.ap.impl.server.ObserverServiceImpl getFollowings
 INFO: all followings of username: 1 were gathered and returned. details:
-[2]
-Jan 27, 2022 12:26:50 AM org.ce.ap.impl.server.ObserverServiceImpl getFollowings
+[2, 6, 5]
+Jan 27, 2022 1:30:51 AM org.ce.ap.impl.server.ObserverServiceImpl getFollowings
 INFO: all followings of username: 1 were gathered and returned. details:
-[2]
-Jan 27, 2022 12:26:51 AM org.ce.ap.impl.server.ObserverServiceImpl getFollowings
-INFO: all followings of username: 1 were gathered and returned. details:
-[2]
-Jan 27, 2022 12:26:51 AM org.ce.ap.impl.server.ObserverServiceImpl sendMyTweet
-INFO: all tweets of username: 6 were gathered and returned. details:
-[org.ce.ap.server.Tweet@55, org.ce.ap.server.Tweet@55]
-Jan 27, 2022 12:26:51 AM org.ce.ap.impl.server.TimelineServiceImpl sortMessages
-INFO: all messages were gathered and sorted. details:[org.ce.ap.server.Tweet@55, org.ce.ap.server.Tweet@55]
-Jan 27, 2022 12:26:53 AM org.ce.ap.impl.server.ObserverServiceImpl follow
-INFO: user: 1 requested to follow 6
-Jan 27, 2022 12:26:53 AM org.ce.ap.impl.server.ObserverServiceImpl follow
-INFO: request was accepted and user was followed
-Jan 27, 2022 12:26:53 AM org.ce.ap.impl.server.ObserverServiceImpl getFollowings
-INFO: all followings of username: 1 were gathered and returned. details:
-[2, 6]
-Jan 27, 2022 12:26:53 AM org.ce.ap.impl.server.ObserverServiceImpl sendMyTweet
-INFO: all tweets of username: 6 were gathered and returned. details:
-[org.ce.ap.server.Tweet@55, org.ce.ap.server.Tweet@55]
-Jan 27, 2022 12:26:53 AM org.ce.ap.impl.server.TimelineServiceImpl sortMessages
-INFO: all messages were gathered and sorted. details:[org.ce.ap.server.Tweet@55, org.ce.ap.server.Tweet@55]
-Jan 27, 2022 12:26:54 AM org.ce.ap.impl.server.ObserverServiceImpl getFollowers
-INFO: all followers of username: 6 were gathered and returned. details:
-[1]
-Jan 27, 2022 12:26:54 AM org.ce.ap.impl.server.ObserverServiceImpl getFollowers
-INFO: all followers of username: 6 were gathered and returned. details:
-[1]
-Jan 27, 2022 12:26:54 AM org.ce.ap.impl.server.ObserverServiceImpl getFollowings
-INFO: all followings of username: 6 were gathered and returned. details:
+[2, 6, 5]
+Jan 27, 2022 1:30:51 AM org.ce.ap.impl.server.ObserverServiceImpl sendMyTweet
+INFO: all tweets of username: 5 were gathered and returned. details:
 []
-Jan 27, 2022 12:26:55 AM org.ce.ap.impl.server.ObserverServiceImpl sendMyTweet
-INFO: all tweets of username: 1 were gathered and returned. details:
-[org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50]
-Jan 27, 2022 12:26:55 AM org.ce.ap.impl.server.TimelineServiceImpl sortMessages
-INFO: all messages were gathered and sorted. details:[org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50, org.ce.ap.server.Retweet@62d5e2b2, org.ce.ap.server.Tweet@50]
-Jan 27, 2022 12:26:56 AM org.ce.ap.impl.server.TimelineServiceImpl sortMessages
-INFO: all messages were gathered and sorted. details:[org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@50, org.ce.ap.server.Tweet@55, org.ce.ap.server.Tweet@55, org.ce.ap.server.Retweet@62d5e2b2, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@51, org.ce.ap.server.Tweet@50]
-Jan 27, 2022 12:27:03 AM org.ce.ap.impl.server.FileManagementImpl saveDatabase
-INFO: database saved.
+Jan 27, 2022 1:30:51 AM org.ce.ap.impl.server.TimelineServiceImpl sortMessages
+INFO: all messages were gathered and sorted. details:[]
+Jan 27, 2022 1:30:53 AM org.ce.ap.impl.server.ObserverServiceImpl getFollowers
+INFO: all followers of username: 5 were gathered and returned. details:
+[1]
+Jan 27, 2022 1:30:53 AM org.ce.ap.impl.server.ObserverServiceImpl getFollowers
+INFO: all followers of username: 5 were gathered and returned. details:
+[1]
+Jan 27, 2022 1:30:53 AM org.ce.ap.impl.server.ObserverServiceImpl getFollowings
+INFO: all followings of username: 5 were gathered and returned. details:
+[]
