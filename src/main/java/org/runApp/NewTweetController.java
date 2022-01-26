@@ -65,6 +65,18 @@ public class NewTweetController {
     }
 
     @FXML
+    void DeleteTweet(ActionEvent event) throws IOException {
+        fxmlCommandParserServiceImpl.deleteTweet(idTweet.getText());
+//        FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("Designed_Menu.fxml"));
+//        Parent root = fxmlLoader.load();
+//        fxmlCommandParserServiceImpl.menuController=fxmlLoader.getController();
+//
+//        App.setScene(root);
+        fxmlCommandParserServiceImpl.menuController.showPage(TweetClientUsername.getText());
+
+    }
+
+    @FXML
     void RetweetTweet(ActionEvent event) throws IOException {
 
         Parent node = FXMLLoader.load(getClass().getResource("AddTweet.fxml"));

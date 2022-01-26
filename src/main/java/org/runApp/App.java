@@ -14,7 +14,7 @@ public class App extends Application {
 
 
     private static Scene scene;
-    public final static FXMLCommandParserServiceImpl fxmlCommandParserService = new FXMLCommandParserServiceImpl();
+    public  static FXMLCommandParserServiceImpl fxmlCommandParserService = new FXMLCommandParserServiceImpl();
 
     private static Stage stage1;
 
@@ -44,6 +44,12 @@ public class App extends Application {
 
     static void setScene(Parent root) {
         scene.setRoot(root);
+    }
+
+    public static void setNewFxmlCommandParserService(){
+
+    fxmlCommandParserService = new FXMLCommandParserServiceImpl();
+
     }
 
     public static void main(String[] args) {

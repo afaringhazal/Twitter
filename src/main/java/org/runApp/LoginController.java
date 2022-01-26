@@ -33,6 +33,8 @@ public class LoginController {
     @FXML
     void loginButton(ActionEvent event) throws IOException {
         try {
+            fxmlCommandParserServiceImpl.connectionService.connectToServer();
+
             fxmlCommandParserServiceImpl.processSignIn(UserNameId.getText(),PasswordId.getText());
 
         }
@@ -58,6 +60,7 @@ public class LoginController {
 
     @FXML
     void ExitButton(ActionEvent event) {
+
 
     }
 

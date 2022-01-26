@@ -4,6 +4,7 @@ import com.google.gson.internal.LinkedTreeMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -69,6 +70,24 @@ public class Designed_MenuController {
     FXMLLoader loader= new FXMLLoader(App.class.getResource("searchBar.fxml"));
 
     ShowSection.setContent(loader.load());
+    }
+
+    @FXML
+    void ButtonHideOnSystemTray(ActionEvent event) {
+
+        App.f().hide();
+    }
+    @FXML
+    void ButtonOfLogOut(ActionEvent event) throws IOException {
+
+        FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("login.fxml"));
+        Parent root = fxmlLoader.load();
+        //fxmlCommandParserServiceImpl.menuController=fxmlLoader.getController();
+        fxmlCommandParserServiceImpl.connectionService.stop();
+        //App.fxmlCommandParserService = new FXMLCommandParserServiceImpl();
+       // App.setNewFxmlCommandParserService();
+        App.setScene(root);
+
     }
 
 

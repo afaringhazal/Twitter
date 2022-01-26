@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.internal.LinkedTreeMap;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import org.ce.ap.ExceptionNoConnection;
 import org.ce.ap.ExceptionNotValidInput;
@@ -43,8 +44,7 @@ public class FXMLCommandParserServiceImpl {
     /**
      * The Scanner.
      */
-    Scanner scanner = new Scanner(System.in);
-    private ConnectionService connectionService;
+    public ConnectionService connectionService;
     private ConsoleViewService consoleViewService = new ConsoleViewServiceImpl();
     public Designed_MenuController menuController = null;
 
@@ -58,7 +58,11 @@ public class FXMLCommandParserServiceImpl {
     public FXMLCommandParserServiceImpl() {
         fixGson();
         connectionService = new ConnectionServiceImpl();
+
     }
+
+
+
 
     public void followFromPage(String username) throws IOException {
         ArrayList<Object> result = new ArrayList<>();
@@ -240,28 +244,28 @@ public class FXMLCommandParserServiceImpl {
         return root;
     }
 
-    public void requestSetImageInPage(String s) throws ExceptionNotValidInput {
-        ArrayList<Object> parameters = new ArrayList<>();
-        parameters.add(s);
-        sendRequestAndListenForResponse("Set Image", parameters);
-        if (response == null || response.isHasError()) {
-            throw new ExceptionNotValidInput();
-        }
-
-    }
-
-
-    public String requestGetImageFromPage() throws ExceptionNotValidInput {
-
-        sendRequestAndListenForResponse("GetImageFromPage", null);
-        if (response == null || response.isHasError()) {
-            throw new ExceptionNotValidInput();
-        }
-
-        return (String) response.getResults().get(0);
-
-
-    }
+//    public void requestSetImageInPage(String s) throws ExceptionNotValidInput {
+//        ArrayList<Object> parameters = new ArrayList<>();
+//        parameters.add(s);
+//        sendRequestAndListenForResponse("Set Image", parameters);
+//        if (response == null || response.isHasError()) {
+//            throw new ExceptionNotValidInput();
+//        }
+//
+//    }
+//
+//
+//    public Image requestGetImageFromPage() throws ExceptionNotValidInput {
+//
+//        sendRequestAndListenForResponse("GetImageFromPage", null);
+//        if (response == null || response.isHasError()) {
+//            throw new ExceptionNotValidInput();
+//        }
+//
+//        return (Image) response.getResults().get(0);
+//
+//
+//    }
 
 
     public void DisplayPageInformation() {
@@ -450,6 +454,18 @@ public class FXMLCommandParserServiceImpl {
             throw new ExceptionNoConnection();
         System.out.println("edit successful.");
     }
+
+
+    public void deleteTweet(String id) {
+        ArrayList<Object> parameters = new ArrayList<>();
+        parameters.add(id);
+        sendRequestAndListenForResponse("Delete Tweet", parameters);
+        if (response == null || response.isHasError()) {
+            return;
+        }
+        System.out.println("You successfully Deleted tweet with id " + id + " .");
+    }
+
 
 
     public Parent searchByString(String text) throws IOException {
