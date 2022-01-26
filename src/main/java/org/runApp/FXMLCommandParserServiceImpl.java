@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -146,6 +147,7 @@ public class FXMLCommandParserServiceImpl {
     }
 
 
+
 //    public void handleConnectionServiceImpl(ConnectionServiceImpl connectionServiceImpl){
 //        this.connectionService =  connectionServiceImpl;
 //
@@ -188,6 +190,7 @@ public class FXMLCommandParserServiceImpl {
 //
 //
 //    }
+
 
 
     public void refreshRequest() {
@@ -330,92 +333,323 @@ public class FXMLCommandParserServiceImpl {
 
     public VBox requestTimeline() throws IOException {
 
-        sendRequestAndListenForResponse("Get Timeline", null);
-        if (response == null || response.isHasError())
-            return null;
-        VBox vBoxShowAllTweet = new VBox();
-        for (Object obj : response.getResults()) {
+            sendRequestAndListenForResponse("Get Timeline", null);
+            if (response == null || response.isHasError())
+                return null;
+            VBox vBoxShowAllTweet = new VBox();
+            for (Object obj : response.getResults()) {
 
-            int check = 0;
-            //Parent p ;
-            Parent node = null;
-            LinkedTreeMap<String, Object> treeMap = (LinkedTreeMap<String, Object>) obj;
-            for (String s : treeMap.keySet()) {
-                if (s.equals("tweet")) {
-                    node = FXMLLoader.load(getClass().getResource("ReTweetMessage.fxml"));
-                    check =1;
+                int check = 0;
+                Parent node = null ;
+                LinkedTreeMap<String, Object> treeMap = (LinkedTreeMap<String, Object>) obj;
+                for (String s : treeMap.keySet()) {
+                    if (s.equals("tweet")) {
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("New Retweet.fxml"));
+                        node = fxmlLoader.load();
+                        NewRetweetController newRetweetController = fxmlLoader.getController();
+                        newRetweetController.getData(treeMap);
+
+                        check =1;
+
+                    }
+                }
+                if(check==0) {
+
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("New Tweet.fxml"));
+                    node = fxmlLoader.load();
+                    NewTweetController newTweetController = fxmlLoader.getController();
+                    newTweetController.getData(treeMap);
 
                 }
-            }
-            if(check==0) {
-                node = FXMLLoader.load(getClass().getResource("Message.fxml"));
+                vBoxShowAllTweet.getChildren().add(node);
             }
 
+            return vBoxShowAllTweet;
 
-
-            HBox hBox = (HBox) node.getChildrenUnmodifiable().get(0);
-
-
-
-
-            TextField textField = (TextField) hBox.getChildren().get(0);
-            //(TextField) node.getChildrenUnmodifiable().get(1);
-            textField.setText(""+treeMap.get("clientUsername"));
-
-            textField = (TextField) hBox.getChildren().get(1);
-            // (TextField) node.getChildrenUnmodifiable().get(2);
-            textField.setText(treeMap.get("id")+"");
-
-
-            textField = (TextField) hBox.getChildren().get(2);
-            //(TextField) node.getChildrenUnmodifiable().get(3);
-            textField.setText(treeMap.get("date")+"");
-
-            //   textField222.setText(treeMap.get("clientUsername") + "          id : " + treeMap.get("id") + "          " + treeMap.get("date"));
-
-            int i=0;
-            for (String s : treeMap.keySet()) {
-                if (s.equals("tweet")) {
-                    HBox hBox1 = (HBox) node.getChildrenUnmodifiable().get(1);
-
-                    LinkedTreeMap<String, Object> treeMapToRetweet = new LinkedTreeMap<>();
-                    treeMapToRetweet = (LinkedTreeMap<String, Object>) treeMap.get("tweet");
-
-                    textField = (TextField) hBox1.getChildren().get(0);
-                    //(TextField) node.getChildrenUnmodifiable().get(5);
-                    textField.setText(""+treeMapToRetweet.get("clientUsername"));
-
-                    textField = (TextField) hBox1.getChildren().get(1);
-                    textField.setText(""+ treeMapToRetweet.get("id"));
-
-                    textField =(TextField) hBox1.getChildren().get(2);
-                    textField.setText(treeMapToRetweet.get("date")+"");
-
-                    //textField.setText("        "+treeMapToRetweet.get("clientUsername") + "          id : " + treeMapToRetweet.get("id") + "          " + treeMapToRetweet.get("date"));
-                    textField = (TextField) node.getChildrenUnmodifiable().get(2);
-                    textField.setText(""+treeMapToRetweet.get("text"));
-                    textField = (TextField) node.getChildrenUnmodifiable().get(3);
-                    textField.setText("        " + ((ArrayList<Object>) treeMapToRetweet.get("retweets")).size() + " Retweets, " + ((ArrayList<String>) treeMapToRetweet.get("likes")).size() + " Likes");
-
-
-
-                    HBox hBox2 = (HBox) node.getChildrenUnmodifiable().get(6);
-                    Button button = (Button) hBox2.getChildren().get(1);
-                    button.setVisible(false);
-                    i+=3;
-                }
-
-            }
-            TextField textField11 = (TextField) node.getChildrenUnmodifiable().get(i+1);
-            textField11.setText(""+treeMap.get("text"));
-            TextField textField12 = (TextField) node.getChildrenUnmodifiable().get(i+2);
-            textField12.setText(""+((ArrayList<Object>) treeMap.get("retweets")).size() + " Retweets, " + ((ArrayList<String>) treeMap.get("likes")).size() + " Likes");
-            vBoxShowAllTweet.getChildren().add(node);
         }
 
-        return vBoxShowAllTweet;
+
+    public Parent getPageInformation(String ClientUsername) throws IOException {
+        ArrayList<Object> parameters = new ArrayList<>();
+        parameters.add(ClientUsername);
+        sendRequestAndListenForResponse("Get Page Info", parameters);
+        if (response == null || response.isHasError()) {
+            return null;
+
+        }
+
+
+
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Page_Menu.fxml"));
+        Parent root = loader.load();
+        Page_MenuController pageMenuController = loader.getController();
+        pageMenuController.getData(response.getResults());
+
+
+        return root;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
+//        sendRequestAndListenForResponse("Get Timeline", null);
+//        if (response == null || response.isHasError())
+//            return null;
+//        VBox vBoxShowAllTweet = new VBox();
+//        for (Object obj : response.getResults()) {
+//
+//            int check = 0;
+//            //Parent p ;
+//            Parent node = null ;
+//            LinkedTreeMap<String, Object> treeMap = (LinkedTreeMap<String, Object>) obj;
+//            for (String s : treeMap.keySet()) {
+//                if (s.equals("tweet")) {
+//                    LinkedTreeMap<String, Object> treeMapToRetweet = new LinkedTreeMap<>();
+//                    treeMapToRetweet = (LinkedTreeMap<String, Object>) treeMap.get("tweet");
+//
+//
+//                    node = FXMLLoader.load(getClass().getResource("New Retweet.fxml"));
+//
+//
+//                    Label label = (Label) node.getChildrenUnmodifiable().get(7);
+//                    label.setText(""+treeMap.get("clientUsername"));
+//
+//                    label = (Label) node.getChildrenUnmodifiable().get(8);
+//                    label.setText(treeMap.get("id")+"");
+//
+//
+//                    label = (Label) node.getChildrenUnmodifiable().get(9);
+//                    label.setText(treeMap.get("date")+"");
+//
+//                    label = (Label) node.getChildrenUnmodifiable().get(5);
+//                    label.setText(""+treeMap.get("text"));
+//
+//                    label = (Label) node.getChildrenUnmodifiable().get(0);
+//                    label.setText("Retweets :"+((ArrayList<Object>) treeMap.get("retweets")).size());
+//
+//                    label = (Label) node.getChildrenUnmodifiable().get(2);
+//                    label.setText("likes :"+((ArrayList<String>) treeMap.get("likes")).size());
+//
+//
+//
+//                    AnchorPane anchorPane = (AnchorPane) node.getChildrenUnmodifiable().get(1);
+//                    label = (Label) anchorPane.getChildrenUnmodifiable().get(0);
+//                    label.setText("id : " + treeMapToRetweet.get("id") );
+//
+//                     label = (Label) node.getChildrenUnmodifiable().get(7);
+//                    label.setText(""+treeMap.get("clientUsername"));
+//
+//                    label = (Label) node.getChildrenUnmodifiable().get(8);
+//                    label.setText(treeMap.get("id")+"");
+//
+
+
+//                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("New Retweet.fxml"));
+//                    node = fxmlLoader.load();
+//                    NewRetweetController newRetweetController = fxmlLoader.getController();
+//
+//                    LinkedTreeMap<String, Object> treeMapToRetweet = new LinkedTreeMap<>();
+//                    treeMapToRetweet = (LinkedTreeMap<String, Object>) treeMap.get("tweet");
+//
+//
+//                    //newRetweetController.setRetweetID(new Label(treeMap.get("id")+""));
+//                    newRetweetController.getRetweetID().setText(treeMap.get("id")+"");
+//                    newRetweetController.setRetweetDate(new Label(treeMap.get("date")+""));
+//                    newRetweetController.setRetweetClientUsername(new Label(treeMap.get("clientUsername")+""));
+//                    newRetweetController.setRetweetText(new Label(treeMap.get("text")+""));
+//                    newRetweetController.setRetweetLikes(new Label("Likes : "+((ArrayList<String>) treeMap.get("likes")).size()));
+//                    newRetweetController.setRetweetRetweets(new Label("Retweets :"+((ArrayList<Object>) treeMap.get("retweets")).size()));
+//
+//
+//
+//                    newRetweetController.setTweetID(new Label(treeMapToRetweet.get("id")+""));
+//                    newRetweetController.setTweetDate(new Label( treeMapToRetweet.get("date")+""));
+//                    newRetweetController.setTweetClientUsername(new Label(""+ treeMap.get("clientUsername")));
+//                    newRetweetController.setTweetText(new Label(treeMapToRetweet.get("text")+""));
+//                    newRetweetController.setTweetLikes(new Label("Likes : "+((ArrayList<String>) treeMapToRetweet.get("likes")).size()));
+//                    newRetweetController.setTweetRetweets(new Label("Retweet :"+((ArrayList<Object>) treeMapToRetweet.get("retweets")).size()));
+//
+
+
+
+
+
+
+//                    newTweetController.setTweetClientUsername(new Label(""+treeMap.get("clientUsername")));
+//                    newTweetController.setIdTweet(new Label(treeMap.get("id")+""));
+//                    newTweetController.setTweetDate(new Label(treeMap.get("date")+""));
+//                    newTweetController.setTweetText(new Label(""+treeMap.get("text")));
+//                    newTweetController.setTweetRetweets(new Label("Retweets :"+((ArrayList<Object>) treeMap.get("retweets")).size()));
+//                    newTweetController.setTweetLikes(new Label("likes :"+((ArrayList<String>) treeMap.get("likes")).size()));
+
+
+                   // node = fxmlLoader.getRoot();
+
+
+               // }
+//            }
+//            if(check==0) {
+
+
+
+//                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("New Tweet.fxml"));
+//                node = fxmlLoader.load();
+               // node = FXMLLoader.load(getClass().getResource("New Tweet.fxml"));
+             //   NewTweetController newTweetController = fxmlLoader.getController();
+
+
+//                newTweetController.setTweetClientUsername(new Label(""+treeMap.get("clientUsername")));
+//                newTweetController.setIdTweet(new Label(treeMap.get("id")+""));
+//                newTweetController.setTweetDate(new Label(treeMap.get("date")+""));
+//                newTweetController.setTweetText(new Label(""+treeMap.get("text")));
+//                newTweetController.setTweetRetweets(new Label("Retweets :"+((ArrayList<Object>) treeMap.get("retweets")).size()));
+//                newTweetController.setTweetLikes(new Label("likes :"+((ArrayList<String>) treeMap.get("likes")).size()));
+//
+//
+//               newTweetController.getData(treeMap);
+//               // fxmlLoader.load();
+//               // node = fxmlLoader.getRoot();
+//
+//                node = fxmlLoader.getController();
+
+
+//
+//                node = FXMLLoader.load(getClass().getResource("New Tweet.fxml"));
+//
+//
+//                Label label = (Label) node.getChildrenUnmodifiable().get(3);
+//                label.setText(""+treeMap.get("clientUsername"));
+//
+//                label = (Label) node.getChildrenUnmodifiable().get(0);
+//                label.setText(treeMap.get("id")+"");
+//
+//
+//                label = (Label) node.getChildrenUnmodifiable().get(6);
+//                label.setText(treeMap.get("date")+"");
+//
+//                label = (Label) node.getChildrenUnmodifiable().get(7);
+//                label.setText(""+treeMap.get("text"));
+//
+//                label = (Label) node.getChildrenUnmodifiable().get(1);
+//                label.setText("Retweets :"+((ArrayList<Object>) treeMap.get("retweets")).size());
+//
+//                label = (Label) node.getChildrenUnmodifiable().get(5);
+//                label.setText("likes :"+((ArrayList<String>) treeMap.get("likes")).size());
+//
+//
+//
+//            }
+
+
+//
+//            HBox hBox = (HBox) node.getChildrenUnmodifiable().get(0);
+//
+//
+//
+//
+//            TextField textField = (TextField) hBox.getChildren().get(0);
+//            //(TextField) node.getChildrenUnmodifiable().get(1);
+//            textField.setText(""+treeMap.get("clientUsername"));
+//
+//            textField = (TextField) hBox.getChildren().get(1);
+//            // (TextField) node.getChildrenUnmodifiable().get(2);
+//            textField.setText(treeMap.get("id")+"");
+//
+//
+//            textField = (TextField) hBox.getChildren().get(2);
+//            //(TextField) node.getChildrenUnmodifiable().get(3);
+//            textField.setText(treeMap.get("date")+"");
+//
+//            //   textField222.setText(treeMap.get("clientUsername") + "          id : " + treeMap.get("id") + "          " + treeMap.get("date"));
+//
+//            int i=0;
+//            for (String s : treeMap.keySet()) {
+//                if (s.equals("tweet")) {
+//                    HBox hBox1 = (HBox) node.getChildrenUnmodifiable().get(1);
+//
+//                    LinkedTreeMap<String, Object> treeMapToRetweet = new LinkedTreeMap<>();
+//                    treeMapToRetweet = (LinkedTreeMap<String, Object>) treeMap.get("tweet");
+//
+//                    textField = (TextField) hBox1.getChildren().get(0);
+//                    //(TextField) node.getChildrenUnmodifiable().get(5);
+//                    textField.setText(""+treeMapToRetweet.get("clientUsername"));
+//
+//                    textField = (TextField) hBox1.getChildren().get(1);
+//                    textField.setText(""+ treeMapToRetweet.get("id"));
+//
+//                    textField =(TextField) hBox1.getChildren().get(2);
+//                    textField.setText(treeMapToRetweet.get("date")+"");
+//
+//                    //textField.setText("        "+treeMapToRetweet.get("clientUsername") + "          id : " + treeMapToRetweet.get("id") + "          " + treeMapToRetweet.get("date"));
+//                    textField = (TextField) node.getChildrenUnmodifiable().get(2);
+//                    textField.setText(""+treeMapToRetweet.get("text"));
+//                    textField = (TextField) node.getChildrenUnmodifiable().get(3);
+//                    textField.setText("        " + ((ArrayList<Object>) treeMapToRetweet.get("retweets")).size() + " Retweets, " + ((ArrayList<String>) treeMapToRetweet.get("likes")).size() + " Likes");
+//
+//
+//
+//                    HBox hBox2 = (HBox) node.getChildrenUnmodifiable().get(6);
+//                    Button button = (Button) hBox2.getChildren().get(1);
+//                    button.setVisible(false);
+//                    i+=3;
+//                }
+//
+//            }
+//            TextField textField11 = (TextField) node.getChildrenUnmodifiable().get(i+1);
+//            textField11.setText(""+treeMap.get("text"));
+//            TextField textField12 = (TextField) node.getChildrenUnmodifiable().get(i+2);
+//            textField12.setText(""+((ArrayList<Object>) treeMap.get("retweets")).size() + " Retweets, " + ((ArrayList<String>) treeMap.get("likes")).size() + " Likes");
+//           vBoxShowAllTweet.getChildren().add(node);
+//        }
+//
+//        return vBoxShowAllTweet;
+
+    //}
+
+    public void requestSetImageInPage(String s) throws ExceptionNotValidInput {
+        ArrayList<Object> parameters = new ArrayList<>();
+        parameters.add(s);
+        sendRequestAndListenForResponse("Set Image", parameters);
+        if (response == null || response.isHasError()) {
+            throw new ExceptionNotValidInput();
+        }
 
     }
+
+
+    public String requestGetImageFromPage() throws ExceptionNotValidInput {
+
+        sendRequestAndListenForResponse("GetImageFromPage", null);
+        if (response == null || response.isHasError()) {
+            throw new ExceptionNotValidInput();
+        }
+
+        return (String) response.getResults().get(0);
+
+
+    }
+
+
 /*
     /**
      * Show page menu.

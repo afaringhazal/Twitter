@@ -70,10 +70,16 @@ public class App extends Application {
 //
 //    }
 
+private static Stage stage1 ;
 
+public  static Stage f(){
+    return stage1;
+}
 
     @Override
     public void start(Stage stage) throws IOException {
+
+        stage1 = stage;
      //   saveConnectionService(connectionServiceImpl);
         scene = new Scene(loadFXML("login"), 640, 480);
         //FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login.fxml"));

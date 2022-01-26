@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="58.0" prefWidth="250.0" style="-fx-background-color: #464648; -fx-border-color: #B3B4B5;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Circle fill="#0b579e" layoutX="26.0" layoutY="27.0" radius="20.0" stroke="WHITE" strokeType="INSIDE" />
+      <Label layoutX="55.0" layoutY="14.0" text="Client Name" textFill="WHITE" />
+      <Label layoutX="55.0" layoutY="35.0" text="\@ClientUsername" textFill="#b3b4b5" />
+   </children>
+</AnchorPane>

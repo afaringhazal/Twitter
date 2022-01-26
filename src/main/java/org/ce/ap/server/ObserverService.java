@@ -62,4 +62,8 @@ public interface ObserverService {
      */
      ArrayList<Message> sendMyTweet (String userName);
 
-}
+     Page getPageDetails(String username);
+
+
+    }
+

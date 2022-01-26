@@ -1,8 +1,6 @@
 package org.ce.ap.impl.server;
-import org.ce.ap.server.Database;
-import org.ce.ap.server.Message;
-import org.ce.ap.server.ObserverService;
-import org.ce.ap.server.Tweet;
+import org.ce.ap.server.*;
+
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
@@ -155,4 +153,9 @@ public class ObserverServiceImpl implements ObserverService {
         return myTweet;
     }
 
+    @Override
+    public Page getPageDetails(String username){
+        return database.getClientPageFromUsername(username);
+
+    }
 }

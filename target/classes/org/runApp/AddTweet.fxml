@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="8.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.runApp.AddTweetController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="8.0" style="-fx-background-color: #464648; -fx-border-color: WHITE;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.runApp.AddTweetController">
    <children>
-      <Label alignment="TOP_LEFT" text="Enter Text :">
+      <Label alignment="TOP_LEFT" text="Enter Text :" textFill="WHITE">
          <VBox.margin>
             <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
          </VBox.margin>
@@ -17,7 +17,7 @@
             <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
          </padding>
       </Label>
-      <TextArea fx:id="TweetTextId" prefHeight="200.0" prefWidth="200.0">
+      <TextArea fx:id="TweetTextId" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #B3b4b5;">
          <VBox.margin>
             <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
          </VBox.margin>
@@ -35,7 +35,7 @@
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" onAction="#buttonRetweet" prefHeight="34.0" prefWidth="63.0" text="ReTweet" visible="false">
+            <Button mnemonicParsing="false" onAction="#buttonRetweet" prefHeight="34.0" prefWidth="63.0" text="Retweet" visible="false">
                <HBox.margin>
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                </HBox.margin>
@@ -43,7 +43,7 @@
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                </padding>
             </Button>
-            <Button mnemonicParsing="false" onAction="#buttonBack" prefHeight="34.0" prefWidth="58.0" text="back">
+            <Button mnemonicParsing="false" onAction="#buttonBack" prefHeight="34.0" prefWidth="58.0" text="Back">
                <padding>
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                </padding>

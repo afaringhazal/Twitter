@@ -13,6 +13,9 @@ import java.util.Iterator;
  */
 public class Page implements Serializable {
 
+    private String Image = null ;
+
+
     private Client client;
     private String id;
     private String biography;
@@ -36,6 +39,7 @@ public class Page implements Serializable {
      */
     public Page(Client client, String id, String biography, LocalDate joinDate) throws RuntimeException {
 
+
         this.client = client;
         this.id = id;
         this.biography = biography;
@@ -52,6 +56,14 @@ public class Page implements Serializable {
         else
             this.biography = biography;
 
+    }
+
+    public void setImage(String Image){
+        this.Image = Image ;
+    }
+
+    public String getImage() {
+        return Image;
     }
 
     /**

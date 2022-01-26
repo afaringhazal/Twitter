@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background: #464648; -fx-border-color: WHITE;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <content>
+      <VBox prefHeight="394.0" prefWidth="594.0">
+         <children>
+            <HBox alignment="BOTTOM_CENTER" fillHeight="false" prefHeight="52.0" prefWidth="594.0">
+               <children>
+                  <TextField prefHeight="26.0" prefWidth="250.0" promptText="Search..." />
+                  <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" prefHeight="26.0" prefWidth="26.0" text="Button">
+                     <graphic>
+                        <ImageView fitHeight="27.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@search.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox alignment="TOP_CENTER" prefHeight="342.0" prefWidth="594.0">
+               <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="342.0" prefWidth="280.0" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </content>
+</ScrollPane>

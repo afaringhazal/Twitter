@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="8.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.runApp.SignUpController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="8.0" style="-fx-background-color: #464648; -fx-border-color: WHITE;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.runApp.SignUpController">
     <children>
       <HBox maxHeight="-Infinity" maxWidth="-Infinity" spacing="10.0">
          <children>
@@ -30,12 +30,12 @@
                       <RowConstraints maxHeight="112.80000610351561" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   </rowConstraints>
                   <children>
-                      <Label text="UserName" />
-                      <Label text="Password" GridPane.rowIndex="1" />
-                      <Label text="FirstName" GridPane.rowIndex="2" />
-                      <Label text="LastName" GridPane.rowIndex="3" />
-                      <Label text="Id" GridPane.rowIndex="4" />
-                      <Label text="Bio" GridPane.rowIndex="5" />
+                      <Label text="Username" textFill="WHITE" />
+                      <Label text="Password" textFill="WHITE" GridPane.rowIndex="1" />
+                      <Label text="First Name" textFill="WHITE" GridPane.rowIndex="2" />
+                      <Label text="Last Name" textFill="WHITE" GridPane.rowIndex="3" />
+                      <Label text="ID" textFill="WHITE" GridPane.rowIndex="4" />
+                      <Label text="Bio" textFill="WHITE" GridPane.rowIndex="5" />
                       <TextField fx:id="UserNameId" GridPane.columnIndex="1">
                           <GridPane.margin>
                               <Insets />
@@ -46,7 +46,7 @@
                       <TextField fx:id="LastName" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                       <TextField fx:id="IdOfPage" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                       <TextField fx:id="BioOfPage" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                      <Label text="Birthday" GridPane.rowIndex="6" />
+                      <Label text="Birthday" textFill="WHITE" GridPane.rowIndex="6" />
                       <DatePicker fx:id="Birthday" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                   </children>
               </GridPane>
@@ -57,7 +57,7 @@
       </HBox>
       <HBox layoutX="26.0" layoutY="262.0" prefHeight="78.0" prefWidth="568.0" spacing="15.0">
          <children>
-              <Button defaultButton="true" mnemonicParsing="false" onAction="#ButtonOfSignUp" text="signUp" />
+              <Button defaultButton="true" mnemonicParsing="false" onAction="#ButtonOfSignUp" text="Sign Up" />
             <Button mnemonicParsing="false" onAction="#ButtonOfBack" prefHeight="26.0" prefWidth="54.0" text="Back" />
          </children>
          <VBox.margin>
