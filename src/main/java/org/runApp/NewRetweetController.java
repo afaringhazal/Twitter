@@ -126,7 +126,7 @@ public class NewRetweetController {
 
         TweetID.setText(treeMapToRetweet.get("id")+"");
         TweetDate.setText(treeMapToRetweet.get("date")+"");
-        TweetClientUsername.setText(""+ treeMap.get("clientUsername"));
+        TweetClientUsername.setText(""+ treeMapToRetweet.get("clientUsername"));
         TweetText.setText(treeMapToRetweet.get("text")+"");
         TweetLikes.setText("Likes : "+((ArrayList<String>) treeMapToRetweet.get("likes")).size());
         TweetRetweets.setText("Retweet :"+((ArrayList<Object>) treeMapToRetweet.get("retweets")).size());
