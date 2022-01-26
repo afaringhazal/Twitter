@@ -29,15 +29,15 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Help..." />
-                        <MenuItem mnemonicParsing="false" text="About" />
+                        <MenuItem mnemonicParsing="false" onAction="#ButtonHelp" text="Help..." />
+                        <MenuItem mnemonicParsing="false" onAction="#ButtonAbout" text="About" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="View">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Fullscreen" />
-                        <MenuItem mnemonicParsing="false" text="Light mode" />
-                        <MenuItem mnemonicParsing="false" text="Dark mode" />
+                        <MenuItem mnemonicParsing="false" onAction="#fullScreen" text="Fullscreen" />
+                        <MenuItem fx:id="idLightMode" mnemonicParsing="false" onAction="#LightMode" text="Light mode" />
+                        <MenuItem fx:id="idDarkMode" mnemonicParsing="false" onAction="#DarkMode" text="Dark mode" />
                     </items>
                 </Menu>
             </menus>
